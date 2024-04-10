@@ -2,15 +2,20 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { CButtonGroup, CButton } from '@coreui/react';
+import AppHeader from './components/header/AppHeader';
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
+      <AppHeader></AppHeader>
+      <CButtonGroup role="group" aria-label="Basic example">
+        <CButton color="primary">Left</CButton>
+        <CButton color="primary">Middle</CButton>
+        <CButton color="primary">Right</CButton>
+      </CButtonGroup>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
