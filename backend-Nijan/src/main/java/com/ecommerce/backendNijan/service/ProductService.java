@@ -3,29 +3,21 @@ package com.ecommerce.backendNijan.service;
 import com.ecommerce.backendNijan.entity.ProductEntity;
 import com.ecommerce.backendNijan.model.FilterProduct;
 import com.ecommerce.backendNijan.model.IProduct;
-import com.ecommerce.backendNijan.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ecommerce.backendNijan.response.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class ProductService {
-
-    @Autowired
-    ProductRepository productRepository;
+public interface ProductService {
 
     /**
      * Get all product.
      *
      * @return list of entity product.
      */
-    public List<IProduct> getAll() {
-        return productRepository.findAllProduct();
-    }
+    public List<Product> getAll();
 
     /**
      * Get all product.
@@ -34,9 +26,7 @@ public class ProductService {
      * @param searchValue searchValue
      * @return list of entity product.
      */
-    public Page<IProduct> getAll(Pageable pageable, String searchValue) {
-        return productRepository.findAllProduct(searchValue, pageable);
-    }
+    public Page<IProduct> getAll(Pageable pageable, String searchValue);
 
     /**
      * Get all product.
@@ -45,11 +35,7 @@ public class ProductService {
      * @param pageable      pageable
      * @return list of entity product.
      */
-    public Page<IProduct> getAll(FilterProduct filterProduct, Pageable pageable) {
-        return productRepository
-                .findAllProduct(filterProduct.getSearchValue(), filterProduct.getCategoryId(),
-                        filterProduct.getPriceMin(), filterProduct.getPriceMax(), pageable);
-    }
+    public Page<IProduct> getAll(FilterProduct filterProduct, Pageable pageable);
 
     /**
      * Get all product.
@@ -58,26 +44,20 @@ public class ProductService {
      * @param limitItem  limitItem
      * @return list of entity product.
      */
-    public List<IProduct> getAll(Long categoryId, Integer limitItem) {
-        return productRepository.findAllProduct(categoryId, limitItem);
-    }
+    public List<IProduct> getAll(Long categoryId, Integer limitItem);
 
     /**
      * Get product item.
      *
      * @return entity product.
      */
-    public List<IProduct> getProductByKey(Long categoryId, Long productId) {
-        return productRepository.findProductByKey(productId, categoryId);
-    }
+    public Product getProductByKey(Long categoryId, Long productId);
 
     /**
      * Get product item.
      *
      * @return entity product.
      */
-    public Optional<ProductEntity> getProductById(Long categoryId, Long productId) {
-        return productRepository.findById(productId);
-    }
+    public Optional<ProductEntity> getProductById(Long categoryId, Long productId);
 
 }

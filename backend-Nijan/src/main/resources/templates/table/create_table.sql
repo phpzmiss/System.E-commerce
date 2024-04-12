@@ -95,17 +95,19 @@ create table if not exists public.tbl_order_lines
 alter table public.tbl_order_lines
     owner to postgres;
 
+drop table public.tbl_product;
 create table if not exists public.tbl_product
 (
     product_id     bigserial
         primary key,
     category_id    bigint         not null,
     description    varchar(255),
+    quantity       bigint,
     discount_type  varchar(255),
     discount_value numeric(38, 2),
     price          numeric(38, 2) not null,
     summary        varchar(30),
-    tags           numeric(38, 2),
+    tags           varchar(30),
     title          varchar(255)   not null,
     created_by     bigint,
     updated_by     bigint,
@@ -118,16 +120,16 @@ alter table public.tbl_product
 
 create table if not exists public.tbl_picture
 (
-    picture_id     bigserial
+    picture_id bigserial
         primary key,
-    product_id    bigint         not null,
-    file_name    varchar(255),
+    product_id bigint not null,
+    file_name  varchar(255),
     file_type  varchar(255),
-    data bytea,
-    created_by     bigint,
-    updated_by     bigint,
-    created_at     timestamp,
-    updated_at     timestamp
+    data       bytea,
+    created_by bigint,
+    updated_by bigint,
+    created_at timestamp,
+    updated_at timestamp
 );
 
 alter table public.tbl_picture
