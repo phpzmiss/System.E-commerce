@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Table(name = "tbl_category")
 @Entity
 @Data
-public class CategoryEntity extends BaseEntity implements Serializable {
+public class  CategoryEntity extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

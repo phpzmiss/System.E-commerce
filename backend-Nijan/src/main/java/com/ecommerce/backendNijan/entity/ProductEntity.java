@@ -31,6 +31,9 @@ public class ProductEntity extends BaseEntity implements Serializable {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "quantity")
+    private Integer quantity;
+
     @Column(name = "price", nullable = false)
     private BigDecimal price;
 
@@ -41,6 +44,6 @@ public class ProductEntity extends BaseEntity implements Serializable {
     private BigDecimal discountValue;
 
     @Column(name = "tags")
-    private BigDecimal tags;
+    private String tags;
 
 }

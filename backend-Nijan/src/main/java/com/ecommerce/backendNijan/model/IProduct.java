@@ -1,5 +1,7 @@
 package com.ecommerce.backendNijan.model;
 
+import java.math.BigDecimal;
+
 public interface IProduct {
 
     String getCategoryId();
@@ -14,7 +16,7 @@ public interface IProduct {
 
     String getDescription();
 
-    String getPrice();
+    BigDecimal getPrice();
 
     Integer getQuantity();
 
