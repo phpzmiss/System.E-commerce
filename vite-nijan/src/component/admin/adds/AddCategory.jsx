@@ -3,13 +3,15 @@ import { useForm } from "react-hook-form";
 import Button from "../form/button/Button";
 import Input from "../form/input/Input";
 import Textarea from "../form/textarea/Textarea";
+import CategoryService from "../../modules/CategoryService";
 
 const AddCategory = () => {
   const [category, setCategory] = useState({
-    id: "",
-    categoriesName: "",
-    title: "",
-    description: "",
+    categoryId: "",
+    categoryName: "",
+    categoryDescription: "",
+    categoryTags: "",
+    categorySlug: "",
   });
   const handleFilterChange = (e) => {
     const value = e.target.value;
@@ -18,23 +20,25 @@ const AddCategory = () => {
   // const filterDebounce = useDebounce(category, 500);
   const saveCategories = (e) => {
     e.preventDefault();
-    // CategoriesService.saveCategories(category)
-    //   .then((response) => {})
-    //   .catch((error) => {});
+    CategoryService.createCategory(category)
+      .then((response) => {})
+      .catch((error) => {});
     setCategory({
-      id: "",
-      categoriesName: "",
-      title: "",
-      description: "",
+      categoryId: "",
+      categoryName: "",
+      categoryDescription: "",
+      categoryTags: "",
+      categorySlug: "",
     });
   };
   const handleResetEmployee = (e) => {
     e.preventDefault();
     setCategory({
-      id: "",
-      categoriesName: "",
-      title: "",
-      description: "",
+      categoryId: "",
+      categoryName: "",
+      categoryDescription: "",
+      categoryTags: "",
+      categorySlug: "",
     });
   };
   const {
@@ -54,47 +58,47 @@ const AddCategory = () => {
         Add category
       </p>
       <div className="flex flex-col w-full gap-3 mb-5">
-        <label htmlFor="categoriesName" className="cursor-pointer">
+        <label htmlFor="categoryName" className="cursor-pointer">
           Category name
         </label>
         <Input
-          name="categoriesName"
+          name="categoryName"
           placeholder="Enter your category name"
-          id="categoriesName"
+          id="categoryName"
           control={control}
           type="text"
           className="w-full text-black shadow-lg"
-          value={category.categoriesName}
+          value={category.categoryName}
           onChange={handleFilterChange}
         ></Input>
         {/* <p className="text-sm text-red-500">Please enter your username</p> */}
       </div>
       <div className="flex flex-col gap-3 mb-5">
-        <label htmlFor="title" className="cursor-pointer">
-          Title
+        <label htmlFor="categoryTags" className="cursor-pointer">
+          Category tag
         </label>
         <Input
-          name="title"
+          name="categoryTags"
           placeholder="Enter your title"
-          id="title"
+          id="categoryTags"
           control={control}
           type="text"
           className="text-black shadow-lg"
-          value={category.title}
+          value={category.categoryTags}
           onChange={handleFilterChange}
         ></Input>
       </div>
       <div className="flex flex-col gap-3 mb-5">
-        <label htmlFor="description" className="cursor-pointer">
+        <label htmlFor="categoryDescription" className="cursor-pointer">
           Description
         </label>
         <Textarea
-          name="description"
+          name="categoryDescription"
           placeholder="Enter your description"
-          id="description"
+          id="categoryDescription"
           control={control}
           className="text-black shadow-lg"
-          value={category.description}
+          value={category.categoryDescription}
           onChange={handleFilterChange}
         ></Textarea>
       </div>
@@ -142,13 +146,13 @@ const AddCategory = () => {
           Add
         </button> */}
         <Button
-          className="px-3 py-4 bg-blue-500 hover:bg-blue-700 "
+          className="p-3 bg-blue-500 hover:bg-blue-700 "
           onClick={saveCategories}
         >
           Add
         </Button>
         <Button
-          className="px-3 py-4 bg-red-500 hover:bg-red-700 "
+          className="p-3 bg-red-500 hover:bg-red-700 "
           onClick={handleResetEmployee}
         >
           Cancel

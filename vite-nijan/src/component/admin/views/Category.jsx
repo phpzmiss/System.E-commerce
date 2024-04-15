@@ -54,22 +54,22 @@ const Category = () => {
         <table className="min-w-full">
           <thead className="bg-gray-200">
             <tr>
-              <th className="px-6 py-3 text-lg font-semibold tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
+              <th className="px-6 py-3 text-xs tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
                 Category name
               </th>
-              <th className="px-6 py-3 text-lg font-semibold tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
+              <th className="px-6 py-3 text-xs tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
                 Title
               </th>
-              <th className="px-6 py-3 text-lg font-semibold tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
+              <th className="px-6 py-3 text-xs tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
                 Description
               </th>
-              <th className="px-6 py-3 text-lg font-semibold tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
+              <th className="px-6 py-3 text-xs tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
                 Created Date
               </th>
-              <th className="px-6 py-3 text-lg font-semibold tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
+              <th className="px-6 py-3 text-xs tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
                 Status
               </th>
-              <th className="px-6 py-3 text-lg font-semibold tracking-wider text-center text-black uppercase border-gray-500">
+              <th className="px-6 py-3 text-xs tracking-wider text-center text-black uppercase border-gray-500">
                 Action
               </th>
             </tr>

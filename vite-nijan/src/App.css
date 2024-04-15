@@ -60,7 +60,7 @@ body {
 /* Sidebar  */
 #sidebar {
   grid-area: sidebar;
-  padding-top: 84px;
+  padding-top: 54px;
   height: 100%;
   background-color: white;
   overflow-y: auto;

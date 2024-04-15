@@ -8,7 +8,7 @@ import NavIcons from './NavIcons'
 
 function Sidebar({openSidebarToggle, OpenSidebar}) {
   return (
-    <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive h-screen": "w-[300px] h-screen flex flex-col justify-start items-start py-3 gap-y-[6px] text-lg font-bold text-black"}>
+    <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive": "w-[300px] flex flex-col justify-start items-start py-3 gap-y-[6px] text-lg font-bold text-black"}>
         <div className="h-auto w-full flex flex-col justify-start items-start gap-y-[2px] text-lg font-bold text-black ">
             <NavItem url="/">
                 <NavIcons title="Dashboard">
