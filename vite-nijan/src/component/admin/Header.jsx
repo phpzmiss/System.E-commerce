@@ -15,7 +15,7 @@ function Header({OpenSidebar}) {
         <div></div>
         <div className="flex items-center justify-end col-span-2 gap-x-10">
           <div className="flex items-center justify-center text-xl font-bold gap-x-2 gap-y-1">
-            <VscGear VscGear Account className='w-10 h-10 p-2 rounded-full cursor-pointer bg-slate-200'/>
+            <VscGear className='w-10 h-10 p-2 rounded-full cursor-pointer bg-slate-200'/>
             <VscBellDot className='w-10 h-10 p-2 rounded-full cursor-pointer bg-slate-200' />
             <VscAccount className='w-10 h-10 p-2 rounded-full cursor-pointer bg-slate-200'/>
           </div>

@@ -4,7 +4,7 @@ import http from "./http-common";
 class CategoryService {
 
     getAll(url) {
-      return http.get('/api/category');
+      return http.get('http://localhost:8888/api/category/list');
     }
   
     getAllPageable(url, page) {
@@ -14,13 +14,7 @@ class CategoryService {
     }
     
     createCategory(data) {
-        return http.post('http://localhost:8888/api/category/register', data)
-        .then((res) => {
-            console.log(res);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+        return http.post('http://localhost:8888/api/category/register', data);
     }
 }
 export default new CategoryService();

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, parsePath, useNavigate } from "react-router-dom";
 import { VscDebugStart } from "react-icons/vsc";
+import CategoryService from "../../modules/CategoryService";
+import CategoryItem from "../fragments/CategoryItem";
 
 const Category = () => {
   const navigate = useNavigate();
@@ -8,33 +10,38 @@ const Category = () => {
     navigate("/add-category");
   };
   const [loading, setLoading] = useState(true);
-  const [category, setCategory] = useState(null);
+  const [category, setCategory] = useState([]);
 
-  // const deleteCategory = (e, id) => {
-  //   e.preventDefault();
-  //   CategoriesService.deleteCategory(id).then((res) => {
-  //     if (category) {
-  //       setCategory((prev) => {
-  //         return prev.filter((category) => category.id !== id);
-  //       });
-  //     }
-  //   });
-  // };
-  // const editCategory = (e, id) => {
-  //   e.preventDefault();
-  //   navigate(`/editCategory/${id}`);
-  // };
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     setLoading(true);
-  //     try {
-  //       const response = await CategoriesService.getCategory();
-  //       setCategory(response.data);
-  //     } catch (error) {}
-  //     setLoading(false);
-  //   };
-  //   fetchData();
-  // }, []);
+  const deleteCategory = (e, id) => {
+    e.preventDefault();
+    // CategoriesService.deleteCategory(id).then((res) => {
+    //   if (category) {
+    //     setCategory((prev) => {
+    //       return prev.filter((category) => category.id !== id);
+    //     });
+    //   }
+    // });
+  };
+  const editCategory = (e, id) => {
+    e.preventDefault();
+    // navigate(`/editCategory/${id}`);
+  };
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await CategoryService.getAll();
+        if (response.data.code == 200) {
+          setCategory(response.data.result);
+        }
+        console.log(category);
+        console.log(response.data.code == 200);
+        console.log(response.data.code);
+      } catch (error) {}
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="w-full h-full mx-auto">
@@ -44,7 +51,7 @@ const Category = () => {
       <div className="h-12">
         <button
           className="px-6 py-3 font-semibold text-white transition-all bg-blue-500 rounded shadow-2xl hover:bg-blue-400"
-          style={{ fontSize: "16px" }}
+          style={{ fontSize: "14px" }}
           onClick={handleAddCategory}
         >
           Add Category
@@ -77,12 +84,12 @@ const Category = () => {
           {!loading && (
             <tbody>
               {category.map((cate) => (
-                <Category
+                <CategoryItem
                   cate={cate}
                   key={cate.id}
                   deleteCategory={deleteCategory}
                   editCategory={editCategory}
-                ></Category>
+                ></CategoryItem>
               ))}
             </tbody>
           )}

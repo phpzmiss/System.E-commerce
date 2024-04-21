@@ -4,8 +4,10 @@ import Button from "../form/button/Button";
 import Input from "../form/input/Input";
 import Textarea from "../form/textarea/Textarea";
 import CategoryService from "../../modules/CategoryService";
+import { useNavigate } from "react-router-dom";
 
 const AddCategory = () => {
+  const navigate = useNavigate();
   const [category, setCategory] = useState({
     categoryId: "",
     categoryName: "",
@@ -21,8 +23,14 @@ const AddCategory = () => {
   const saveCategories = (e) => {
     e.preventDefault();
     CategoryService.createCategory(category)
-      .then((response) => {})
-      .catch((error) => {});
+      .then((response) => {
+        if (response.data.code == 200) {
+          navigate("/category");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     setCategory({
       categoryId: "",
       categoryName: "",

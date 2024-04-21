@@ -45,7 +45,7 @@ const Product = () => {
       <div className="h-12">
         <button
           className="px-6 py-3 font-semibold text-white transition-all bg-blue-500 rounded shadow-2xl hover:bg-blue-400"
-          style={{ fontSize: "16px" }}
+          style={{ fontSize: "14px" }}
           onClick={handleAddProduct}
         >
           Add Product
@@ -55,28 +55,28 @@ const Product = () => {
         <table className="min-w-full">
           <thead className="bg-gray-200">
             <tr>
-              <th className="px-6 py-3 text-lg font-semibold tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
+              <th className="px-6 py-3 text-xs tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
                 Title
               </th>
-              <th className="px-6 py-3 text-lg font-semibold tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
+              <th className="px-6 py-3 text-xs tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
                 Short Desc
               </th>
-              <th className="px-6 py-3 text-lg font-semibold tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
+              <th className="px-6 py-3 text-xs tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
                 Description
               </th>
-              <th className="px-6 py-3 text-lg font-semibold tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
+              <th className="px-6 py-3 text-xs tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
                 Price
               </th>
-              <th className="px-6 py-3 text-lg font-semibold tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
+              <th className="px-6 py-3 text-xs tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
                 Price Sale
               </th>
-              <th className="px-6 py-3 text-lg font-semibold tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
+              <th className="px-6 py-3 text-xs tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
                 Quantity
               </th>
-              <th className="px-6 py-3 text-lg font-semibold tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
+              <th className="px-6 py-3 text-xs tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
                 Created Date
               </th>
-              <th className="px-6 py-3 text-lg font-semibold tracking-wider text-center text-black uppercase border-gray-500">
+              <th className="px-6 py-3 text-xs tracking-wider text-center text-black uppercase border-gray-500">
                 Action
               </th>
             </tr>

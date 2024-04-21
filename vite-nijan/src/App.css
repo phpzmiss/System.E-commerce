@@ -5,7 +5,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #1d2634;
+  background-color: white;
   color: #9e9ea4;
   font-family: 'Montserrat', sans-serif;
 }
@@ -228,7 +228,15 @@ body {
 /* Extra Small <= 576px */
 
 @media screen and (max-width: 576px) {
-  .hedaer-left {
+  .header-left {
     display: none;
   }
+}
+
+.page-container {
+  max-width: 1280px;
+  margin: auto;
+}
+.active {
+  color: #20e3b2;
 }
