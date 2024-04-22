@@ -29,11 +29,13 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryDto> getAll() {
         return categoryRepository.findAllByOrderByCategoryIdAsc().stream()
-          .map(e -> {
-              CategoryDto dto = new CategoryDto();
-              BeanUtils.copyProperties(e, dto);
-              return dto;
-          })
+          .map(e -> CategoryDto.builder()
+                  .categoryId(e.getCategoryId())
+                  .categoryName(e.getName())
+                  .categoryDescription(e.getDescription())
+                  .categorySlug(e.getSlug())
+                  .categoryTags(e.getTags())
+                  .build())
           .toList();
     }
 

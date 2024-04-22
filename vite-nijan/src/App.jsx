@@ -24,7 +24,7 @@ function App() {
         <div className='h-screen'>
           <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
         </div>
-        <div className="mt-[84px] flex flex-col items-center w-full p-3 m-3 bg-white rounded-md shadow-2xl">
+        <div className="mt-[54px] flex flex-col items-center w-full p-3 m-3 bg-white rounded-md shadow-2xl">
           <Routes>
               <Route
                 path="/"
