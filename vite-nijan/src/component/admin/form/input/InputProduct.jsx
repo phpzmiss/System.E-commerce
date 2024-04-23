@@ -21,7 +21,7 @@ const InputProduct = ({
         id={name}
         control={control}
         type="text"
-        className={`text-black w-full text-black shadow-lg ${className}`}
+        className={`w-full text-black shadow-lg ${className}`}
         value={value}
         onChange={handleChangeProduct}
         {...props}

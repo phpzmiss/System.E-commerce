@@ -10,37 +10,37 @@ function Sidebar({openSidebarToggle, OpenSidebar}) {
   return (
     <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive": "w-[300px] flex flex-col justify-start items-start py-3 gap-y-[6px] text-lg font-bold text-black"}>
         <div className="h-auto w-full flex flex-col justify-start items-start gap-y-[2px] text-lg font-bold text-black ">
-            <NavItem url="/">
+            <NavItem url="/admin/dashboard">
                 <NavIcons title="Dashboard">
                     <BsGrid1X2Fill className='icon' />
                 </NavIcons>
             </NavItem>
-            <NavItem url="/product">
+            <NavItem url="/admin/product">
                 <NavIcons title="Products">
                     <BsFillArchiveFill className='icon'/> 
                 </NavIcons>
             </NavItem>
-            <NavItem url="/category">
+            <NavItem url="/admin/category">
                 <NavIcons title="Categories">
                     <BsFillGrid3X3GapFill className='icon'/>
                 </NavIcons>
             </NavItem>
-            <NavItem url="/customer">
+            <NavItem url="/admin/customer">
                 <NavIcons title="Customers">
                     <BsPeopleFill className='icon'/>
                 </NavIcons>
             </NavItem>
-            <NavItem url="/inventory">
+            <NavItem url="/admin/inventory">
                 <NavIcons title="Inventory">
                     <BsListCheck className='icon'/>
                 </NavIcons>
             </NavItem>
-            <NavItem url="/reports">
+            <NavItem url="/admin/reports">
                 <NavIcons title="Reports">
                     <BsMenuButtonWideFill className='icon'/>
                 </NavIcons>
             </NavItem>
-            <NavItem url="/setting">
+            <NavItem url="/admin/setting">
                 <NavIcons title="Setting">
                     <BsFillGearFill className='icon'/>
                 </NavIcons>
