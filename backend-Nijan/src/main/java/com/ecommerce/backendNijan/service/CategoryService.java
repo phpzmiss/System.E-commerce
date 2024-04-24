@@ -45,16 +45,23 @@ public interface CategoryService {
     Optional<CategoryDto> getCategoryByPrimaryKey(Long categoryId);
 
     /**
-     * Get all category.
+     * Insert.
      *
      * @return list of entity category.
      */
     CategoryEntity insert(CategoryDto dto);
 
     /**
-     * Get all category.
+     * Update.
      *
      * @return list of entity category.
      */
     CategoryEntity update(CategoryDto dto);
+
+    /**
+     * Delete
+     * @param categoryId
+     * @return
+     */
+    boolean deleteCategory(Long categoryId);
 }

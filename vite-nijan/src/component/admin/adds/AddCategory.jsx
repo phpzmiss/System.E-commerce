@@ -7,7 +7,7 @@ import CategoryService from "../../modules/CategoryService";
 import { useNavigate, useParams } from "react-router-dom";
 
 const AddCategory = () => {
-  const { categoryId } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
   const [category, setCategory] = useState({
     categoryId: "",
@@ -16,13 +16,15 @@ const AddCategory = () => {
     categoryTags: "",
     categorySlug: "",
   });
-  if (typeof categoryId != undefined) {
+  if (typeof id != undefined) {
     useEffect(() => {
       const fetchData = async () => {
-        setLoading(true);
+        // setLoading(true);
         try {
-          const response = await CategoriesService.getCategoryById(categoryId);
-          setCategory(response.data);
+          const response = await CategoryService.getCategoryById(id);
+          if (response.data.code == 200) {
+            setCategory(response.data.result);
+          }
         } catch (error) {
         }
         // setLoading(false);
@@ -40,7 +42,7 @@ const AddCategory = () => {
     CategoryService.createCategory(category)
       .then((response) => {
         if (response.data.code == 200) {
-          navigate("/category");
+          navigate("/admin/category");
         }
       })
       .catch((error) => {
@@ -78,7 +80,7 @@ const AddCategory = () => {
       className="min-w-[1600px] mx-auto my-10 p-10 shadow-md"
     >
       <p className="mb-3 text-4xl font-bold text-center text-black">
-        Add category
+        {id ? "Edit" : "Add"} category
       </p>
       <div className="flex flex-col w-full gap-3 mb-5">
         <label htmlFor="categoryName" className="cursor-pointer">
@@ -101,13 +103,13 @@ const AddCategory = () => {
           Category tag
         </label>
         <Input
-          name="categoryTags"
+          name="categorySlug"
           placeholder="Enter your title"
-          id="categoryTags"
+          id="categorySlug"
           control={control}
           type="text"
           className="text-black shadow-lg"
-          value={category.categoryTags}
+          value={category.categorySlug}
           onChange={handleFilterChange}
         ></Input>
       </div>
@@ -125,61 +127,21 @@ const AddCategory = () => {
           onChange={handleFilterChange}
         ></Textarea>
       </div>
-      {/* <div className="flex flex-col gap-3 mb-5">
-        <label htmlFor="password" className="cursor-pointer">
-          Password
-        </label>
-        <Input
-          name="password"
-          placeholder="Enter your password"
-          id="password"
-          control={control}
-          type="password"
-        ></Input>
-      </div> */}
-      {/* <div className="flex flex-col gap-3 mb-5">
-        <label className="cursor-pointer">Gender</label>
-        <div className="flex items-center gap-5">
-          <div className="flex items-center gap-x-3">
-            <RadioHook control={control} name="gender" value="male"></RadioHook>
-            <span>Male</span>
-          </div>
-          <div className="flex items-center gap-x-3">
-            <RadioHook
-              control={control}
-              name="gender"
-              value="female"
-            ></RadioHook>
-            <span>Female</span>
-          </div>
-        </div>
-      </div>
-      <div className="">
-        <CheckboxHook
-          control={control}
-          text="I accept the terms and conditions"
-          name="term"
-        ></CheckboxHook>
-      </div> */}
       <div className="flex gap-5">
-        {/* <button
-          type="submit"
-          className="w-2/4 p-5 mt-5 font-semibold text-white bg-blue-500 rounded-lg"
-        >
-          Add
-        </button> */}
         <Button
           className="p-3 bg-blue-500 hover:bg-blue-700 "
           onClick={saveCategories}
         >
-          Add
+          {id ? "Edit" : "Add"}
         </Button>
-        <Button
+        {id ? "" : <Button
           className="p-3 bg-red-500 hover:bg-red-700 "
           onClick={handleResetEmployee}
         >
           Cancel
         </Button>
+        }
+        
       </div>
     </form>
   );

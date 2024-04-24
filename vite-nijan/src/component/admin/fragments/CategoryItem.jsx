@@ -23,14 +23,14 @@ const CategoryItem = ({ index, cate, deleteCategory, editCategory }) => {
       </td>
       <td className="flex items-center justify-center px-6 py-2 text-sm font-medium text-right whitespace-normal gap-x-5">
         <a
-          onClick={(e, id) => editCategory(e, cate.id)}
+          onClick={(e, id) => editCategory(e, cate.categoryId)}
           href="#"
           className="px-3 pt-2 pb-1 bg-blue-500 rounded-sm hover:cursor-pointer"
         >
           <Button><FaEdit className="w-5 h-5 text-white" /></Button>
         </a>
         <a
-          onClick={(e, id) => deleteCategory(e, cate.id)}
+          onClick={(e, id) => deleteCategory(e, cate.categoryId)}
           href="#"
           className="px-3 pt-2 pb-1 bg-red-500 rounded-sm hover:cursor-pointer"
         >

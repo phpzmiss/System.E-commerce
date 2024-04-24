@@ -24,7 +24,7 @@ const Category = () => {
   };
   const editCategory = (e, id) => {
     e.preventDefault();
-    // navigate(`/editCategory/${id}`);
+    navigate(`/admin/edit-category/${id}`);
   };
   useEffect(() => {
     const fetchData = async () => {

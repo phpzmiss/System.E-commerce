@@ -3,10 +3,13 @@ package com.ecommerce.backendNijan.service;
 import com.ecommerce.backendNijan.entity.ProductEntity;
 import com.ecommerce.backendNijan.model.FilterProduct;
 import com.ecommerce.backendNijan.model.IProduct;
+import com.ecommerce.backendNijan.model.ProductDto;
+import com.ecommerce.backendNijan.response.PageResponse;
 import com.ecommerce.backendNijan.response.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,20 +25,18 @@ public interface ProductService {
     /**
      * Get all product.
      *
-     * @param pageable    pageable
      * @param searchValue searchValue
      * @return list of entity product.
      */
-    public Page<IProduct> getAll(Pageable pageable, String searchValue);
+    public PageResponse<ProductDto> getAllBySearchValue(FilterProduct filterProduct, String searchValue);
 
     /**
      * Get all product.
      *
      * @param filterProduct filterProduct
-     * @param pageable      pageable
      * @return list of entity product.
      */
-    public Page<IProduct> getAll(FilterProduct filterProduct, Pageable pageable);
+    public PageResponse<ProductDto> getAll(FilterProduct filterProduct);
 
     /**
      * Get all product.
@@ -60,4 +61,20 @@ public interface ProductService {
      */
     public Optional<ProductEntity> getProductById(Long categoryId, Long productId);
 
+    /**
+     * Insert.
+     */
+    void insert(ProductDto productDto) throws IOException;
+
+    /**
+     * Insert.
+     */
+    void update(ProductDto productDto);
+
+    /**
+     * Delete
+     * @param productId
+     * @return
+     */
+    boolean delete(Long productId);
 }

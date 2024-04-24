@@ -99,6 +99,22 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     /**
+     * Delete
+     *
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public boolean deleteCategory(Long categoryId) {
+        try {
+            categoryRepository.deleteById(categoryId);
+            return true;
+        } catch (Exception exception) {
+            return false;
+        }
+    }
+
+    /**
      * To category entity.
      *
      * @param dto
@@ -117,6 +133,7 @@ public class CategoryServiceImpl implements CategoryService {
         entity.setName(dto.getCategoryName());
         entity.setDescription(dto.getCategoryDescription());
         entity.setSlug(commonService.toSlug(dto.getCategoryName()));
+        entity.setStatus(StatusCode.ACTIVE.getCode());
         return entity;
     }
 }
