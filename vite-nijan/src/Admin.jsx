@@ -43,6 +43,11 @@ function Admin() {
               ></Route>
               <Route
                 exact
+                path="/edit-category/:id"
+                element={<AddCategory></AddCategory>}
+              ></Route>
+              <Route
+                exact
                 path="/product"
                 element={<Product></Product>}
               ></Route>

@@ -3,8 +3,12 @@ import http from "./http-common";
 
 class CategoryService {
 
-    getAll(url) {
+    getAll() {
       return http.get('http://localhost:8888/api/category/list');
+    }
+
+    getCategoryById(id) {
+      return http.get('http://localhost:8888/api/category?category_id=' + id);
     }
   
     getAllPageable(url, page) {

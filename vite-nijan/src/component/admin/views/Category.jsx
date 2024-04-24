@@ -7,7 +7,7 @@ import CategoryItem from "../fragments/CategoryItem";
 const Category = () => {
   const navigate = useNavigate();
   const handleAddCategory = () => {
-    navigate("/add-category");
+    navigate("/admin/add-category");
   };
   const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState([]);
@@ -34,9 +34,6 @@ const Category = () => {
         if (response.data.code == 200) {
           setCategory(response.data.result);
         }
-        console.log(category);
-        console.log(response.data.code == 200);
-        console.log(response.data.code);
       } catch (error) {}
       setLoading(false);
     };
@@ -46,9 +43,9 @@ const Category = () => {
   return (
     <div className="w-full h-full mx-auto">
       <div className="flex items-center w-full h-auto py-2 text-2xl font-semibold gap-x-5">
-        <span>Home</span> <VscDebugStart /> <span>Category</span>
+        <span>Home</span> <VscDebugStart /> <span className="font-bold bg">Category</span>
       </div>
-      <div className="h-12">
+      <div className="w-full h-12 text-right">
         <button
           className="px-6 py-3 font-semibold text-white transition-all bg-blue-500 rounded shadow-2xl hover:bg-blue-400"
           style={{ fontSize: "14px" }}
@@ -62,10 +59,10 @@ const Category = () => {
           <thead className="bg-gray-200">
             <tr>
               <th className="px-6 py-3 text-xs tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
-                Category name
+                Title
               </th>
               <th className="px-6 py-3 text-xs tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
-                Title
+                Slug
               </th>
               <th className="px-6 py-3 text-xs tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
                 Description
@@ -83,8 +80,9 @@ const Category = () => {
           </thead>
           {!loading && (
             <tbody>
-              {category.map((cate) => (
+              {category.map((cate, index) => (
                 <CategoryItem
+                  index={index}
                   cate={cate}
                   key={cate.id}
                   deleteCategory={deleteCategory}

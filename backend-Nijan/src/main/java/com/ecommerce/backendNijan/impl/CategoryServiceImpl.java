@@ -1,5 +1,6 @@
 package com.ecommerce.backendNijan.impl;
 
+import com.ecommerce.backendNijan.constants.StatusCode;
 import com.ecommerce.backendNijan.entity.CategoryEntity;
 import com.ecommerce.backendNijan.model.CategoryDto;
 import com.ecommerce.backendNijan.model.ICategory;
@@ -30,12 +31,14 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryDto> getAll() {
         return categoryRepository.findAllByOrderByCategoryIdAsc().stream()
           .map(e -> CategoryDto.builder()
-                  .categoryId(e.getCategoryId())
-                  .categoryName(e.getName())
-                  .categoryDescription(e.getDescription())
-                  .categorySlug(e.getSlug())
-                  .categoryTags(e.getTags())
-                  .build())
+            .categoryId(e.getCategoryId())
+            .categoryName(e.getName())
+            .categoryDescription(e.getDescription())
+            .categorySlug(e.getSlug())
+            .categoryTags(e.getTags())
+            .createDate(CommonService.convertLocalDateTimeToString(e.getCreatedAt()).split(" ")[0])
+            .status(StatusCode.ACTIVE.getCode().equals(e.getStatus()) ? StatusCode.ACTIVE.getDescription() : StatusCode.INACTIVE.getDescription())
+            .build())
           .toList();
     }
 
@@ -108,7 +111,7 @@ public class CategoryServiceImpl implements CategoryService {
             entity.setCategoryId(dto.getCategoryId());
             commonService.setCommonUpdateEntity(entity);
         } else {
-        commonService.setCommonCreatedEntity(entity);
+            commonService.setCommonCreatedEntity(entity);
         }
         entity.setParentCategory(0L);
         entity.setName(dto.getCategoryName());

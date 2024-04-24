@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../form/button/Button";
 import Input from "../form/input/Input";
 import Textarea from "../form/textarea/Textarea";
 import CategoryService from "../../modules/CategoryService";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const AddCategory = () => {
+  const { categoryId } = useParams();
   const navigate = useNavigate();
   const [category, setCategory] = useState({
     categoryId: "",
@@ -15,6 +16,20 @@ const AddCategory = () => {
     categoryTags: "",
     categorySlug: "",
   });
+  if (typeof categoryId != undefined) {
+    useEffect(() => {
+      const fetchData = async () => {
+        setLoading(true);
+        try {
+          const response = await CategoriesService.getCategoryById(categoryId);
+          setCategory(response.data);
+        } catch (error) {
+        }
+        // setLoading(false);
+      };
+      fetchData();
+    }, []);
+  }
   const handleFilterChange = (e) => {
     const value = e.target.value;
     setCategory({ ...category, [e.target.name]: value });
@@ -29,7 +44,7 @@ const AddCategory = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
     setCategory({
       categoryId: "",
