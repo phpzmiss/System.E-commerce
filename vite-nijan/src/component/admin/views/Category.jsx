@@ -14,13 +14,13 @@ const Category = () => {
 
   const deleteCategory = (e, id) => {
     e.preventDefault();
-    // CategoriesService.deleteCategory(id).then((res) => {
-    //   if (category) {
-    //     setCategory((prev) => {
-    //       return prev.filter((category) => category.id !== id);
-    //     });
-    //   }
-    // });
+    CategoryService.deleteCategory(id).then((res) => {
+      if (category) {
+        setCategory((prev) => {
+          return prev.filter((category) => category.categoryId !== id);
+        });
+      }
+    });
   };
   const editCategory = (e, id) => {
     e.preventDefault();

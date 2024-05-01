@@ -10,11 +10,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping(value = "/api/product")
 public class ProductController {
 
@@ -108,13 +110,10 @@ public class ProductController {
    * @return response entity
    */
   @PostMapping(value = "/insert")
-  public ApiResponse<?> registerProduct(@RequestPart("product") String product)
+  public ApiResponse<?> registerProduct(@ModelAttribute ProductDto product)
           throws IOException {
     try {
-      ObjectMapper mapper = new ObjectMapper();
-      ProductDto productModel = mapper.readValue(product, ProductDto.class);
-
-      productService.insert(productModel);
+      productService.insert(product);
       return ApiResponse.builder()
               .code(HttpStatus.OK.value())
               .message("Data successfully registered.")

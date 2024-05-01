@@ -2,47 +2,56 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ProductItem from "../fragments/ProductItem";
 import { VscDebugStart } from "react-icons/vsc";
+import ProductService from "../../modules/ProductService";
 
 const Product = () => {
   const navigate = useNavigate();
   const handleAddProduct = () => {
-    navigate("/add-product");
+    navigate("/admin/add-product");
   };
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState(null);
+  const [page, setPage] = useState({
+    pageNo: 0,
+    pageSize: 5,
+    sortDirection: "",
+    sortBy: "",
+    searchValue: "",
+})
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      // try {
-      //   const response = await ProductService.getAllProduct();
-      //   setProduct(response.data);
-      // } catch (error) {}
-      setLoading(false);
+      try {
+        const response = await ProductService.getAllPageable(page);
+        if (response.data.code == 200) {
+          setProduct(response.data.result.result);
+          setLoading(false);
+        }
+      } catch (error) {}
     };
     fetchData();
   }, []);
   const deleteProduct = (e, id) => {
     e.preventDefault();
-    // ProductService.deleteProduct(id).then((res) => {
-    //   if (product) {
-    //     setProduct((prev) => {
-    //       return prev.filter((product) => product.id !== id);
-    //     });
-    //   }
-    // });
+    ProductService.deleteProduct(id).then((res) => {
+      if (product) {
+        setProduct((prev) => {
+          return prev.filter((product) => product.productId !== id);
+        });
+      }
+    });
   };
-  const editProduct = (e, id) => {
+  const editProduct = (e, productId, categoryId) => {
     e.preventDefault();
-    navigate(`/product/edit/${id}`);
+    navigate(`/admin/edit-product?category_id=${categoryId}&product_id=${productId}`);
   };
-  console.log(product);
   return (
     <div className="w-full h-full mx-auto ">
       <div className="flex items-center w-full h-auto py-2 text-2xl font-semibold gap-x-5">
         <span>Home</span> <VscDebugStart /> <span>Product</span>
       </div>
-      <div className="h-12">
+      <div className="w-full h-12 text-right">
         <button
           className="px-6 py-3 font-semibold text-white transition-all bg-blue-500 rounded shadow-2xl hover:bg-blue-400"
           style={{ fontSize: "14px" }}
@@ -81,18 +90,18 @@ const Product = () => {
               </th>
             </tr>
           </thead>
-          {!loading && product != null > 0 && (
+          {!loading && product != null && (
             <tbody>
-              {/* {product.map((product) => (
+              {product.map((p) => (
                 <ProductItem
-                  product={product}
-                  key={product.id}
+                  product={p}
+                  key={p.productId}
                   // eslint-disable-next-line no-undef
                   deleteProduct={deleteProduct}
                   // eslint-disable-next-line no-undef
                   editProduct={editProduct}
                 ></ProductItem>
-              ))} */}
+              ))}
             </tbody>
           )}
         </table>

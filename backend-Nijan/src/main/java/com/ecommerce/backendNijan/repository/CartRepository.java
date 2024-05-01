@@ -1,11 +1,8 @@
 package com.ecommerce.backendNijan.repository;
 
 import com.ecommerce.backendNijan.entity.CartsEntity;
-import com.ecommerce.backendNijan.entity.CategoryEntity;
 import com.ecommerce.backendNijan.model.ICart;
 import com.ecommerce.backendNijan.model.ICategory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

@@ -8,8 +8,8 @@ import NavIcons from './NavIcons'
 
 function Sidebar({openSidebarToggle, OpenSidebar}) {
   return (
-    <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive": "w-[300px] flex flex-col justify-start items-start py-3 gap-y-[6px] text-lg font-bold text-black"}>
-        <div className="h-auto w-full flex flex-col justify-start items-start gap-y-[2px] text-lg font-bold text-black ">
+    <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive": "w-[300px] flex flex-col justify-start items-start py-3 gap-y-[6px] text-base font-bold text-black"}>
+        <div className="h-auto w-full flex flex-col justify-start items-start gap-y-[2px] text-base font-bold text-black ">
             <NavItem url="/admin/dashboard">
                 <NavIcons title="Dashboard">
                     <BsGrid1X2Fill className='icon' />
@@ -21,12 +21,12 @@ function Sidebar({openSidebarToggle, OpenSidebar}) {
                 </NavIcons>
             </NavItem>
             <NavItem url="/admin/category">
-                <NavIcons title="Categories">
+                <NavIcons title="Category">
                     <BsFillGrid3X3GapFill className='icon'/>
                 </NavIcons>
             </NavItem>
-            <NavItem url="/admin/customer">
-                <NavIcons title="Customers">
+            <NavItem url="/admin/contact">
+                <NavIcons title="Contact">
                     <BsPeopleFill className='icon'/>
                 </NavIcons>
             </NavItem>

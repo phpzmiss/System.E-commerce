@@ -8,6 +8,7 @@ import AddCategory from './component/admin/adds/AddCategory'
 import { Route, Routes } from 'react-router-dom'
 import AddProduct from './component/admin/adds/AddProduct'
 import Product from './component/admin/views/Product'
+import Contact from './component/admin/views/Contact'
 
 function Admin() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
@@ -55,6 +56,16 @@ function Admin() {
                 exact
                 path="/add-product"
                 element={<AddProduct></AddProduct>}
+              ></Route>
+              <Route
+                exact
+                path="/edit-product/:id"
+                element={<AddProduct></AddProduct>}
+              ></Route>
+              <Route
+                exact
+                path="/contact"
+                element={<Contact></Contact>}
               ></Route>
           </Routes>
         </div>
