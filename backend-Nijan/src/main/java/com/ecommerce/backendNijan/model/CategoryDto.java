@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,4 +24,8 @@ public class CategoryDto {
   private String categoryTags;
 
   private String categorySlug;
+
+  private String createDate;
+
+  private String status;
 }

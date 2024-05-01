@@ -17,7 +17,7 @@ const NavClient = () => {
         <div className="flex items-center justify-center search">
           <div className="flex items-center justify-center text-lg font-bold text-white gap-x-5 menu">
             <NavLink
-              to={"/home"}
+              to={"/"}
               className={({ isActive }) =>
                 isActive ? "text-white px-6 bg-orange-500 py-4" : "px-6"
               }
@@ -25,15 +25,13 @@ const NavClient = () => {
               Home
             </NavLink>
             <NavLink
-              to={"/menu"}
+              to={"/product"}
               className={({ isActive }) =>
                 isActive ? "text-white px-6 bg-orange-500 py-4" : "px-6"
               }
             >
-              Menu
+              Product
             </NavLink>
-            <span className="px-6 cursor-pointer">Service</span>
-            <span className="px-6 cursor-pointer">Shop</span>
             <span className="px-6 cursor-pointer">Blog</span>
             <NavLink
               to={"/contact"}
@@ -60,12 +58,14 @@ const NavClient = () => {
           </div>
           <div className="flex items-center justify-between gap-5 px-3 mx-3">
             <div className="relative gap-5 cursor-pointer cart">
-                <FaCartArrowDown className=" text-white w-[24px] h-[24px]" />
+            <NavLink to="/cart" className="gap-5 cursor-pointer account">
+              <FaCartArrowDown className=" text-white w-[24px] h-[24px]" />
+            </NavLink>
               <p className="absolute flex items-center justify-center w-4 h-4 font-bold text-center text-red-700 bg-white rounded-md -top-1 text-md -right-2">
                 0
               </p>
             </div>
-            <NavLink to={"/signUp"} className="gap-5 cursor-pointer account">
+            <NavLink to="/sign-up" className="gap-5 cursor-pointer account">
                 <RiAccountPinCircleLine className="text-white w-[24px] h-[24px]" />
             </NavLink>
           </div>

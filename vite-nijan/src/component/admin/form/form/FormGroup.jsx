@@ -11,7 +11,7 @@ const FormGroup = ({
   type = "text",
 }) => {
   return (
-    <div className="form-group w-full relative">
+    <div className="relative w-full form-group">
       <label className="text-[11px] tracking-[2px] text-blue-500 absolute top-1 left-4">
         {children}
       </label>
@@ -20,7 +20,7 @@ const FormGroup = ({
         id={name}
         control={control}
         type={type}
-        className="text-white bg-slate-700 focus:border-none border-none w-full pt-5 pb-3"
+        className="w-full pt-5 pb-3 text-blue-700 border-none bg-slate-700 focus:border-none"
         value={value}
         onChange={handleChangeUser}
       />

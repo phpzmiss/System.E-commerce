@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -28,13 +29,13 @@ public class Product {
 
   private String description;
 
-  private String price;
+  private BigDecimal price;
 
   private Integer quantity;
 
   private String discountType;
 
-  private String discountValue;
+  private BigDecimal discountValue;
 
   private String tags;
 

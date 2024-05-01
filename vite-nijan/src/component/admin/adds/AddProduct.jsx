@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import Button from "../form/button/Button";
 import InputProduct from "../form/input/InputProduct";
 import TextareaProduct from "../form/textarea/TextareaProduct";
+import CategoryService from "../../modules/CategoryService";
+import ProductService from "../../modules/ProductService";
 
 const AddProduct = () => {
   const [loading, setLoading] = useState(true);
@@ -16,24 +18,46 @@ const AddProduct = () => {
   const [preview, setPreview] = useState();
   const [previewMultiple, setPreviewMultiple] = useState([]);
   const [product, setProduct] = useState({
-    id: "",
-    title: "",
-    price: "",
-    priceSale: "",
-    shortDescription: "",
-    detailsDescription: "",
+    productId: "",
+    productTitle: "",
+    productDescription: "",
+    productSummary: "",
+    productPrice: "",
+    productDiscountValue: "",
     categoryId: "",
-    quantity: "",
+    quantity: 0,
+    productImages: [],
   });
+  if (typeof id != undefined) {
+    useEffect(() => {
+      const fetchData = async () => {
+        // setLoading(true);
+        try {
+          const response = await ProductService.getCategoryById(id);
+          if (response.data.code == 200) {
+            setCategory(response.data.result);
+          }
+        } catch (error) {
+        }
+        // setLoading(false);
+      };
+      fetchData();
+    }, []);
+  }
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      // try {
-      //   const response = await CategoriesService.getCategory();
-      //   setCategory(response.data);
-      //   setCate(product.categoryId);
-      // } catch (error) {}
-      setLoading(false);
+      try {
+        const response = await CategoryService.getAll();
+
+        if (response.data.code == 200) {
+          setCategory(response.data.result);
+          product.categoryId = response.data.result[0].categoryId;
+          setLoading(false);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     };
     fetchData();
   }, [product.categoryId]);
@@ -73,30 +97,40 @@ const AddProduct = () => {
     console.log(values);
   };
   const saveProduct = (e) => {
+    if (product.categoryId == "") {
+      product.categoryId = category[0].categoryId;
+    }
     e.preventDefault();
     const formData = new FormData();
-    const obj = JSON.stringify(product);
-    formData.append("product", obj);
-    formData.append("file", file, file.name);
+    formData.append("productId", product.productId);
+    formData.append("productTitle", product.productTitle);
+    formData.append("productDescription", product.productDescription);
+    formData.append("productSummary", product.productSummary);
+    formData.append("productPrice", product.productPrice);
+    formData.append("productDiscountValue", product.productDiscountValue);
+    formData.append("quantity", product.quantity);
+    formData.append("categoryId", product.categoryId);
+    formData.append("files", file, file.name);
     for (const key of Object.keys(multipleFile)) {
       formData.append("files", multipleFile[key], multipleFile[key].name);
     }
-    // ProductService.saveProduct(formData)
-    //   .then((response) => {})
-    //   .catch((error) => {});
+    ProductService.insert(formData)
+      .then((response) => {})
+      .catch((error) => {});
 
     setProduct({
-      id: "",
-      title: "",
-      price: "",
-      priceSale: "",
-      shortDescription: "",
-      detailsDescription: "",
-      quantity: "",
+      productId: "",
+      productTitle: "",
+      productDescription: "",
+      productSummary: "",
+      productPrice: "",
+      productDiscountValue: "",
       categoryId: "",
+      quantity: 0,
+      productImages: [],
     });
     setFile({});
-    navigate("/product");
+    navigate("/admin/product");
   };
 
   return (
@@ -119,37 +153,37 @@ const AddProduct = () => {
           onChange={handleChangeProduct}
         >
           {!loading &&
-            category.map((cat) => (
+            category.map((e) => (
               <option
-                value={cat.id}
-                key={cat.id}
+                value={e.categoryId}
+                key={e.categoryId}
                 className="p-4 text-black transition-all bg-white border border-gray-100 rounded-md outline-none focus:border-blue-500"
-                selected={cat.id === product.categoryId ? true : false}
+                selected={e.categoryId === product.categoryId ? true : false}
               >
-                {cat.categoriesName}
+                {e.categoryName}
               </option>
             ))}
         </select>
       </div>
       <InputProduct
-        name="title"
+        name="productTitle"
         label="Title"
         control={control}
-        value={product.title}
+        value={product.productTitle}
         handleChangeProduct={handleChangeProduct}
       ></InputProduct>
       <InputProduct
-        name="price"
+        name="productPrice"
         label="Price"
         control={control}
-        value={product.price}
+        value={product.productPrice}
         handleChangeProduct={handleChangeProduct}
       ></InputProduct>
       <InputProduct
-        name="priceSale"
-        label="Price Sale"
+        name="productDiscountValue"
+        label="Discount value"
         control={control}
-        value={product.priceSale}
+        value={product.productDiscountValue}
         handleChangeProduct={handleChangeProduct}
       ></InputProduct>
       <InputProduct
@@ -160,17 +194,17 @@ const AddProduct = () => {
         handleChangeProduct={handleChangeProduct}
       ></InputProduct>
       <InputProduct
-        label="Short Description"
-        name="shortDescription"
+        label="Summary"
+        name="productSummary"
         control={control}
-        value={product.shortDescription}
+        value={product.productSummary}
         handleChangeProduct={handleChangeProduct}
       ></InputProduct>
       <TextareaProduct
-        label="Details Description"
-        name="detailsDescription"
+        label="Description"
+        name="productDescription"
         control={control}
-        value={product.detailsDescription}
+        value={product.productDescription}
         handleChangeProduct={handleChangeProduct}
       ></TextareaProduct>
       <InputProduct

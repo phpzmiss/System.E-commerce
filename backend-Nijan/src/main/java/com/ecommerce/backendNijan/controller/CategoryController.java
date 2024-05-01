@@ -133,4 +133,27 @@ public class CategoryController {
               .build();
         }
     }
+
+    /**
+     * Delete category.
+     *
+     * @param categoryId  categoryId
+     * @return response entity 200.
+     */
+    @DeleteMapping(value = "/delete")
+    public ApiResponse<?> updateCategory(@RequestParam(value = "category_id") Long categoryId) {
+        try {
+            boolean deleted = categoryService.deleteCategory(categoryId);
+            return ApiResponse.builder()
+                    .result(deleted)
+                    .message("Deleted product successfully.")
+                    .build();
+        } catch (Exception exception) {
+            return ApiResponse.builder()
+                    .result(false)
+                    .message(exception.getMessage())
+                    .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .build();
+        }
+    }
 }

@@ -86,21 +86,22 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
             + " product.quantity AS quantity, "
             + " product.discount_type AS discountType, "
             + " product.discount_value AS discountValue, "
-            + " product.tags AS tags"
+            + " product.created_at AS createdAt, "
+            + " product.tags AS tags,"
             + " pic.picture_id AS pictureId, "
             + " pic.file_name AS fileName, "
-            + " pic.file_type AS fileType, "
+            + " pic.file_type AS fileType,"
             + " pic.data AS fileSize "
             + " FROM tbl_product product "
             + " INNER JOIN tbl_category category ON product.category_id = category.category_id"
             + " LEFT JOIN tbl_picture pic ON product.product_id = pic.product_id"
-            + " WHERE product.title LIKE %?1% OR category.name LIKE %?1% OR product.price LIKE %?1%",
+            + " WHERE product.title LIKE %?1% OR category.name LIKE %?1%",
             nativeQuery = true,
             countQuery = "SELECT COUNT(*) "
             + " FROM tbl_product product "
             + " INNER JOIN tbl_category category ON product.category_id = category.category_id"
             + " LEFT JOIN tbl_picture pic ON product.product_id = pic.product_id"
-            + " WHERE product.title LIKE %?1% OR category.name LIKE %?1% OR product.price LIKE %?1%")
+            + " WHERE product.title LIKE %?1% OR category.name LIKE %?1%")
     Page<IProduct> findAllProduct(String searchValue, Pageable pageable);
 
     /**

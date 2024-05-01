@@ -33,4 +33,7 @@ public class  CategoryEntity extends BaseEntity implements Serializable {
     @Column(name = "tags")
     private String tags;
 
+    @Column(name = "status")
+    private String status;
+
 }

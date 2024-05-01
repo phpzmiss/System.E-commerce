@@ -1,14 +1,15 @@
 package com.ecommerce.backendNijan.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 public interface IProduct {
 
-    String getCategoryId();
+    Long getCategoryId();
 
     String getCategoryName();
 
-    String getProductId();
+    Long getProductId();
 
     String getTitle();
 
@@ -22,7 +23,7 @@ public interface IProduct {
 
     String getDiscountType();
 
-    String getDiscountValue();
+    BigDecimal getDiscountValue();
 
     String getTags();
 
@@ -33,4 +34,6 @@ public interface IProduct {
     String getFileType();
 
     byte[] getFileSize();
+
+    LocalDateTime getCreatedAt();
 }

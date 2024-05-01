@@ -8,6 +8,9 @@ import FooterClient from './component/client/FooterClient'
 import HomeClient from './component/client/HomeClient'
 import ContactUs from './component/client/ContactUs'
 import Checkout from './component/client/Checkout'
+import SignUp from './component/secure/SignUp'
+import SignIn from './component/secure/SignIn'
+import CartClient from './component/client/CartClient'
 
 export default class Client extends Component {
   render() {
@@ -19,17 +22,20 @@ export default class Client extends Component {
         </div>
 
         <Routes>
-            <Route path="/home" element={<HomeClient></HomeClient>}></Route>
-            <Route
-                path="/menu"
+            <Route exact path="/" element={<HomeClient></HomeClient>}></Route>
+            <Route exact
+                path="/product"
                 element={
                 <CardProvider>
                     <ProductClient></ProductClient>
                 </CardProvider>
                 }
             ></Route>
-            <Route path="/contact" element={<ContactUs></ContactUs>}></Route>
-            <Route path="/checkout" element={<Checkout></Checkout>}></Route>
+            <Route exact path="/contact" element={<ContactUs></ContactUs>}></Route>
+            <Route exact path="/checkout" element={<Checkout></Checkout>}></Route>
+            <Route exact path="/cart" element={<CartClient></CartClient>}></Route>
+            <Route exact path="/sign-in" element={<SignIn></SignIn>}></Route>
+            <Route exact path="/sign-up" element={<SignUp></SignUp>}></Route>
         </Routes>
 
         <FooterClient />
