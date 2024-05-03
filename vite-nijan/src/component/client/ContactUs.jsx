@@ -86,12 +86,12 @@ export default function ContactUs() {
                         </div>
                         <div class="col-12 mt-5">
                             <div class="form-group button">
-                            <Button
-                                className="px-3 py-4 bg-orange-500 hover:bg-orange-300 max-w-[200px] transition-all rounded-none"
-                                onClick={sendMessage}
-                                >
-                                Send Message
-                            </Button>
+                                <Button
+                                    className="px-3 py-4 bg-orange-500 hover:bg-orange-300 max-w-[200px] transition-all rounded-none"
+                                    onClick={sendMessage}
+                                    >
+                                    Send Message
+                                </Button>
                             </div>
                         </div>
                     </form>

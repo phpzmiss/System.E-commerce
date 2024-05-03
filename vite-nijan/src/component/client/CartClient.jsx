@@ -14,7 +14,7 @@ export default function CartClient() {
 		<div className="page-container">
 			<div className="row">
 				<div className="col-12">
-					<table className="table w-full shadow-2xl shopping-summery">
+					<table className="table w-full shadow-lg shopping-summery">
 						<thead className='rounded-sm'>
 							<tr className="main-hading">
 								<th>PRODUCT</th>
@@ -109,7 +109,7 @@ export default function CartClient() {
 					</table>
 				</div>
 			</div>
-			<div className="row">
+			<div className="px-2 py-1 mt-4 row">
 				<div className="col-12">
 					<div className="total-amount">
 						<div className="grid grid-cols-5 gap-2">
@@ -137,8 +137,8 @@ export default function CartClient() {
 										<li className="last">You Pay<span>$310.00</span></li>
 									</ul>
 									<div className="flex flex-col gap-2 button5">
-                                    <Button className="py-3 transition-all rounded-sm bg-slate-800 w-fit hover:bg-slate-600">Checkout</Button>
-                                    <Button className="py-3 transition-all rounded-sm bg-slate-800 w-fit hover:bg-slate-600">Continue shopping</Button>
+										<Button className="py-3 transition-all rounded-sm bg-slate-800 w-fit hover:bg-slate-600">Checkout</Button>
+										<Button className="py-3 transition-all rounded-sm bg-slate-800 w-fit hover:bg-slate-600">Continue shopping</Button>
 									</div>
 								</div>
 							</div>
