@@ -1,7 +1,7 @@
 package com.ecommerce.backendNijan.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.MappedSuperclass;
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 import lombok.Data;
 
 import java.time.LocalDateTime;

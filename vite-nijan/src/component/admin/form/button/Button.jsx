@@ -1,8 +1,8 @@
 import React from "react";
 // ?- Can I use this
 // ! Do you think it
-// todo: Viec can lam
-// * Khum co gi
+// todo: 
+// * 
 
 const Button = ({ children, className, ...props }) => {
   return (

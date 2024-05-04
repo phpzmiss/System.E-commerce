@@ -2,7 +2,6 @@ package com.ecommerce.backendNijan.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 
 @Getter
 public enum ErrorCode {
@@ -16,7 +15,7 @@ public enum ErrorCode {
     UNAUTHORIZED(1007, "You do not have permission", HttpStatus.FORBIDDEN),
     ;
 
-    ErrorCode(int code, String message, HttpStatusCode statusCode) {
+    ErrorCode(int code, String message, HttpStatus statusCode) {
         this.code = code;
         this.message = message;
         this.statusCode = statusCode;
@@ -24,5 +23,5 @@ public enum ErrorCode {
 
     private int code;
     private String message;
-    private HttpStatusCode statusCode;
+    private HttpStatus statusCode;
 }

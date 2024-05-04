@@ -1,11 +1,10 @@
 package com.ecommerce.backendNijan.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "tbl_picture")
