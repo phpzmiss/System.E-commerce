@@ -6,6 +6,7 @@ import styled from "styled-components";
 import FormGroup from "../admin/form/form/FormGroup";
 import Button from "../admin/form/button/Button";
 import Image from '../../assets/bg-image.jpg';
+import AuthService from "../modules/AuthService";
 
 const Login = styled.div`
   background-image: url(${Image});
@@ -29,6 +30,8 @@ const SignUp = () => {
     username: "",
     password: "",
   });
+  const [message, setMessage] = useState("");
+  const [code, setCode] = useState("");
   const handleChangeUser = (e) => {
     const value = e.target.value;
     setUser({ ...user, [e.target.name]: value });
@@ -41,6 +44,26 @@ const SignUp = () => {
   const onSubmitHandler = (values) => {
     console.log(values);
   };
+  const signUp = () => {
+    AuthService.register(user)
+    .then((response) => {
+      setCode(response.data.code);
+      setMessage(response.data.message);
+      if (response.data.code == 200) {
+        setUser({
+          id: "",
+          firstName: "",
+          lastName: "",
+          email: "",
+          username: "",
+          password: "",
+        });
+      }
+    })
+    .catch((error) => {
+
+    });
+  }
   return (
     <Login>
       <div className="flex flex-col justify-center items-start m-10 gap-5 w-[40%] h-[80%] rounded-lg bg-slate-700 bg-opacity-60 p-10">
@@ -59,6 +82,7 @@ const SignUp = () => {
         <form
           action=""
           className="flex flex-col items-center justify-center w-full gap-5"
+          method="post"
         >
           <div className="flex items-center justify-center w-full gap-10">
             <FormGroup
@@ -107,13 +131,16 @@ const SignUp = () => {
             <Button className="px-5 py-3 text-base transition-all rounded-full bg-slate-500 hover:bg-slate-600">
               Change method
             </Button>
-            <Button className="px-5 py-1 text-base transition-all bg-blue-500 rounded-full hover:bg-blue-600">
+            <Button className="px-5 py-1 text-base transition-all bg-blue-500 rounded-full hover:bg-blue-600" onClick={signUp} type="button">
               Create account
             </Button>
           </div>
+          {message ?
+            <div className={Number(code) == 200 ? 'bg-green-400 w-full py-2 text-center text-white rounded' : 'bg-red-400 w-full py-2 text-center text-white rounded'} >
+            {message}
+          </div> : ""}
         </form>
       </div>
-      <div></div>
     </Login>
   );
 };

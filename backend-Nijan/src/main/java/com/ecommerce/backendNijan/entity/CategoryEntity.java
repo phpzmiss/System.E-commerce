@@ -1,6 +1,6 @@
 package com.ecommerce.backendNijan.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

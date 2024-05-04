@@ -1,9 +1,9 @@
 package com.ecommerce.backendNijan.entity;
 
-import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 @EqualsAndHashCode(callSuper = true)
@@ -30,8 +30,11 @@ public class UserEntity extends BaseEntity implements Serializable {
     @Column(name = "role", length = 3)
     private String role;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "full_name")
+    private String fullName;
 
     @Column(name = "avatar")
     private String avatar;

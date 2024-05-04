@@ -1,20 +1,37 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Header from './component/admin/Header'
 import Sidebar from './component/admin/Sidebar'
 import Home from './component/admin/Home'
 import Category from './component/admin/views/Category'
 import AddCategory from './component/admin/adds/AddCategory'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import AddProduct from './component/admin/adds/AddProduct'
 import Product from './component/admin/views/Product'
 import Contact from './component/admin/views/Contact'
 
 function Admin() {
+  const [items, setItems] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem('user')) {
+      const storedName = JSON.parse(localStorage.getItem('user'));
+      setItems(storedName);
+      setIsAdmin(storedName.roles.includes('ADMIN'));
+    } else {
+      navigate("/sign-in");
+    }
+  }, [isAdmin]);
+
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
 
   const OpenSidebar = () => {
     setOpenSidebarToggle(!openSidebarToggle)
+  }
+  if (items && !items.roles.includes('ADMIN')) {
+    navigate("/sign-in");
   }
 
   return (
