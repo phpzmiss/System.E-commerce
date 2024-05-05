@@ -1115,3 +1115,18 @@ h2.text-before::before {
 /*======================================
    End Shopping Cart CSS
 ========================================*/
+.page-item {
+	cursor: pointer;
+	padding: 8px 16px;
+	width: fit-content;
+}
+.page-item:hover {
+	opacity: 0.8;
+	background-color: rgb(48, 121, 255);
+	transition: all .4s;
+	color: white;
+}
+.page-active {
+	color: white;
+	background-color: rgb(48, 121, 255);
+}

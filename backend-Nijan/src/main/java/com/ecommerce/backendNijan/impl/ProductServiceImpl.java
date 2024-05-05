@@ -103,8 +103,8 @@ public class ProductServiceImpl implements ProductService {
                             .pictureId(product.getPictureId())
                             .pictureName(product.getFileName())
                             .pictureType(product.getFileType())
-                            .pictureData("data:image/png;base64," + (Objects.nonNull(product.getFileSize())
-                                    ? Base64.getEncoder().encodeToString(product.getFileSize())
+                            .pictureData((Objects.nonNull(product.getFileSize())
+                                    ? ("data:image/png;base64," + Base64.getEncoder().encodeToString(product.getFileSize()))
                                     : Strings.EMPTY))
                             .build();
                     pictureProductList.add(build);
@@ -171,8 +171,8 @@ public class ProductServiceImpl implements ProductService {
                         .pictureId(product.getPictureId())
                         .pictureName(product.getFileName())
                         .pictureType(product.getFileType())
-                        .pictureData("data:image/png;base64," + (Objects.nonNull(product.getFileSize())
-                                ? Base64.getEncoder().encodeToString(product.getFileSize())
+                        .pictureData((Objects.nonNull(product.getFileSize())
+                                ? ("data:image/png;base64," + Base64.getEncoder().encodeToString(product.getFileSize()))
                                 : Strings.EMPTY))
                         .build();
                 pictureProductList.add(build);
@@ -219,8 +219,8 @@ public class ProductServiceImpl implements ProductService {
                     .pictureId(product.getPictureId())
                     .pictureName(product.getFileName())
                     .pictureType(product.getFileType())
-                    .pictureData("data:image/png;base64," + (Objects.nonNull(product.getFileSize())
-                            ? Base64.getEncoder().encodeToString(product.getFileSize())
+                    .pictureData((Objects.nonNull(product.getFileSize())
+                            ? ("data:image/png;base64," + Base64.getEncoder().encodeToString(product.getFileSize()))
                             : Strings.EMPTY))
                     .build());
         });

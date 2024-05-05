@@ -10,15 +10,16 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "tbl_cart_items")
 @Entity
+@IdClass(CartItemsEntityKey.class)
 @Data
 public class CartItemsEntity extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_id", nullable = false)
     private Long cartId;
 
+    @Id
     @Column(name = "product_id")
     private Long productId;
 

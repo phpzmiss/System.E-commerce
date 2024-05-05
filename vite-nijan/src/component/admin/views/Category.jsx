@@ -11,6 +11,20 @@ const Category = () => {
   };
   const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState([]);
+  const [page, setPage] = useState({
+    pageNo: 0,
+    pageSize: 5,
+    sortDirection: "",
+    sortBy: "",
+    searchValue: "",
+  });
+  const [responsePage, setResponsePage] = useState({
+    last: true,
+    pageNo: 0,
+    pageSize: 0,
+    totalElements: 0,
+    totalPages: 0,
+  });
 
   const deleteCategory = (e, id) => {
     e.preventDefault();
@@ -30,9 +44,10 @@ const Category = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await CategoryService.getAll();
+        const response = await CategoryService.getAllPageable(page);
         if (response.data.code == 200) {
-          setCategory(response.data.result);
+          setCategory(response.data.result.result);
+          setResponsePage(response.data.result);
         }
       } catch (error) {}
       setLoading(false);
@@ -84,7 +99,6 @@ const Category = () => {
                 <CategoryItem
                   index={index}
                   cate={cate}
-                  key={cate.id}
                   deleteCategory={deleteCategory}
                   editCategory={editCategory}
                 ></CategoryItem>
@@ -93,6 +107,18 @@ const Category = () => {
           )}
         </table>
       </div>
+      <nav className="mt-2">
+        <ul className="flex items-center justify-end">
+          <li className="page-item">Prev</li>
+          <li className="page-item page-active">1</li>
+          {!loading && (
+              responsePage.map((page, index) => (
+                <li className="page-item page-active">{index}</li>
+              ))
+          )}
+          <li className="page-item">Next</li>
+        </ul>
+      </nav>
     </div>
   );
 };

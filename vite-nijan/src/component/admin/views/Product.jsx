@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import ProductItem from "../fragments/ProductItem";
 import { VscDebugStart } from "react-icons/vsc";
 import ProductService from "../../modules/ProductService";
+import Pagination from "react-js-pagination";
+import TableRow from "react-js-pagination";
 
 const Product = () => {
   const navigate = useNavigate();
@@ -17,7 +19,7 @@ const Product = () => {
     sortDirection: "",
     sortBy: "",
     searchValue: "",
-})
+  })
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,6 +30,7 @@ const Product = () => {
           setProduct(response.data.result.result);
           setLoading(false);
         }
+        console.log(response);
       } catch (error) {}
     };
     fetchData();
@@ -95,7 +98,6 @@ const Product = () => {
               {product.map((p) => (
                 <ProductItem
                   product={p}
-                  key={p.productId}
                   // eslint-disable-next-line no-undef
                   deleteProduct={deleteProduct}
                   // eslint-disable-next-line no-undef

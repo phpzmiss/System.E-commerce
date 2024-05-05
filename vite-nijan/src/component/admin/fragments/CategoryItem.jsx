@@ -5,7 +5,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 
 const CategoryItem = ({ index, cate, deleteCategory, editCategory }) => {
   return (
-    <tr className={Number.isInteger(index/2) ? "bg-white" : "bg-gray-200" } key={cate.id}>
+    <tr className={Number.isInteger(index/2) ? "bg-white" : "bg-gray-200" } key={cate.categoryId}>
       <td className="px-6 py-2 text-left whitespace-normal">
         <div className="text-sm text-gray-500">{cate.categoryName}</div>
       </td>

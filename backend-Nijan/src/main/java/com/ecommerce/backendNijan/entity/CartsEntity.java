@@ -18,6 +18,9 @@ public class CartsEntity extends BaseEntity implements Serializable {
     @Column(name = "cart_id", nullable = false)
     private Long cartId;
 
+    @Column(name = "order_id", nullable = false)
+    private Long orderId;
+
     @Column(name = "cart_number", nullable = false)
     private String cartNumber;
 

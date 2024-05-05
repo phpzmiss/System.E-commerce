@@ -51,8 +51,8 @@ public class UserEntity extends BaseEntity implements Serializable {
     @Column(name = "phone_validated")
     private String phoneValidated;
 
-    @Column(name = "bio")
-    private String bio;
+    @Column(name = "address", length = 3000)
+    private String address;
 
     @Column(name = "company")
     private String company;

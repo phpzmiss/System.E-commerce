@@ -21,5 +21,5 @@ public interface AuthService {
      *
      * @return response entity.
      */
-    public ApiResponse<?> registerUser(Register register);
+    ApiResponse<?> registerUser(Register register);
 }

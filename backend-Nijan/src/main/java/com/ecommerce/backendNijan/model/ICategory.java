@@ -19,4 +19,6 @@ public interface ICategory {
 
   LocalDateTime getUpdatedDate();
 
+  String getCategoryStatus();
+
 }

@@ -37,17 +37,17 @@ public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> 
      * @return list
      */
     @Query(value = "SELECT category.category_id AS categoryId, "
-      + " category.category_description AS categoryDescription,"
-      + " category.category_name AS categoryName, category.seo AS categorySeo, "
-      + " category.created_date AS createdDate,"
-      + " category.updated_date AS updatedDate, category.status AS categoryStatus"
+      + " category.description AS categoryDescription,"
+      + " category.name AS categoryName, category.slug AS categorySlug, "
+      + " category.created_at AS createdDate,"
+      + " category.updated_at AS updatedDate, category.status AS categoryStatus"
       + " FROM tbl_category category"
-      + " WHERE category.category_name LIKE %?2%"
+      + " WHERE category.name LIKE %?2%"
       + " ORDER BY ?1",
       nativeQuery = true,
       countQuery = " SELECT count(*)"
         + " FROM tbl_category category"
-        + " WHERE category.category_name LIKE %?2%"
+        + " WHERE category.name LIKE %?2%"
         + " ORDER BY ?1"
     )
     Page<ICategory> findAllCategory(String sortBy, String searchValue, Pageable pageable);
