@@ -27,7 +27,6 @@ const ProductClient = () => {
         const response = await ProductService.getAllPageable(page);
         setProduct(response.data.result.result);
         setLoading(false);
-        console.log(response.data.result.result);
       } catch (error) {}
     };
     fetchData();

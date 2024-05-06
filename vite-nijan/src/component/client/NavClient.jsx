@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { FaCartArrowDown, FaSearch  } from "react-icons/fa";
 import { RiAccountPinCircleLine } from "react-icons/ri";
 
 const NavClient = () => {
+  const [cart, setCart] = useState(0);
+    useEffect(() => {
+      if (localStorage.getItem('cart')) {
+        const storedName = JSON.parse(localStorage.getItem('cart'));
+        for (let index = 0; index < storedName.length; index++) {
+          const element = storedName[index];
+          setCart(cart + element.productQuantity)
+        }
+        // localStorage.setItem('total', cart);
+      } else {
+        setCart(0);
+      }
+    }, []);
     return (
       <div className="flex items-center justify-between px-10 bg-gray-800">
         <div className="flex items-center justify-start px-5 py-3 gap-x-10">
@@ -61,8 +74,8 @@ const NavClient = () => {
             <NavLink to="/cart" className="gap-5 cursor-pointer account">
               <FaCartArrowDown className=" text-white w-[24px] h-[24px]" />
             </NavLink>
-              <p className="absolute flex items-center justify-center w-4 h-4 font-bold text-center text-red-700 bg-white rounded-md -top-1 text-md -right-2">
-                0
+              <p id="cart" className="absolute flex items-center justify-center w-4 h-4 font-bold text-center text-red-700 bg-white rounded-md -top-1 text-md -right-2">
+                {cart}
               </p>
             </div>
             <NavLink to="/sign-up" className="gap-5 cursor-pointer account">

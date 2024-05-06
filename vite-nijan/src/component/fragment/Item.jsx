@@ -3,6 +3,7 @@ import { FaHeartCirclePlus } from "react-icons/fa6";
 import { FaCartArrowDown } from "react-icons/fa";
 import Button from "../admin/form/button/Button";
 import { useNavigate } from "react-router-dom";
+import render from "../modules/re-render";
 
 const Item = ({ price, image, id, cartItem, children, props }) => {
   const navigate = useNavigate();
@@ -15,12 +16,6 @@ const Item = ({ price, image, id, cartItem, children, props }) => {
   //   }
   // }, []);
   const handleAddToCart = () => {
-    // if (localStorage.getItem('cart')) {
-    //   const storedName = JSON.parse(localStorage.getItem('cart'));
-    //   setCart(storedName);
-    // } else {
-    //   setCart([]);
-    // }
     const cart = localStorage.getItem('cart') == null ? [] : JSON.parse(localStorage.getItem('cart'));
     if (cart.length > 0) {
       for (let index = 0; index < cart.length; index++) {
@@ -35,6 +30,8 @@ const Item = ({ price, image, id, cartItem, children, props }) => {
           productName: cartItem.productName,
           productPrice: cartItem.productPrice,
           productQuantity: 1,
+          productPicture: cartItem.pictureDtoList[0].pictureData,
+          productSummary: cartItem.productSummary,
         });
       }
       localStorage.setItem("cart", JSON.stringify(cart)); 
@@ -45,9 +42,12 @@ const Item = ({ price, image, id, cartItem, children, props }) => {
         productName: cartItem.productName,
         productPrice: cartItem.productPrice,
         productQuantity: 1,
+        productPicture: cartItem.pictureDtoList[0].pictureData,
+        productSummary: cartItem.productSummary,
       });
       localStorage.setItem("cart", JSON.stringify(arr));
     }
+    render();
   }
   const handleRedirectDetail = () => {
     navigate("/detail/" + id);

@@ -1,12 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Breadcrumbs from '../admin/fragments/Breadcrumbs'
 import ShopService from '../admin/fragments/ShopService'
 import Subscribe from '../admin/fragments/Subscribe'
 import { MdDeleteForever } from "react-icons/md";
 import Button from '../admin/form/button/Button';
-import Input from '../admin/form/input/Input';
+import Default from "../../assets/default.png";
 
 export default function CartClient() {
+	const formatter = new Intl.NumberFormat('en-US', {
+		style: 'currency',
+		currency: 'USD',
+		minimumFractionDigits: 1,
+	  
+		// These options are needed to round to whole numbers if that's what you want.
+		//minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+		//maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+	  });
+	const [cart, setCart] = useState([]);
+	const [loading, setLoading] = useState(false);
+    useEffect(() => {
+      if (localStorage.getItem('cart')) {
+        const storedName = JSON.parse(localStorage.getItem('cart'));
+        setCart(storedName);
+		setLoading(true);
+      }
+    }, []);
+	const deleteProduct = () => {
+		
+	}
   return (
     <section className="pt-[100px]">
     <Breadcrumbs redirect="Checkout" />
@@ -26,85 +47,45 @@ export default function CartClient() {
 							</tr>
 						</thead>
 						<tbody>
+						{loading && (
+							cart.map((item, index) => (
 							<tr>
-								<td className="image" data-title="No"><img src="https://via.placeholder.com/100x100" alt="#" /></td>
-								<td className="product-des" data-title="Description">
-									<p className="product-name"><a href="#">Women Dress</a></p>
-									<p className="product-des">Maboriosam in a tonto nesciung eget  distingy magndapibus.</p>
+								<td className="image" data-title="No">
+									<img
+										className="w-full h-[250px] object-cover rounded-lg"
+										src={item.productPicture != "" ? item.productPicture : Default}
+										alt=""
+									/>
 								</td>
-								<td className="price" data-title="Price"><span>$110.00 </span></td>
+								<td className="product-des min-w-[300px]" data-title="Description">
+									<p className="product-name"><a href="#">{item.productName}</a></p>
+									<p className="product-des">{item.productSummary}</p>
+								</td>
+								<td className="price" data-title="Price"><span>{formatter.format(item.productPrice)}</span></td>
 								<td className="qty" data-title="Qty">
-									<div className="input-group">
-										<div className="button minus">
+									<div className="w-full input-group">
+										{/* <div className="button minus">
 											<button type="button" className="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
 												<i className="ti-minus"></i>
 											</button>
-										</div>
-										<input type="text" name="quant[1]" className="input-number"  data-min="1" data-max="100" value="1" />
-										<div className="button plus">
+										</div> */}
+										<input type="text" name="quant[1]" className="w-full outline-none input-number"  data-min="1" data-max="100" value={item.productQuantity} />
+										{/* <div className="button plus">
 											<button type="button" className="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
 												<i className="ti-plus"></i>
 											</button>
-										</div>
+										</div> */}
 									</div>
 								</td>
-								<td className="total-amount" data-title="Total"><span>$220.88</span></td>
+								<td className="total-amount" data-title="Total"><span>{formatter.format(item.productPrice * item.productQuantity)}</span></td>
 								<td className="action" data-title="Remove">
-                                <Button className="py-2 pl-4 pr-2 transition-all bg-red-500 rounded-sm w-fit hover:bg-red-400">
+                                <Button className="py-2 pl-4 pr-2 transition-all bg-red-500 rounded-sm w-fit hover:bg-red-400" onClick={deleteProduct}>
                                     <MdDeleteForever className='w-fit h-[20px] text-center text-white' />
                                 </Button>
                                 </td>
 							</tr>
-							<tr>
-								<td className="image" data-title="No"><img src="https://via.placeholder.com/100x100" alt="#" /></td>
-								<td className="product-des" data-title="Description">
-									<p className="product-name"><a href="#">Women Dress</a></p>
-									<p className="product-des">Maboriosam in a tonto nesciung eget  distingy magndapibus.</p>
-								</td>
-								<td className="price" data-title="Price"><span>$110.00 </span></td>
-								<td className="qty" data-title="Qty">
-									<div className="input-group">
-										<div className="button minus">
-											<button type="button" className="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[2]">
-												<i className="ti-minus"></i>
-											</button>
-										</div>
-										<input type="text" name="quant[2]" className="input-number"  data-min="1" data-max="100" value="2" />
-										<div className="button plus">
-											<button type="button" className="btn btn-primary btn-number" data-type="plus" data-field="quant[2]">
-												<i className="ti-plus"></i>
-											</button>
-										</div>
-									</div>
-								</td>
-								<td className="total-amount" data-title="Total"><span>$220.88</span></td>
-								<td className="action" data-title="Remove"><a href="#"><i className="ti-trash remove-icon"></i></a></td>
-							</tr>
-							<tr>
-								<td className="image" data-title="No"><img src="https://via.placeholder.com/100x100" alt="#" /></td>
-								<td className="product-des" data-title="Description">
-									<p className="product-name"><a href="#">Women Dress</a></p>
-									<p className="product-des">Maboriosam in a tonto nesciung eget  distingy magndapibus.</p>
-								</td>
-								<td className="price" data-title="Price"><span>$110.00 </span></td>
-								<td className="qty" data-title="Qty">
-									<div className="input-group">
-										<div className="button minus">
-											<button type="button" className="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[3]">
-												<i className="ti-minus"></i>
-											</button>
-										</div>
-										<input type="text" name="quant[3]" className="input-number"  data-min="1" data-max="100" value="3" />
-										<div className="button plus">
-											<button type="button" className="btn btn-primary btn-number" data-type="plus" data-field="quant[3]">
-												<i className="ti-plus"></i>
-											</button>
-										</div>
-									</div>
-								</td>
-								<td className="total-amount" data-title="Total"><span>$220.88</span></td>
-								<td className="action" data-title="Remove"><a href="#"><i className="ti-trash remove-icon"></i></a></td>
-							</tr>
+							))
+						)}
 						</tbody>
 					</table>
 				</div>
