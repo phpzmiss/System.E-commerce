@@ -45,11 +45,6 @@ function Admin() {
           <Routes>
               <Route
                 exact
-                path="/dashboard"
-                element={<Home></Home>}
-              ></Route>
-              <Route
-                exact
                 path="/category"
                 element={<Category></Category>}
               ></Route>

@@ -75,7 +75,7 @@ public class CategoryController {
       @RequestParam(value = "sort_by", defaultValue = "category_id") String sortBy,
       @RequestParam(value = "search_value", defaultValue = "") String searchValue) {
         try {
-            PageResponse<ICategory> categoryDtos = categoryService.getAllCategoryPage(pageNo, pageSize, sortBy, sortDirection, searchValue);
+            PageResponse<CategoryDto> categoryDtos = categoryService.getAllCategoryPage(pageNo, pageSize, sortBy, sortDirection, searchValue);
             return ApiResponse.builder()
               .code(HttpStatus.OK.value())
               .result(categoryDtos)
