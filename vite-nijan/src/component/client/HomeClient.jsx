@@ -9,6 +9,12 @@ import Subscribe from '../admin/fragments/Subscribe'
 import ShopService from '../admin/fragments/ShopService'
 import ShopBlog from '../admin/fragments/ShopBlog'
 import SingleList from '../fragment/SingleList'
+import item1 from "../../assets/item1.png";
+import item2 from "../../assets/item2.png";
+import item3 from "../../assets/item3.png";
+import item4 from "../../assets/item4.png";
+import item5 from "../../assets/item5.png";
+import item6 from "../../assets/item6.png";
 
 function HomeClient() {
   return (
@@ -17,9 +23,9 @@ function HomeClient() {
         <Slider/>
       </div>
       <div class="grid grid-cols-3 gap-4 mb-5 mx-5">
-          <DiscoverItem />
-          <DiscoverItem />
-          <DiscoverItem />
+          <DiscoverItem img={item1}/>
+          <DiscoverItem img={item2}/>
+          <DiscoverItem img={item3}/>
       </div>
       <ProductArea title="Trending Item">
         <TabArea/>
@@ -78,8 +84,8 @@ function HomeClient() {
           </CommonItems>
       </ProductArea>
       <div class="page-container grid grid-cols-2 gap-8 pb-5 mx-5">
-          <DiscoverItem />
-          <DiscoverItem />
+          <DiscoverItem img={item5}/>
+          <DiscoverItem img={item6}/>
       </div>
       {/* Hot item */}
       <ProductArea title="Hot Item">
@@ -121,9 +127,9 @@ function HomeClient() {
 
       <ProductArea title="From Our Blog">
         <div class="grid grid-cols-3 gap-8 py-5">
-          <ShopBlog />
-          <ShopBlog />
-          <ShopBlog />
+          <ShopBlog img={item4} />
+          <ShopBlog img={item5} />
+          <ShopBlog img={item6} />
         </div>
       </ProductArea>
       <ShopService />

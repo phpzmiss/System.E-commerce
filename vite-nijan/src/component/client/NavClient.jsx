@@ -21,7 +21,7 @@ const NavClient = () => {
       <div className="flex items-center justify-between px-10 bg-gray-800">
         <div className="flex items-center justify-start px-5 py-3 gap-x-10">
           <NavLink
-            to={"/home"}
+            to={"/"}
             className="inline-block text-4xl font-bold text-white logo"
           >
             Nijan Shop
