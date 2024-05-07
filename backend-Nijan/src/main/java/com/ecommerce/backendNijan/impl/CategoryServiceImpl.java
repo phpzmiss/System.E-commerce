@@ -43,7 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public PageResponse<ICategory> getAllCategoryPage(int page, int size, String sortBy,
+    public PageResponse<CategoryDto> getAllCategoryPage(int page, int size, String sortBy,
                                                       String sortDir, String searchValue) {
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name())
           ? Sort.by("category_id").ascending().and(Sort.by(sortBy).ascending())
@@ -55,9 +55,20 @@ public class CategoryServiceImpl implements CategoryService {
 
         // Get content for page object
         List<ICategory> listOfCategoryModel = categoryModelListPage.getContent();
+        List<CategoryDto> categoryDtos = listOfCategoryModel.stream()
+          .map(e -> CategoryDto.builder()
+            .categoryId(e.getCategoryId())
+            .categoryName(e.getCategoryName())
+            .categoryDescription(e.getCategoryDescription())
+            .categorySlug(e.getCategorySlug())
+            .categoryTags(e.getCategoryTags())
+            .createDate(CommonService.convertLocalDateTimeToString(e.getCreatedDate()).split(" ")[0])
+            .status(StatusCode.ACTIVE.getCode().equals(e.getCategoryStatus()) ? StatusCode.ACTIVE.getDescription() : StatusCode.INACTIVE.getDescription())
+            .build())
+          .toList();
 
-        return PageResponse.<ICategory>builder()
-          .result(listOfCategoryModel)
+        return PageResponse.<CategoryDto>builder()
+          .result(categoryDtos)
           .pageNo(categoryModelListPage.getNumber())
           .pageSize(categoryModelListPage.getSize())
           .totalElements(categoryModelListPage.getTotalElements())

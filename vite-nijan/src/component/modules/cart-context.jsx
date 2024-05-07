@@ -5,7 +5,6 @@ const CardContext = createContext();
 // const response = ProductAPI.getAllProduct();
 function CardProvider(props) {
   const [coffee, setCoffee] = useState([]);
-  console.log(coffee);
   const [card, setCard] = useState([]);
   const [favorite, setFavorite] = useState([]);
 

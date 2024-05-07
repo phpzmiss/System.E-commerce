@@ -5,63 +5,61 @@ import ItemNews from "../fragment/ItemNews";
 import CommonItems from "../fragment/CommonItems";
 import { useCard } from "../modules/cart-context";
 import Breadcrumbs from "../admin/fragments/Breadcrumbs";
+import ProductService from "../modules/ProductService";
+import Banner from "../../assets/banner.png";
+import Default from "../../assets/default.png";
 
 const ProductClient = () => {
-  const { coffee, setCoffee } = useCard();
-  // const [coffee, setCoffee] = useState([]);
+  // const { product, setProduct } = useCard();
+  const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(true);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     setLoading(true);
-  //     try {
-  //       const response = await ProductAPI.getAllProduct();
-  //       console.log(response.data);
-  //       setCoffee(response.data);
-  //     } catch (error) {}
-  //     setLoading(false);
-  //   };
-  //   fetchData();
-  // }, []);
+  const [page, setPage] = useState({
+    pageNo: 0,
+    pageSize: 20,
+    sortDirection: "",
+    sortBy: "",
+    searchValue: "",
+  });
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await ProductService.getAllPageable(page);
+        setProduct(response.data.result.result);
+        setLoading(false);
+      } catch (error) {}
+    };
+    fetchData();
+  }, []);
 
   return (
     <section class='pt-[100px]'>
       <Breadcrumbs redirect="Product" />
-      <div className="grid grid-cols-4 gap-4 page-container">
-        <Taskbar></Taskbar>
-        <div className="col-span-3 my-3">
-          <div className="my-3 shadow-2xl">
+      <div className="my-3 shadow-2xl page-container">
             <img
-              src="https://images.unsplash.com/photo-1658528802649-2d49e3e9238b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+              src={Banner}
               alt=""
               className="w-full h-[400px] object-cover rounded-lg"
             />
-          </div>
-          <CommonItems title="Coffee" className="my-4">
-            <div className="grid grid-cols-4 gap-4">
-              <Item
-                image="https://images.pexels.com/photos/4051221/pexels-photo-4051221.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                price="30.000"
-              >
-                Americano
-              </Item>
-              <Item
-                image="https://images.pexels.com/photos/4051221/pexels-photo-4051221.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                price="35.000"
-              >
-                Cold Brew Sữa Tươi
-              </Item>
-              <Item
-                image="https://images.pexels.com/photos/4051221/pexels-photo-4051221.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                price="40.000"
-              >
-                Cold Brew Truyền Thống
-              </Item>
-              <Item
-                image="https://images.pexels.com/photos/4051221/pexels-photo-4051221.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                price="50.000"
-              >
-                CloudFee Creamy Caramel
-              </Item>
+      </div>
+      <div className="grid grid-cols-4 gap-4 page-container">
+        <Taskbar></Taskbar>
+        <div className="col-span-3 my-3">
+          <CommonItems title="Product" className="my-4">
+            <div className="grid grid-cols-4 gap-x-4 gap-y-1">
+            {!loading && product != null && product?.length > 0 && (
+              product.map((p) => (
+                <Item
+                  image={p.pictureDtoList != null && p.pictureDtoList?.length >0 && p.pictureDtoList[0].pictureData != "" ? p.pictureDtoList[0].pictureData : Default}
+                  id={p.productId}
+                  key={p.productId}
+                  cartItem={p}
+                  price={p.productPrice}
+                >
+                  {p.productTitle}
+                </Item>
+              ))
+            )}
             </div>
           </CommonItems>
           <CommonItems title="Tin tức" className="my-3">

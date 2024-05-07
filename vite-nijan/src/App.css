@@ -888,7 +888,6 @@ h2.text-before::before {
 	padding: 8px 0px;
 }
 .shopping-summery tbody tr {
-	border-bottom: 1px solid #F7941D;
 	margin-top: 20px;
 }
 .shopping-summery tbody tr img {
@@ -1115,3 +1114,18 @@ h2.text-before::before {
 /*======================================
    End Shopping Cart CSS
 ========================================*/
+.page-item {
+	cursor: pointer;
+	padding: 8px 16px;
+	width: fit-content;
+}
+.page-item:hover {
+	opacity: 0.8;
+	background-color: rgb(48, 121, 255);
+	transition: all .2s;
+	color: white;
+}
+.page-active {
+	color: white;
+	background-color: rgb(48, 121, 255);
+}

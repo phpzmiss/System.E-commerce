@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Header from './component/admin/Header'
 import Sidebar from './component/admin/Sidebar'
-import Home from './component/admin/Home'
 import Category from './component/admin/views/Category'
 import AddCategory from './component/admin/adds/AddCategory'
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
@@ -44,11 +43,6 @@ function Admin() {
         </div>
         <div className="mt-[54px] flex flex-col items-center w-full p-3 m-3 bg-white rounded-md shadow-2xl">
           <Routes>
-              <Route
-                exact
-                path="/dashboard"
-                element={<Home></Home>}
-              ></Route>
               <Route
                 exact
                 path="/category"

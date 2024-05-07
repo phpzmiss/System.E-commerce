@@ -11,6 +11,20 @@ const Category = () => {
   };
   const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState([]);
+  const [page, setPage] = useState({
+    pageNo: 0,
+    pageSize: 5,
+    sortDirection: "",
+    sortBy: "",
+    searchValue: "",
+  });
+  const [responsePage, setResponsePage] = useState({
+    last: true,
+    pageNo: 0,
+    pageSize: 0,
+    totalElements: 0,
+    totalPages: 0,
+  });
 
   const deleteCategory = (e, id) => {
     e.preventDefault();
@@ -26,19 +40,90 @@ const Category = () => {
     e.preventDefault();
     navigate(`/admin/edit-category/${id}`);
   };
+  const [pageLoop, setPageLoop] = useState([]);
+  const [pagePrev, setPagePrev] = useState(true);
+  const [pageNext, setPageNext] = useState(true);
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await CategoryService.getAll();
+        const response = await CategoryService.getAllPageable(page);
         if (response.data.code == 200) {
-          setCategory(response.data.result);
+          setCategory(response.data.result.result);
+          setResponsePage(response.data.result);
+          const items = [];
+          for (let i = 0; i < response.data.result.totalPages; i++) {
+            items.push(i+1);
+          }
+          setPageLoop(items);
+          setLoading(false);
         }
       } catch (error) {}
-      setLoading(false);
     };
     fetchData();
   }, []);
+
+  const changePage = async (e, pageNo) => {
+    try {
+      page.pageNo = pageNo - 1;
+      const response = await CategoryService.getAllPageable(page);
+      if (response.data.code == 200) {
+        setCategory(response.data.result.result);
+        setResponsePage(response.data.result);
+        const items = [];
+        for (let i = 0; i < response.data.result.totalPages; i++) {
+          items.push(i+1);
+        }
+        setPageLoop(items);
+      }
+    } catch (error) {}
+  }
+
+  const changePrev = async () => {
+    if (pagePrev == true && responsePage.pageNo > 0) {
+      try {
+        page.pageNo = responsePage.pageNo - 1;
+        const response = await CategoryService.getAllPageable(page);
+        if (response.data.code == 200) {
+          setCategory(response.data.result.result);
+          setResponsePage(response.data.result);
+          const items = [];
+          for (let i = 0; i < response.data.result.totalPages; i++) {
+            items.push(i+1);
+          }
+          setPageLoop(items);
+        }
+        if (page.pageNo) {
+          setPageNext(true);
+          setPagePrev(false);
+        }
+      } catch (error) {}
+    }
+  }
+
+  const changeNext = async () => {
+    if (pageNext == true && responsePage.pageNo + 1 < responsePage.totalPages) {
+      try {
+        page.pageNo = responsePage.pageNo + 1;
+        const response = await CategoryService.getAllPageable(page);
+        if (response.data.code == 200) {
+          setCategory(response.data.result.result);
+          setResponsePage(response.data.result);
+          const items = [];
+          for (let i = 0; i < response.data.result.totalPages; i++) {
+            items.push(i+1);
+          }
+          setPageLoop(items);
+        }
+        if (page.pageNo == responsePage.totalPages) {
+          setPageNext(false);
+          setPagePrev(true);
+        }
+      } catch (error) {}
+    }
+  }
+  
 
   return (
     <div className="w-full h-full mx-auto">
@@ -84,7 +169,6 @@ const Category = () => {
                 <CategoryItem
                   index={index}
                   cate={cate}
-                  key={cate.id}
                   deleteCategory={deleteCategory}
                   editCategory={editCategory}
                 ></CategoryItem>
@@ -93,6 +177,17 @@ const Category = () => {
           )}
         </table>
       </div>
+      <nav className="mt-2">
+        <ul className="flex items-center justify-end">
+          <li className="select-none page-item bg-slate-100" onClick={changePrev}>Prev</li>
+          {!loading && (
+              pageLoop.map((page, index) => (
+                <li className={"select-none page-item " + (responsePage.pageNo + 1 == page ? 'page-active' : '')} key={index} onClick={(e) => changePage(e, page)}>{page}</li>
+              ))
+          )}
+          <li className="select-none page-item bg-slate-100" onClick={changeNext}>Next</li>
+        </ul>
+      </nav>
     </div>
   );
 };

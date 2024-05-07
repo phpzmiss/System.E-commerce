@@ -78,23 +78,6 @@ create table if not exists public.tbl_order
 alter table public.tbl_order
     owner to postgres;
 
-create table if not exists public.tbl_order_lines
-(
-    order_line_id bigserial
-        primary key,
-    order_id      bigint,
-    price         numeric(38, 2),
-    product_id    bigint,
-    quantity      bigint,
-    created_by    bigint,
-    updated_by    bigint,
-    created_at    timestamp,
-    updated_at    timestamp
-);
-
-alter table public.tbl_order_lines
-    owner to postgres;
-
 drop table public.tbl_product;
 create table if not exists public.tbl_product
 (

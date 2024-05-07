@@ -24,7 +24,7 @@ public interface CategoryService {
      *
      * @return list of entity category.
      */
-    PageResponse<ICategory> getAllCategoryPage(int page, int size, String sortBy,
+    PageResponse<CategoryDto> getAllCategoryPage(int page, int size, String sortBy,
                                                String sortDir, String searchValue);
 
     /**
