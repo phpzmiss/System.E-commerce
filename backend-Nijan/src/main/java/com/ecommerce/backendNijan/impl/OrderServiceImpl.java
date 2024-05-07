@@ -44,6 +44,7 @@ public class OrderServiceImpl implements OrderService {
      * @return
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void insert(OrderDto orderDto) {
         Long userId = orderDto.getUser().getUserId();
         if (Objects.isNull(userId)) {

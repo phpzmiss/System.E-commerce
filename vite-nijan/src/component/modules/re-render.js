@@ -3,7 +3,8 @@ export default function render() {
     let quantity = 0;
     if (localstorage.getItem('cart') !== null) {
       let objectItem = JSON.parse(localstorage.getItem('cart'));
-      for (let index = 0; index < objectItem.value.length; index++) {
+      for (let index = 0; index < objectItem.length; index++) {
+        let element = objectItem[index];
         quantity += element.productQuantity;
       }
     }
