@@ -30,8 +30,8 @@ function Sidebar({openSidebarToggle, OpenSidebar}) {
                     <BsPeopleFill className='icon'/>
                 </NavIcons>
             </NavItem>
-            <NavItem url="/admin/inventory">
-                <NavIcons title="Inventory">
+            <NavItem url="/admin/order">
+                <NavIcons title="Order">
                     <BsListCheck className='icon'/>
                 </NavIcons>
             </NavItem>

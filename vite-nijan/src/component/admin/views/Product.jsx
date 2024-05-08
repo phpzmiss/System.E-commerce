@@ -28,6 +28,11 @@ const Product = () => {
         const response = await ProductService.getAllPageable(page);
         if (response.data.code == 200) {
           setProduct(response.data.result.result);
+          const items = [];
+          for (let i = 0; i < response.data.result.totalPages; i++) {
+            items.push(i+1);
+          }
+          setPageLoop(items);
           setLoading(false);
         }
         console.log(response);
@@ -49,6 +54,114 @@ const Product = () => {
     e.preventDefault();
     navigate(`/admin/edit-product?category_id=${categoryId}&product_id=${productId}`);
   };
+
+  const [responsePage, setResponsePage] = useState({
+    last: true,
+    pageNo: 0,
+    pageSize: 0,
+    totalElements: 0,
+    totalPages: 0,
+  });
+
+  const [pageLoop, setPageLoop] = useState([]);
+  const [pagePrev, setPagePrev] = useState(true);
+  const [pageNext, setPageNext] = useState(true);
+
+   useEffect(() => {
+      const fetchData = async () => {
+        setLoading(true);
+        try {
+          OrderService.getAll(page)
+          .then(function (response) {
+            setItems(response.data.result.result[0]);
+            const items = [];
+            for (let i = 0; i < response.data.result.totalPages; i++) {
+              items.push(i+1);
+            }
+            setPageLoop(items);
+            setLoading(false);
+          });
+        } catch (error) {}
+      };
+      fetchData();
+
+    }, []);
+
+  const handleChangeProduct = (e, id) => {
+    OrderService.update(id, e.target.value)
+    .then((res) => {
+      if (res.data.code == 200) {
+        try {
+          OrderService.getAll(page)
+          .then(function (response) {
+            setItems(response.data.result.result[0]);
+            setLoading(false);
+          });
+        } catch (error) {}
+      }
+    })
+    
+  }
+
+  const changePage = async (e, pageNo) => {
+    try {
+      page.pageNo = pageNo - 1;
+      const response = await ProductService.getAllPageable(page);
+      if (response.data.code == 200) {
+        setProduct(response.data.result.result);
+        setResponsePage(response.data.result);
+        const items = [];
+        for (let i = 0; i < response.data.result.totalPages; i++) {
+          items.push(i+1);
+        }
+        setPageLoop(items);
+      }
+    } catch (error) {}
+  }
+
+  const changePrev = async () => {
+    if (pagePrev == true && responsePage.pageNo > 0) {
+      try {
+        page.pageNo = responsePage.pageNo - 1;
+        const response = await ProductService.getAllPageable(page);
+        if (response.data.code == 200) {
+          setProduct(response.data.result.result);
+          setResponsePage(response.data.result);
+          const items = [];
+          for (let i = 0; i < response.data.result.totalPages; i++) {
+            items.push(i+1);
+          }
+          setPageLoop(items);
+        }
+        if (page.pageNo) {
+          setPageNext(true);
+          setPagePrev(false);
+        }
+      } catch (error) {}
+    }
+  }
+
+  const changeNext = async () => {
+    if (pageNext == true && responsePage.pageNo + 1 < responsePage.totalPages) {
+      try {
+        page.pageNo = responsePage.pageNo + 1;
+        const response = await ProductService.getAllPageable(page);
+        if (response.data.code == 200) {
+          setProduct(response.data.result.result);
+          setResponsePage(response.data.result);
+          const items = [];
+          for (let i = 0; i < response.data.result.totalPages; i++) {
+            items.push(i+1);
+          }
+          setPageLoop(items);
+        }
+        if (page.pageNo == responsePage.totalPages) {
+          setPageNext(false);
+          setPagePrev(true);
+        }
+      } catch (error) {}
+    }
+  }
   return (
     <div className="w-full h-full mx-auto ">
       <div className="flex items-center w-full h-auto py-2 text-2xl font-semibold gap-x-5">
@@ -95,9 +208,11 @@ const Product = () => {
           </thead>
           {!loading && product != null && (
             <tbody>
-              {product.map((p) => (
+              {product.map((p, index) => (
                 <ProductItem
+                  key={index}
                   product={p}
+                  index={index}
                   // eslint-disable-next-line no-undef
                   deleteProduct={deleteProduct}
                   // eslint-disable-next-line no-undef
@@ -108,6 +223,18 @@ const Product = () => {
           )}
         </table>
       </div>
+
+      <nav className="mt-2">
+            <ul className="flex items-center justify-end">
+              <li className="select-none page-item bg-slate-100" onClick={changePrev}>Prev</li>
+              {!loading && (
+                  pageLoop.map((page, index) => (
+                    <li className={"select-none page-item " + (responsePage.pageNo + 1 == page ? 'page-active' : '')} key={index} onClick={(e) => changePage(e, page)}>{page}</li>
+                  ))
+              )}
+              <li className="select-none page-item bg-slate-100" onClick={changeNext}>Next</li>
+            </ul>
+          </nav>
     </div>
   );
 };

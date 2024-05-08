@@ -19,11 +19,7 @@ const Contact = () => {
         const fetchData = async () => {
           setLoading(true);
           try {
-            axios({
-                method: 'get',
-                url: 'http://localhost:8888/api/contact/list' + "?page_no=" + page.pageNo + "&page_size=" + page.pageSize
-                + "&sort_direction=" + page.sortDirection + "&sort_by=" + page.sortBy,
-              })
+            ContactService.getAllPageable(page)
             .then(function (response) {
                 setCategory(response.data.result.result);
                 setLoading(false);

@@ -62,22 +62,22 @@ const ProductClient = () => {
             )}
             </div>
           </CommonItems>
-          <CommonItems title="Tin tức" className="my-3">
+          <CommonItems title="News" className="my-3">
             <div className="grid grid-cols-3 my-3 gap-x-3">
               <ItemNews
-                button="Đọc tiếp"
+                button="More"
                 image="https://images.unsplash.com/photo-1649859398021-afbfe80e83b9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
               >
                 This is a new space.
               </ItemNews>
               <ItemNews
-                button="Đọc tiếp"
+                button="More"
                 image="https://images.unsplash.com/photo-1649859398021-afbfe80e83b9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
               >
                 This is a new space.
               </ItemNews>
               <ItemNews
-                button="Đọc tiếp"
+                button="More"
                 image="https://images.unsplash.com/photo-1649859398021-afbfe80e83b9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
               >
                 This is a new space.

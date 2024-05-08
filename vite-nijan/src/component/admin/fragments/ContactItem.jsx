@@ -1,22 +1,9 @@
 import React from "react";
 import Button from "../form/button/Button";
 
-const ContactItem = ({ contact }) => {
-  console.log('====================================');
-  console.log(contact);
-  console.log('====================================');
-  // if (contact == undefined) {
-  //   contact = {
-  //     contactId: "",
-  //     contactName: "",
-  //     contactPhone: "",
-  //     contactEmail: "",
-  //     contactMessage: "",
-  //     contactSubject: "",
-  //     };
-  // }
+const ContactItem = ({ contact, index }) => {
   return (
-    <tr className="bg-white" key={contact.contactId}>
+    <tr className={Number.isInteger(index/2) ? "bg-white" : "bg-gray-200" } key={contact.contactId}>
       <td className="px-6 py-4 text-center whitespace-normal">
         <div className="text-sm text-gray-500">{contact.contactName}</div>
       </td>

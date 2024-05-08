@@ -8,6 +8,7 @@ import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import AddProduct from './component/admin/adds/AddProduct'
 import Product from './component/admin/views/Product'
 import Contact from './component/admin/views/Contact'
+import Order from './component/admin/views/Order'
 
 function Admin() {
   const [items, setItems] = useState("");
@@ -77,6 +78,11 @@ function Admin() {
                 exact
                 path="/contact"
                 element={<Contact></Contact>}
+              ></Route>
+              <Route
+                exact
+                path="/order"
+                element={<Order></Order>}
               ></Route>
           </Routes>
         </div>

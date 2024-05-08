@@ -11,7 +11,7 @@ public interface OrderService {
 
     void insert(OrderDto orderDto);
 
-    PageResponse<OrderDto> getAllByOrder(int pageNo, int pageSize, String sortBy, String sortDirection,
+    PageResponse<?> getAllByOrder(int pageNo, int pageSize, String sortBy, String sortDirection,
                                            String searchValue);
 
     OrderDto getAllByOrderId(Long orderId);

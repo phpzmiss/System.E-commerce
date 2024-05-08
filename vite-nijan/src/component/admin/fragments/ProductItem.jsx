@@ -3,7 +3,7 @@ import Button from "../form/button/Button";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-const ProductItem = ({ product, deleteProduct, editProduct }) => {
+const ProductItem = ({ product, index, deleteProduct, editProduct }) => {
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -13,7 +13,7 @@ const ProductItem = ({ product, deleteProduct, editProduct }) => {
     //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
   });
   return (
-    <tr className="bg-white" key={product.productId}>
+    <tr className={Number.isInteger(index/2) ? "bg-white" : "bg-gray-200" }>
       <td className="px-6 py-4 text-center whitespace-normal">
         <div className="text-sm text-gray-500">{product.productTitle}</div>
       </td>

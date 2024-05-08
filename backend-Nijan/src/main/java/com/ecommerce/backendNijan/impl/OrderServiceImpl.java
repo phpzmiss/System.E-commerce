@@ -1,21 +1,22 @@
 package com.ecommerce.backendNijan.impl;
 
 import com.ecommerce.backendNijan.entity.*;
-import com.ecommerce.backendNijan.model.ICart;
-import com.ecommerce.backendNijan.model.OrderDto;
+import com.ecommerce.backendNijan.model.*;
 import com.ecommerce.backendNijan.repository.*;
 import com.ecommerce.backendNijan.response.PageResponse;
 import com.ecommerce.backendNijan.service.OrderService;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -50,6 +51,21 @@ public class OrderServiceImpl implements OrderService {
         if (Objects.isNull(userId)) {
             UserEntity userEntity = userRepository.save(toUser(orderDto.getUser()));
             userId = userEntity.getUserId();
+        } else {
+            UserEntity userEntity = userRepository.findById(userId).orElse(null);
+            if (Objects.nonNull(userEntity)) {
+                if (Strings.isNotEmpty(userEntity.getAddress())) {
+                    userEntity.setAddress(orderDto.getUser().getAddress()
+                            + "-" + orderDto.getUser().getCompany()
+                            + "-" + orderDto.getUser().getPostalCode()
+                            + "-" + orderDto.getUser().getStateDivision()
+                            + "-" + orderDto.getUser().getCountry());
+                }
+                if (Strings.isNotEmpty(userEntity.getFullName())) {
+                    userEntity.setFullName(orderDto.getUser().getLastName() + ' ' + orderDto.getUser().getFirstName());
+                }
+                userRepository.save(userEntity);
+            }
         }
         OrderEntity orderEntity = orderRepository.save(toOrder(userId));
         CartsEntity cartsEntity = cartRepository.save(toCart(orderEntity.getOrderId()));
@@ -75,13 +91,48 @@ public class OrderServiceImpl implements OrderService {
      * @return
      */
     @Override
-    public PageResponse<OrderDto> getAllByOrder(int pageNo, int pageSize, String sortBy, String sortDirection, String searchValue) {
+    public PageResponse<?> getAllByOrder(int pageNo, int pageSize, String sortBy, String sortDirection, String searchValue) {
         Pageable pageable = commonService.setPageable(pageSize, pageNo, sortBy, sortDirection);
 
         // Get content for page object
-//        Page<IOrder> orders = orderService.getAllByOrderId(pageable, searchValue);
+        Page<CartDto> orders = orderRepository.findAllPageable(pageable);
+        // Get content for page object
+        List<CartDto> listOrder = orders.getContent().stream()
+                .sorted(Comparator.comparing(CartDto::getCreatedDate,
+                        Comparator.nullsLast(LocalDateTime::compareTo)))
+                .toList();
+        Map<Long, List<CartDto>> productMap = listOrder.stream()
+                .collect(Collectors.groupingBy(CartDto::getOrderId));
 
-        return null;
+        List<OrderDto> orderDtoList = new ArrayList<>();
+        productMap.forEach((key, value) -> {
+            OrderDto orderDto = new OrderDto();
+            orderDto.setOrderId(key);
+            orderDto.setCartNumber(value.get(0).getCartNumber());
+            orderDto.setCartId(value.get(0).getCartId());
+            orderDto.setCartStatus(value.get(0).getCartStatus());
+            orderDto.setCreatedDate(CommonService.convertLocalDateTimeToString(value.get(0).getCreatedDate()));
+            OrderDto.Customer user = new OrderDto.Customer();
+            user.setAddress(value.get(0).getAddress());
+            user.setUserId(value.get(0).getUserId());
+            user.setLastName(value.get(0).getFullName());
+            BigDecimal totalPrice = BigDecimal.ZERO;
+            for (CartDto cart : value) {
+                totalPrice = totalPrice.add(cart.getPrice().multiply(BigDecimal.valueOf(cart.getQuantity())));
+            }
+            orderDto.setTotalPrice(totalPrice);
+            orderDto.setUser(user);
+            orderDtoList.add(orderDto);
+        });
+
+        return PageResponse.builder()
+                .result(Collections.singletonList(orderDtoList))
+                .pageNo(orders.getNumber())
+                .pageSize(orders.getSize())
+                .totalElements(orders.getTotalElements())
+                .totalPages(orders.getTotalPages())
+                .last(orders.isLast())
+                .build();
     }
 
     /**

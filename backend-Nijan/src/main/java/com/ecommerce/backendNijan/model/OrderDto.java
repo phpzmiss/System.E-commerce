@@ -19,6 +19,12 @@ public class OrderDto {
 
     private Long cartId;
 
+    private String createdDate;
+
+    private BigDecimal totalPrice;
+
+    private String cartStatus;
+
     private Customer user;
 
     private List<Order> orderList;

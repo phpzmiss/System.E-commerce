@@ -33,7 +33,7 @@ public class OrderController {
             @RequestParam(value = "sort_by", defaultValue = "order_id") String sortBy,
             @RequestParam(value = "search_value", defaultValue = "") String searchValue) {
         try {
-            PageResponse<OrderDto> product = orderService.getAllByOrder(pageNo, pageSize, sortBy, sortDirection, searchValue);
+            PageResponse<?> product = orderService.getAllByOrder(pageNo, pageSize, sortBy, sortDirection, searchValue);
             return ApiResponse.builder()
                     .result(product)
                     .build();
