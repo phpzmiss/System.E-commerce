@@ -16,9 +16,14 @@ class ProductService {
       return http.get('http://localhost:8888/api/category?category_id=' + categoryId + "&product_id=" + productId);
     }
 
-    getAllPageable(page) {
+    async getAllPageable(page) {
       return http.get('http://localhost:8888/api/product/init/pageable' + "?page_no=" + page.pageNo + "&page_size=" + page.pageSize
       + "&sort_direction=" + page.sortDirection + "&sort_by=" + page.sortBy + "&search_value=" + page.searchValue)
+    }
+
+    async getAllFilter(page) {
+      return http.get('http://localhost:8888/api/product/init/filter' + "?page_no=" + page.pageNo + "&page_size=" + page.pageSize
+      + "&sort_direction=" + page.sortDirection + "&sort_by=" + page.sortBy + "&category_id=" + page.categoryId)
     }
 
     deleteProduct(id) {

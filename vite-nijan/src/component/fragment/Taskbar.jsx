@@ -3,7 +3,7 @@ import ElementTask from "./ElementTask";
 import RecentPost from "../admin/fragments/RecentPost";
 import CategoryService from "../modules/CategoryService";
 
-const Taskbar = () => {
+const Taskbar = ({ handleChangeData, activeCategory }) => {
   const [category, setCategory] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -26,9 +26,10 @@ const Taskbar = () => {
         <span className="w-full text-lg font-bold">Category</span>
       </ElementTask>
       <ElementTask className="text-[#2b2b36] w-full">
+        <p className={"w-full px-2 py-[3px] text-lg font-semibold hover:text-white hover:bg-blue-400 transition-all cursor-pointer " + (Number(activeCategory) == 0 ? "bg-blue-400 text-white" : "")} onClick={() => handleChangeData(0)}>All</p>
         {!loading && 
           category.map((item, index) => (
-            <p key={index} className="w-full px-2 py-[2px] text-lg font-semibold hover:text-white hover:bg-blue-400 transition-all cursor-pointer">
+            <p key={index} className={"w-full px-2 py-[3px] text-lg font-semibold hover:text-white hover:bg-blue-400 transition-all cursor-pointer " + (Number(activeCategory) == item.categoryId ? "bg-blue-400 text-white" : "")} onClick={() => handleChangeData(item.categoryId)}>
               {item.categoryName}
             </p>
           ))

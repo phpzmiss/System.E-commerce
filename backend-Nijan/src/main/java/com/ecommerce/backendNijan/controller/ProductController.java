@@ -89,8 +89,19 @@ public class ProductController {
    * @return list object.
    */
   @GetMapping(value = "/init/filter")
-  public ApiResponse<?> selectAllProduct(@RequestBody FilterProduct filterProduct) {
+  public ApiResponse<?> selectAllProduct(@RequestParam(value = "page_no", defaultValue = "0") int pageNo,
+                                         @RequestParam(value = "page_size", defaultValue = "10") int pageSize,
+                                         @RequestParam(value = "sort_direction", defaultValue = "asc") String sortDirection,
+                                         @RequestParam(value = "sort_by", defaultValue = "product_id") String sortBy,
+                                         @RequestParam(value = "category_id", defaultValue = "") Long categoryId) {
     try {
+      FilterProduct filterProduct = FilterProduct.builder()
+        .pageNo(pageNo)
+        .pageSize(pageSize)
+        .sortDirection(sortDirection)
+        .sortBy(sortBy)
+        .categoryId(categoryId.equals(0L) ? null : categoryId)
+        .build();
       PageResponse<ProductDto> product = productService.getAll(filterProduct);
       return ApiResponse.builder()
               .result(product)

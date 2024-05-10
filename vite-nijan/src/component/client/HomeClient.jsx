@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Slider from '../fragment/Slider'
 import DiscoverItem from '../admin/fragments/DiscoverItem'
 import ProductArea from '../admin/fragments/ProductArea'
@@ -15,8 +15,72 @@ import item3 from "../../assets/item3.png";
 import item4 from "../../assets/item4.png";
 import item5 from "../../assets/item5.png";
 import item6 from "../../assets/item6.png";
+import ProductService from '../modules/ProductService'
+import Default from "../../assets/default.png";
 
 function HomeClient() {
+  const [loading, setLoading] = useState(true);
+  const [product, setProduct] = useState([]);
+  const [productLoad, setProductLoad] = useState([]);
+  const [activeCategory, setActiveCategory] = useState(0);
+  const [page, setPage] = useState({
+    pageNo: 0,
+    pageSize: 4,
+    sortDirection: "",
+    sortBy: "",
+    searchValue: "",
+  });
+  const [filter, setFilter] = useState({
+    pageNo: 0,
+    pageSize: 8,
+    sortDirection: "",
+    sortBy: "",
+    searchValue: "",
+    categoryId: 0,
+  });
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await ProductService.getAllPageable(page);
+        if (response.data.code == 200) {
+          setProductLoad(response.data.result.result);
+          console.log(productLoad);
+        }
+      } catch (error) {}
+    };
+    fetchData();
+  }, []);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await ProductService.getAllFilter(filter);
+        if (response.data.code == 200) {
+          setProduct(response.data.result.result);
+          setLoading(false);
+          console.log(product);
+        }
+      } catch (error) {}
+    };
+    fetchData();
+  }, []);
+
+  const handleChangeTabBreak = async (id) => {
+    setActiveCategory(id);
+    filter.categoryId = id;
+    try {
+      setLoading(true);
+      const response = await ProductService.getAllFilter(filter);
+      if (response.data.code == 200) {
+        setProduct(response.data.result.result);
+        setLoading(false);
+      }
+    } catch (error) {}
+  }
   return (
     <section class="pt-[100px]">
       <div class='h-[500px] mb-5'>
@@ -28,58 +92,20 @@ function HomeClient() {
           <DiscoverItem img={item3}/>
       </div>
       <ProductArea title="Trending Item">
-        <TabArea/>
+        <TabArea handleChangeTabBreak={handleChangeTabBreak} activeCategory={activeCategory} />
         <CommonItems title="" className="my-4">
             <div className="grid grid-cols-4 gap-4">
-              <Item
-                image="https://images.pexels.com/photos/4051221/pexels-photo-4051221.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                price="30.000"
-              >
-                Americano
-              </Item>
-              <Item
-                image="https://images.pexels.com/photos/4051221/pexels-photo-4051221.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                price="35.000"
-              >
-                Cold Brew Sữa Tươi
-              </Item>
-              <Item
-                image="https://images.pexels.com/photos/4051221/pexels-photo-4051221.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                price="40.000"
-              >
-                Cold Brew Truyền Thống
-              </Item>
-              <Item
-                image="https://images.pexels.com/photos/4051221/pexels-photo-4051221.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                price="50.000"
-              >
-                CloudFee Creamy Caramel
-              </Item>
-              <Item
-                image="https://images.pexels.com/photos/4051221/pexels-photo-4051221.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                price="50.000"
-              >
-                CloudFee Creamy Caramel
-              </Item>
-              <Item
-                image="https://images.pexels.com/photos/4051221/pexels-photo-4051221.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                price="50.000"
-              >
-                CloudFee Creamy Caramel
-              </Item>
-              <Item
-                image="https://images.pexels.com/photos/4051221/pexels-photo-4051221.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                price="50.000"
-              >
-                CloudFee Creamy Caramel
-              </Item>
-              <Item
-                image="https://images.pexels.com/photos/4051221/pexels-photo-4051221.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                price="50.000"
-              >
-                CloudFee Creamy Caramel
-              </Item>
-
+              {!loading && product?.length > 0 && (
+                product.map((item, index) => {
+                  <Item
+                  key={index}
+                  image={item.pictureDtoList != null && item.pictureDtoList?.length >0 && item.pictureDtoList[0].pictureData != "" ? item.pictureDtoList[0].pictureData : Default}
+                  price={item.productPrice}
+                >
+                  {item.productTitle}
+                </Item>
+                })
+              )}
             </div>
           </CommonItems>
       </ProductArea>
@@ -91,30 +117,17 @@ function HomeClient() {
       <ProductArea title="Hot Item">
         <CommonItems title="" className="my-4">
           <div className="grid grid-cols-4 gap-4">
-            <Item
-              image="https://images.pexels.com/photos/4051221/pexels-photo-4051221.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              price="30.000"
-            >
-              Americano
-            </Item>
-            <Item
-              image="https://images.pexels.com/photos/4051221/pexels-photo-4051221.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              price="35.000"
-            >
-              Cold Brew Sữa Tươi
-            </Item>
-            <Item
-              image="https://images.pexels.com/photos/4051221/pexels-photo-4051221.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              price="40.000"
-            >
-              Cold Brew Truyền Thống
-            </Item>
-            <Item
-              image="https://images.pexels.com/photos/4051221/pexels-photo-4051221.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              price="50.000"
-            >
-              CloudFee Creamy Caramel
-            </Item>
+          {!loading && productLoad?.length > 0 && (
+              productLoad.map((item, index) => {
+                <Item
+                key={item.productId + '-' + index}
+                image={item.pictureDtoList != null && item.pictureDtoList?.length >0 && item.pictureDtoList[0].pictureData != "" ? item.pictureDtoList[0].pictureData : Default}
+                price={item.productPrice}
+              >
+                {item.productTitle}
+              </Item>
+              })
+            )}
           </div>
         </CommonItems>
       </ProductArea>

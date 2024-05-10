@@ -13,6 +13,7 @@ const ProductClient = () => {
   // const { product, setProduct } = useCard();
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [activeCategory, setActiveCategory] = useState(0);
   const [page, setPage] = useState({
     pageNo: 0,
     pageSize: 20,
@@ -20,17 +21,38 @@ const ProductClient = () => {
     sortBy: "",
     searchValue: "",
   });
+  const [filter, setFilter] = useState({
+    pageNo: 0,
+    pageSize: 20,
+    sortDirection: "",
+    sortBy: "",
+    searchValue: "",
+    categoryId: "",
+  });
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
         const response = await ProductService.getAllPageable(page);
-        setProduct(response.data.result.result);
+        if (response.data.code == 200) {
+          setProduct(response.data.result.result);
+        }
         setLoading(false);
       } catch (error) {}
     };
     fetchData();
   }, []);
+  const handleChangeData  = async (categoryId) => {
+    setActiveCategory(categoryId);
+    filter.categoryId = categoryId;
+    try {
+      const response = await ProductService.getAllFilter(filter);
+      if (response.data.code == 200) {
+        setProduct(response.data.result.result);
+      }
+      setLoading(false);
+    } catch (error) {}
+  }
 
   return (
     <section class='pt-[100px]'>
@@ -43,10 +65,10 @@ const ProductClient = () => {
             />
       </div>
       <div className="grid grid-cols-4 gap-4 page-container">
-        <Taskbar></Taskbar>
+        <Taskbar handleChangeData={handleChangeData} activeCategory={activeCategory}></Taskbar>
         <div className="col-span-3 my-3">
           <CommonItems title="Product" className="my-4">
-            <div className="grid grid-cols-4 gap-x-4 gap-y-1">
+           {!loading && product?.length > 0 ? (<div className="grid grid-cols-4 gap-x-4 gap-y-1">
             {!loading && product != null && product?.length > 0 && (
               product.map((p) => (
                 <Item
@@ -60,7 +82,7 @@ const ProductClient = () => {
                 </Item>
               ))
             )}
-            </div>
+            </div>) : (<div className="py-2 text-2xl font-bold text-center">No product</div>)}
           </CommonItems>
           <CommonItems title="News" className="my-3">
             <div className="grid grid-cols-3 my-3 gap-x-3">
