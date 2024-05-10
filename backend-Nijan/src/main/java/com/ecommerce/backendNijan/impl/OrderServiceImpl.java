@@ -54,14 +54,14 @@ public class OrderServiceImpl implements OrderService {
         } else {
             UserEntity userEntity = userRepository.findById(userId).orElse(null);
             if (Objects.nonNull(userEntity)) {
-                if (Strings.isNotEmpty(userEntity.getAddress())) {
+                if (Strings.isEmpty(userEntity.getAddress())) {
                     userEntity.setAddress(orderDto.getUser().getAddress()
                             + "-" + orderDto.getUser().getCompany()
                             + "-" + orderDto.getUser().getPostalCode()
                             + "-" + orderDto.getUser().getStateDivision()
                             + "-" + orderDto.getUser().getCountry());
                 }
-                if (Strings.isNotEmpty(userEntity.getFullName())) {
+                if (Strings.isEmpty(userEntity.getFullName())) {
                     userEntity.setFullName(orderDto.getUser().getLastName() + ' ' + orderDto.getUser().getFirstName());
                 }
                 userRepository.save(userEntity);

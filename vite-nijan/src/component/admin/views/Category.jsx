@@ -13,7 +13,7 @@ const Category = () => {
   const [category, setCategory] = useState([]);
   const [page, setPage] = useState({
     pageNo: 0,
-    pageSize: 5,
+    pageSize: 10,
     sortDirection: "",
     sortBy: "",
     searchValue: "",

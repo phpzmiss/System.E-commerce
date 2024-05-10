@@ -17,6 +17,8 @@ const AddProduct = () => {
   const [multipleFile, setMultipleFile] = useState([]);
   const [preview, setPreview] = useState();
   const [previewMultiple, setPreviewMultiple] = useState([]);
+  const [activeCategory, setActiveCategory] = useState(1);
+  const [message, setMessage] = useState("");
   const [product, setProduct] = useState({
     productId: "",
     productTitle: "",
@@ -36,6 +38,8 @@ const AddProduct = () => {
           const response = await ProductService.getCategoryById(id);
           if (response.data.code == 200) {
             setCategory(response.data.result);
+            console.log(response.data.result);
+            setActiveCategory(response.data.result);
           }
         } catch (error) {
         }
@@ -68,6 +72,9 @@ const AddProduct = () => {
   const handleChangeProduct = (e) => {
     const value = e.target.value;
     setProduct({ ...product, [e.target.name]: value });
+    if (e.target.name == 'categoryId') {
+      setActiveCategory(e.target.value);
+    }
   };
 
   const handleChangeUploadImage = (e) => {
@@ -109,13 +116,15 @@ const AddProduct = () => {
     formData.append("productPrice", product.productPrice);
     formData.append("productDiscountValue", product.productDiscountValue);
     formData.append("quantity", product.quantity);
-    formData.append("categoryId", product.categoryId);
+    formData.append("categoryId", activeCategory);
     formData.append("files", file, file.name);
     for (const key of Object.keys(multipleFile)) {
       formData.append("files", multipleFile[key], multipleFile[key].name);
     }
     ProductService.insert(formData)
-      .then((response) => {})
+      .then((response) => {
+        setMessage(response.data.message);
+      })
       .catch((error) => {});
 
     setProduct({
@@ -130,10 +139,13 @@ const AddProduct = () => {
       productImages: [],
     });
     setFile({});
-    navigate("/admin/product");
+    setTimeout(() => {
+      navigate("/admin/product");
+    }, 2000);
   };
 
   return (
+    <>
     <form
       onSubmit={handleSubmit(onSubmitHandler)}
       className="min-w-[1600px] mx-auto my-10 p-10 shadow-md"
@@ -151,6 +163,7 @@ const AddProduct = () => {
           id="categoryId"
           className="w-full p-4 mt-3 mb-3 text-black transition-all bg-white border border-gray-100 rounded-md shadow-lg outline-none focus:border-blue-500"
           onChange={handleChangeProduct}
+          value={activeCategory}
         >
           {!loading &&
             category.map((e) => (
@@ -158,7 +171,7 @@ const AddProduct = () => {
                 value={e.categoryId}
                 key={e.categoryId}
                 className="p-4 text-black transition-all bg-white border border-gray-100 rounded-md outline-none focus:border-blue-500"
-                selected={e.categoryId === product.categoryId ? true : false}
+                selected={e.categoryId === activeCategory ? true : false}
               >
                 {e.categoryName}
               </option>
@@ -247,7 +260,12 @@ const AddProduct = () => {
           Cancel
         </Button>
       </div>
+      {message ? 
+        <div className='w-full px-1 py-2 mt-2 font-bold text-center text-white bg-green-500 rounded-sm'>{message}</div>
+        : ""
+    }
     </form>
+  </>
   );
 };
 

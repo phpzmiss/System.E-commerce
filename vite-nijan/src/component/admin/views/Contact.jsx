@@ -10,7 +10,7 @@ const Contact = () => {
 
     const [page, setPage] = useState({
         pageNo: 0,
-        pageSize: 5,
+        pageSize: 10,
         sortDirection: "",
         sortBy: "",
     })

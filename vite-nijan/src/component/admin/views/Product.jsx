@@ -15,9 +15,9 @@ const Product = () => {
   const [product, setProduct] = useState(null);
   const [page, setPage] = useState({
     pageNo: 0,
-    pageSize: 5,
-    sortDirection: "",
-    sortBy: "",
+    pageSize: 10,
+    sortDirection: "ASC",
+    sortBy: "product_id",
     searchValue: "",
   })
 
@@ -184,10 +184,7 @@ const Product = () => {
                 Title
               </th>
               <th className="px-6 py-3 text-xs tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
-                Short Desc
-              </th>
-              <th className="px-6 py-3 text-xs tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
-                Description
+                Summary
               </th>
               <th className="px-6 py-3 text-xs tracking-wider text-center text-black uppercase border-r-2 border-gray-500">
                 Price

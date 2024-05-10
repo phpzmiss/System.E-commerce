@@ -20,9 +20,6 @@ export default function TabArea({handleChangeTabBreak, activeCategory}) {
   return (
     <div class="nav-main">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
-          <li class="nav-item cursor-pointer" onClick={() => handleChangeTabBreak(0)}>
-            <a class={"nav-link" + (activeCategory == 0 ? ' active' : '')} data-toggle="tab" href="#man" role="tab">All</a>
-          </li>
           {!loading && 
           category.map((item, index) => (
             <li class="nav-item cursor-pointer" key={index} onClick={() => handleChangeTabBreak(item.categoryId)}>

@@ -87,20 +87,14 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
             + " product.discount_type AS discountType, "
             + " product.discount_value AS discountValue, "
             + " product.created_at AS createdAt, "
-            + " product.tags AS tags,"
-            + " pic.picture_id AS pictureId, "
-            + " pic.file_name AS fileName, "
-            + " pic.file_type AS fileType,"
-            + " pic.data AS fileSize "
+            + " product.tags AS tags"
             + " FROM tbl_product product "
             + " INNER JOIN tbl_category category ON product.category_id = category.category_id"
-            + " LEFT JOIN tbl_picture pic ON product.product_id = pic.product_id"
             + " WHERE product.title LIKE %?1% OR category.name LIKE %?1%",
             nativeQuery = true,
             countQuery = "SELECT COUNT(*) "
             + " FROM tbl_product product "
             + " INNER JOIN tbl_category category ON product.category_id = category.category_id"
-            + " LEFT JOIN tbl_picture pic ON product.product_id = pic.product_id"
             + " WHERE product.title LIKE %?1% OR category.name LIKE %?1%")
     Page<IProduct> findAllProduct(String searchValue, Pageable pageable);
 
@@ -121,22 +115,16 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
               + " product.discount_type AS discountType, "
               + " product.discount_value AS discountValue, "
               + " product.created_at AS createdAt, "
-              + " product.tags AS tags,"
-              + " pic.picture_id AS pictureId, "
-              + " pic.file_name AS fileName, "
-              + " pic.file_type AS fileType,"
-              + " pic.data AS fileSize "
+              + " product.tags AS tags"
             + " FROM tbl_product product "
             + " INNER JOIN tbl_category category ON product.category_id = category.category_id"
             + " AND ((?1 IS NOT NULL AND category.category_id = ?1) OR (?1 IS NULL AND category.category_id IS NOT NULL))"
-            + " LEFT JOIN tbl_picture pic ON product.product_id = pic.product_id"
             + " WHERE category.category_id = ?1",
             nativeQuery = true,
             countQuery = "SELECT COUNT(*) "
                     + " FROM tbl_product product "
                     + " INNER JOIN tbl_category category ON product.category_id = category.category_id"
                     + " AND ((?1 IS NOT NULL AND category.category_id = ?1) OR (?1 IS NULL AND category.category_id IS NOT NULL))"
-                    + " LEFT JOIN tbl_picture pic ON product.product_id = pic.product_id"
                     + " WHERE category.category_id = ?1")
     Page<IProduct> findAllProduct(Long categoryId, Pageable pageable);
 

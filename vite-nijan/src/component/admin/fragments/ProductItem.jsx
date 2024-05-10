@@ -21,11 +21,6 @@ const ProductItem = ({ product, index, deleteProduct, editProduct }) => {
         <div className="text-sm text-gray-500">{product.productSummary}</div>
       </td>
       <td className="px-6 py-4 text-center whitespace-normal">
-        <div className="text-sm text-gray-500">
-          {product.productDescription}
-        </div>
-      </td>
-      <td className="px-6 py-4 text-center whitespace-normal">
         <div className="text-sm text-gray-500">{product.productPrice}</div>
       </td>
       <td className="px-6 py-4 text-center whitespace-normal">

@@ -18,4 +18,6 @@ import java.util.Optional;
 public interface PictureRepository extends JpaRepository<PictureProductEntity, Long> {
 
     void deleteAllByProductId(Long productId);
+
+    List<PictureProductEntity> findAllByProductId(Long productId);
 }

@@ -140,7 +140,6 @@ public class CategoryServiceImpl implements CategoryService {
         } else {
             commonService.setCommonCreatedEntity(entity);
         }
-        entity.setParentCategory(0L);
         entity.setName(dto.getCategoryName());
         entity.setDescription(dto.getCategoryDescription());
         entity.setSlug(commonService.toSlug(dto.getCategoryName()));

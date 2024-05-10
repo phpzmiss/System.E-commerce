@@ -98,13 +98,15 @@ public class ProductServiceImpl implements ProductService {
                   .build();
 
                 List<PictureProduct> pictureProductList = new ArrayList<>();
-                for (IProduct product : productList) {
+                List<PictureProductEntity> pictureProductEntities =
+                        pictureRepository.findAllByProductId(productPageOne.getProductId());
+                for (PictureProductEntity product : pictureProductEntities) {
                     PictureProduct build = PictureProduct.builder()
                       .pictureId(product.getPictureId())
                       .pictureName(product.getFileName())
                       .pictureType(product.getFileType())
-                      .pictureData((Objects.nonNull(product.getFileSize())
-                        ? ("data:image/png;base64," + Base64.getEncoder().encodeToString(product.getFileSize()))
+                      .pictureData((Objects.nonNull(product.getData())
+                        ? ("data:image/png;base64," + Base64.getEncoder().encodeToString(product.getData()))
                         : Strings.EMPTY))
                       .build();
                     pictureProductList.add(build);
@@ -165,15 +167,17 @@ public class ProductServiceImpl implements ProductService {
               .build();
 
             List<PictureProduct> pictureProductList = new ArrayList<>();
-            for (IProduct product : productList) {
+            List<PictureProductEntity> pictureProductEntities =
+                    pictureRepository.findAllByProductId(productPageOne.getProductId());
+            for (PictureProductEntity product : pictureProductEntities) {
                 PictureProduct build = PictureProduct.builder()
-                  .pictureId(product.getPictureId())
-                  .pictureName(product.getFileName())
-                  .pictureType(product.getFileType())
-                  .pictureData((Objects.nonNull(product.getFileSize())
-                    ? ("data:image/png;base64," + Base64.getEncoder().encodeToString(product.getFileSize()))
-                    : Strings.EMPTY))
-                  .build();
+                        .pictureId(product.getPictureId())
+                        .pictureName(product.getFileName())
+                        .pictureType(product.getFileType())
+                        .pictureData((Objects.nonNull(product.getData())
+                                ? ("data:image/png;base64," + Base64.getEncoder().encodeToString(product.getData()))
+                                : Strings.EMPTY))
+                        .build();
                 pictureProductList.add(build);
             }
             productDto.setPictureDtoList(pictureProductList);

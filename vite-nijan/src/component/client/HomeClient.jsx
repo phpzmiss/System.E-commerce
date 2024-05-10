@@ -18,11 +18,11 @@ import item6 from "../../assets/item6.png";
 import ProductService from '../modules/ProductService'
 import Default from "../../assets/default.png";
 
-function HomeClient() {
+const HomeClient = () => {
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState([]);
   const [productLoad, setProductLoad] = useState([]);
-  const [activeCategory, setActiveCategory] = useState(0);
+  const [activeCategory, setActiveCategory] = useState(1);
   const [page, setPage] = useState({
     pageNo: 0,
     pageSize: 4,
@@ -36,7 +36,7 @@ function HomeClient() {
     sortDirection: "",
     sortBy: "",
     searchValue: "",
-    categoryId: 0,
+    categoryId: 1,
   });
 
 
@@ -46,8 +46,8 @@ function HomeClient() {
       try {
         const response = await ProductService.getAllPageable(page);
         if (response.data.code == 200) {
-          setProductLoad(response.data.result.result);
-          console.log(productLoad);
+          setProductLoad([...response.data.result.result]);
+          setLoading(false);
         }
       } catch (error) {}
     };
@@ -62,7 +62,6 @@ function HomeClient() {
         if (response.data.code == 200) {
           setProduct(response.data.result.result);
           setLoading(false);
-          console.log(product);
         }
       } catch (error) {}
     };
@@ -95,16 +94,16 @@ function HomeClient() {
         <TabArea handleChangeTabBreak={handleChangeTabBreak} activeCategory={activeCategory} />
         <CommonItems title="" className="my-4">
             <div className="grid grid-cols-4 gap-4">
-              {!loading && product?.length > 0 && (
-                product.map((item, index) => {
+              {!loading && product != null && product?.length > 0 && (
+                product.map((item) => (
                   <Item
-                  key={index}
+                  key={item.productId}
                   image={item.pictureDtoList != null && item.pictureDtoList?.length >0 && item.pictureDtoList[0].pictureData != "" ? item.pictureDtoList[0].pictureData : Default}
                   price={item.productPrice}
-                >
-                  {item.productTitle}
-                </Item>
-                })
+                  >
+                    {item.productTitle}
+                  </Item>
+                ))
               )}
             </div>
           </CommonItems>
@@ -118,7 +117,7 @@ function HomeClient() {
         <CommonItems title="" className="my-4">
           <div className="grid grid-cols-4 gap-4">
           {!loading && productLoad?.length > 0 && (
-              productLoad.map((item, index) => {
+              productLoad.map((item, index) => (
                 <Item
                 key={item.productId + '-' + index}
                 image={item.pictureDtoList != null && item.pictureDtoList?.length >0 && item.pictureDtoList[0].pictureData != "" ? item.pictureDtoList[0].pictureData : Default}
@@ -126,7 +125,7 @@ function HomeClient() {
               >
                 {item.productTitle}
               </Item>
-              })
+              ))
             )}
           </div>
         </CommonItems>
@@ -152,4 +151,4 @@ function HomeClient() {
   )
 }
 
-export default HomeClient
+export default HomeClient;

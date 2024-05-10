@@ -22,13 +22,13 @@ public class ProductEntity extends BaseEntity implements Serializable {
     @Column(name = "category_id", nullable = false)
     private Long categoryId;
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "title", length = 3000, nullable = false)
     private String title;
 
-    @Column(name = "summary", length = 30)
+    @Column(name = "summary", length = 3000)
     private String summary;
 
-    @Column(name = "description")
+    @Column(name = "description", length = 3000)
     private String description;
 
     @Column(name = "quantity")

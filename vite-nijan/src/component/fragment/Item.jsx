@@ -4,6 +4,7 @@ import { FaCartArrowDown } from "react-icons/fa";
 import Button from "../admin/form/button/Button";
 import { useNavigate } from "react-router-dom";
 import render from "../modules/re-render";
+import formatter from "../modules/formatter";
 
 const Item = ({ price, image, id, cartItem, children, props }) => {
   const navigate = useNavigate();
@@ -64,7 +65,7 @@ const Item = ({ price, image, id, cartItem, children, props }) => {
       <div className="flex flex-col items-start justify-start w-full" onClick={handleRedirectDetail}>
         <span>{children}</span>
         <div className="flex items-center justify-between w-full">
-          <small>{price}vnđ</small>
+          <small>{formatter(price)}</small>
           <div className="flex items-center gap-1 justify-centers">
           <FaHeartCirclePlus className="text-xl transition-all hover:text-red-500" />   
           </div>
