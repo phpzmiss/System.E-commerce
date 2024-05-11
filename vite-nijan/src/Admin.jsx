@@ -9,6 +9,7 @@ import AddProduct from './component/admin/adds/AddProduct'
 import Product from './component/admin/views/Product'
 import Contact from './component/admin/views/Contact'
 import Order from './component/admin/views/Order'
+import Home from './component/admin/Home'
 
 function Admin() {
   const [items, setItems] = useState("");
@@ -44,6 +45,11 @@ function Admin() {
         </div>
         <div className="mt-[54px] flex flex-col items-center w-full p-3 m-3 bg-white rounded-md shadow-2xl">
           <Routes>
+              <Route
+                exact
+                path="/"
+                element={<Home></Home>}
+              ></Route>
               <Route
                 exact
                 path="/category"
