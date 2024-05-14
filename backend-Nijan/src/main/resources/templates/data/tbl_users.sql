@@ -1,0 +1,2 @@
+insert into public.tbl_users (user_id, created_at, created_by, updated_at, updated_by, avatar, bio, company, email, email_validated, last_login, locale, phone, phone_validated, role, slug, full_name, username, address)
+values  (1, '2024-05-11 01:11:57.167171', 1, '2024-05-11 01:11:57.167171', 1, null, null, null, 'abc@gmail.com', null, null, null, '', null, '3', null, 'Yoro Nami', 'admin', null);

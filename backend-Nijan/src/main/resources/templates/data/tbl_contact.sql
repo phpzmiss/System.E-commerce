@@ -1,0 +1,2 @@
+insert into public.tbl_contact (contact_id, created_at, created_by, updated_at, updated_by, contact_email, contact_message, contact_name, contact_phone, contact_subject)
+values  (1, '2024-05-11 01:28:56.170520', 1, '2024-05-11 01:28:56.170520', 1, 'ngocdinh2k1@gmail.com', 'Hi sara', 'Peter Count', '235807567', 'Contact camera.');

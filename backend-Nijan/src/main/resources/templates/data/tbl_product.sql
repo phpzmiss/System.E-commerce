@@ -1,0 +1,45 @@
+insert into public.tbl_product (product_id, created_at, created_by, updated_at, updated_by, category_id, description, discount_type, discount_value, price, quantity, summary, tags, title)
+values  (1, '2024-05-11 00:22:06.488453', 1, '2024-05-11 00:22:06.488453', 1, 1, 'Canon 5D mark IV
+
+Canon 5D Mark IV sở hữu cảm biến hoàn toàn mới với độ phân giải hữu dụng lên đến 30.4 megapixel 35mm Full Frame CMOS và công nghệ cảm biến hình ảnh DIGIC 6+ giúp quay được những đoạn video 4K 30P mượt mà. Tốc độ chụp tốc độ cao liên tục của 5D Mark IV chỉ có một ít thay đổi khi nâng lên với tốc độ 7 khung hình/ giây. Và công nghệ video được nâng cấp thêm giúp việc sáng tác video dễ dàng hơn bao giờ hết với công nghệ lấy nét Dual Pixel CMOS AF giúp lấy nét khi quay video 4K mượt mà với hình ảnh sắc nét hơn với khả năng theo dõi, bắt theo chủ thể tốt.
+', '1', 10.00, 100.00, 100, 'Canon 5D Mark IV (Body)', null, 'Canon 5D Mark IV (Body)'),
+        (2, '2024-05-11 00:29:04.265849', 1, '2024-05-11 00:29:04.265849', 1, 1, 'Canon 1D X Mark III
+
+1D X Mark III sử dụng cảm biến AF mới với hệ thống tự động lấy nét sẽ chính xác hơn rất nhiều và độ phân giải ở trung tâm gấp 28 lần khi sử dụng kính ngắm quang học. Một cải tiến lớn trong chế độ Live View đó là khả năng lấy nét tự động đã được tăng cường với hệ thống cảm biến Dual Pixel CMOS AF có độ phủ 90% khung ngang và 100% khung dọc trên diện tích cảm biến với 525 vùng lấy nét tự động, giúp việc lấy nét khi chụp Live View hay quay phim tốt hơn. Máy có khả năng chụp liên tục 20 khung hình / giây với màn trập cơ hoặc điện tử.', '1', 6.00, 120.00, 50, 'Canon 1D X Mark III, Mới 100%', null, 'Canon 1D X Mark III'),
+        (3, '2024-05-11 00:30:29.079114', 1, '2024-05-11 00:30:29.079114', 1, 1, 'Sony FX30 Digital Cinema Camera
+
+Máy quay Sony FX30 mới thuộc dòng Cinema Line của Sony giúp bạn dễ dàng đạt đến chuẩn mực của ngành làm phim, với chất lượng hình ảnh tuyệt đẹp, hiệu suất vượt trội và thao tác làm việc hiệu quả. Tận hưởng khả năng quay phim tiện lợi với S-Cinetone™ và S-Log3 để cho ra những thước phim chất lượng cao, cùng nhiều tính năng ưu việt khác. Ngoài ra, với kích thước vô cùng nhỏ gọn, FX30 chắc chắn sẽ khiến việc làm phim trở nên dễ tiếp cận hơn bao giờ hết cho những nhà sáng tạo tiềm năng.', '1', 200.00, 2000.00, 0, 'Máy quay Sony FX30, Mới 100% ( Chính hãng )', null, 'Máy quay Sony FX30, Mới 100%'),
+        (4, '2024-05-11 00:31:53.486477', 1, '2024-05-11 00:31:53.486477', 1, 1, 'Sony A6700
+Ổn định, tốc độ, linh hoạt đa năng và nhỏ gọn, Sony Alpha A6700 là máy ảnh Mirroless định dạng APS-C, áp dụng nhiều tính năng của dòng sản phẩm tiền nhiệm, bao gồm khả năng lấy nét tự động 0,02 giây, cảm biến được nâng cấp hoàn toàn mới 26MP trên chip xử lý hình ảnh BIONZ X, dãy ISO 100 - 32000, định dạng quay Video 4K, khả năng Eye Focus AF theo dõi thời gian thực, chụp tốc độ cao lên đến 11 fps, cả theo dõi AF / AE, xử lý hình ảnh BIONZ X được nâng cấp động cơ, màn hình cảm ứng LCD có thể nghiêng hoàn toàn.....A6700 rất phù hợp cho cả người chụp ảnh thông thường và Video, từ chuyên gia đến Vlogger.', '1', 75.00, 1500.00, 20, 'Sony A6700 + 16-50mm OSS, Mới 100% (Chính Hãng)', null, 'Sony A6700 + 16-50mm OSS, Mới 100% (Chính Hãng)'),
+        (5, '2024-05-11 00:47:30.225087', 1, '2024-05-11 00:47:30.225087', 1, 1, 'Sony RX100 VII
+( DSC-RX100M7 )
+Cận cảnh từng hành động
+Sẵn sàng thâu trọn cả thế giới. Thiết bị nhỏ gọn này được trang bị hiệu suất zoom cao vượt trội và khả năng AF siêu nhanh để bạn có thể ghi lại mọi khoảnh khắc thoáng qua - theo cách bạn muốn - cũng như giải phóng hoàn toàn sức sáng tạo của bản thân.
+Mở rộng phạm vi zoom rộng và lấy nét tự động siêu nhanh
+Hiệu suất cực đỉnh trong một kiểu dáng thiết kế trang nhã
+Tất cả những tính năng bạn cần để ghi lại từng khoảnh khắc đều có ở đây - phạm vi zoom rộng 24-200 mm2, lấy nét tự động siêu nhanh, chụp liên tục tốc độ cao, các chức năng quay video cải tiến và khả năng vận hành chuyên nghiệp - tất cả nằm trong một thân máy nhỏ gọn đầy ấn tượng.', '1', 0.00, 1100.00, 35, 'Sony Cyber-shot DSC RX100 VII', null, 'Sony Cyber-shot DSC RX100 VII'),
+        (7, '2024-05-11 00:51:44.101709', 1, '2024-05-11 00:51:44.102224', 1, 2, 'Sigma 20mm f/2 DG DN for L-mount
+
+Là một ống kính góc rộng và nhanh, Sigma 20mm f/2.0 DG DN Contemporary thuộc dòng ống kính chân dung chuyên nghiệp được đánh giá cao của Sigma Global Vision và là ống kính đặc trưng của bởi việc thiết kế xây dựng ống kính quang học tiên tiến và thiết kế mạnh mẽ. Bằng sự kết hợp của thấu kính FLD và thấu kính SLD, 3 thấu kính phi cầu Aspherial giúp giảm thiểu quang sai màu sắc và giảm thiểu biến dạng hình ảnh. Thiết kế quang học gồm 13 thấu kính được chia làm 11 nhóm giúp mang lại hình ảnh sắc nét ngay cả khi ở khẩu độ tối đa.', '1', 63.00, 700.00, 17, 'Sigma 20mm f/2 DG DN for L-mount', null, 'Sigma 20mm f/2 DG DN for L-mount'),
+        (6, '2024-05-11 00:49:12.971366', 1, '2024-05-11 01:00:49.343223', 1, 2, 'Tamron 17-50mm F/4 Di III VXD Sony FE
+Tamron 17-50mm f/4 bao quát dải zoom linh hoạt và nổi bật với thiết kế sáng, là ống kính tương đương 25.5-85mm cho dòng máy ảnh Mirrorless APS-C Sony E. Phạm vi từ góc rộng đến Short-Tele lý tưởng để chụp hàng ngày, khẩu độ tối đa duy nhất f/4 nhanh phù hợp chụp trong các điều kiện ánh sáng phức tạp và cung cấp khả năng kiểm soát độ sâu trường ảnh ấn tượng. Bổ trợ cho thiết kế này là một bộ thấu kính chuyên biệt, bao gồm thấu kính phi cầu và thấu kính tán xạ thấp, cho ảnh được chỉnh sai xuất sắc với độ sắc nét, trong rõ và chính xác màu sắc cao. Mỗi thấu kính được phủ lớp phủ BBAR của Tamron giúp giảm lóa sáng và bóng ma cho độ tương phản cao hơn khi chụp trong điều kiện ngược sáng và ánh sáng gắt.', '1', 10.00, 500.00, 45, 'Tamron 17-50mm F/4 Di III VXD Sony FE', null, 'Tamron 17-50mm F/4 Di III VXD Sony FE'),
+        (8, '2024-05-11 00:54:02.759196', 1, '2024-05-11 00:54:02.759196', 1, 3, 'Led Zhiyun MOLUS G60 Bi-Color Mini COB Monolight
+
+Đèn Zhiyun MOLUS G60 có độ kiểm soát ánh sáng từ 0-100%, phù hợp sử dụng trong Studio hoặc những nơi yêu cầu có độ chính xác màu sắc cao. Đèn Zhiyun MOLUS G60 có nhiệt độ màu dao động từ 2700K-6500K, lý tưởng để đáp ứng nguồn sáng cho công việc ngoài trời hoặc các thiết bị HMI đồng màu. Đèn có chỉ sổ hỗ trợ tái tạo màu chính xác cao CRI 96 và TLCI 97. Cường độ ánh sáng đầu ra của đèn cao 2376 Lux (ở 1m 4300K) cho ánh sáng mềm và dịu.', '1', 0.00, 200.00, 20, 'Led Zhiyun MOLUS G60 60w Bi-Color Mini COB Monolight', null, 'Led Zhiyun MOLUS G60 60w Bi-Color Mini COB Monolight'),
+        (11, '2024-05-11 00:58:44.263627', 1, '2024-05-11 01:00:49.368194', 1, 5, 'Máy in ảnh Mini hồng ngoại IVY (MINi PV-123)
+Được thiết kế nhỏ gọn tinh tế, máy in ảnh di động Canon IVY Mini giúp bạn dễ dàng in ra những bức ảnh xinh xắn từ những chiếc Smartphone hoặc máy tính bảng để lưu giữ lại kỷ niệm trong các chuyến đi du lịch của gia đình và bạn bè. Tương thích với hầu hết các thiết bị công nghệ chạy hệ điều hành iOS hoặc Android. Máy in có thể vừa vặn trong túi, ba lô nhỏ hoặc thậm chí là túi của bạn, vì vậy bạn có thể tạo hình ảnh sống động bất kể bạn đang ở đâu.
+IVY sử dụng công nghệ in ZINK Zero. ZINK là viết tắt của công nghệ in "ZERO INK". Thay vì sử dụng mực in như truyền thống, nó sử dụng thuốc nhuộm nhiều màu sắc tinh thể nhúng bên trong giấy. Trước khi in, các tinh thể màu được nhuộm rõ ràng nên giấy ZINK trông giống như giấy ảnh trắng thông thường. Thiết bị hỗ trợ ZINK sử dụng nhiệt kết hợp các lớp thuốc nhuộm riêng biệt đã có sẵn trong giấy in để kích hoạt và tô màu các tinh thể này nhằm cho ra bức ảnh sinh động rõ nét.', '1', 0.00, 50.00, 99, 'Máy in Canon Mini PV123 - Màu xám (Chính hãng LBM)', null, 'Máy in Canon Mini PV123 - Màu xám (Chính hãng LBM)'),
+        (9, '2024-05-11 00:56:19.272080', 1, '2024-05-11 01:01:27.228680', 1, 4, 'GoPro HERO 11
+
+Nâng cấp những tính năng mới hơn, mạnh hơn, GoPro Hero 11 với những cải tiến mạnh mẽ không chỉ là kiểu dáng thiết kế mà còn là những tính năng hỗ trợ quay phim, chụp ảnh, đặc biệt là các hoạt động Selfie hoặc quay Vlog.
+
+', '1', 0.00, 400.00, 9, 'GoPro HERO 11 Black', null, 'GoPro HERO 11 Black'),
+        (10, '2024-05-11 00:57:22.616183', 1, '2024-05-11 01:01:27.239391', 1, 4, 'DJI Osmo Pocket 2
+
+ 
+
+ 
+
+DJI Pocket 2 là sản phẩm được nâng cấp mạnh mẽ các tiến bộ công nghệ mới, người dùng sẽ có được chất lượng hình ảnh vượt trội cùng hàng loạt tính năng thông minh giúp quá trình sử dụng trở nên dễ dàng ngay cả với những người mới bắt đầu.
+Dòng sản phẩm Pocket của DJI có thể được xem là một giải pháp sáng tạo mang tính đột phá, tích hợp giữa Gimbal thu nhỏ và máy ảnh hiệu suất cao. DJI Pocket 2 là dòng sản phẩm mới nhất, nâng cấp tính năng mới, đồng thời giải quyết một số yếu điểm của thế hệ trước.
+DJI Pocket 2 chứa rất nhiều chức năng thông minh hỗ trợ người dùng trong việc quay chụp và chỉnh sửa, loại bỏ những giới hạn để đem đến chất lượng Video, hình ảnh tốt nhất.', '1', 0.00, 450.00, 4, 'DJI Osmo Pocket 2 Combo / Mới 99% / Fullbox (Mới khui Seal)', null, 'DJI Osmo Pocket 2 Combo / Mới 99% / Fullbox (Mới khui Seal)');

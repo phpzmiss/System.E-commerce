@@ -1,0 +1,2 @@
+insert into public.tbl_credentials (provider_id, created_at, created_by, updated_at, updated_by, hasher, password_hash, password_salt, provider_key, user_id)
+values  (1, '2024-05-11 01:11:57.237837', 1, '2024-05-11 01:11:57.237837', 1, null, '$2a$10$58ac0fvThEVqEoGQMWfwQOEIbkGPv1Q7RbgSlYE2FxRCGP6FvdmRW', null, null, 9);
