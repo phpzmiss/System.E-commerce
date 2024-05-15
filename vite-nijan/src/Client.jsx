@@ -35,7 +35,7 @@ export default class Client extends Component {
             <Route exact path="/contact" element={<ContactUs></ContactUs>}></Route>
             <Route exact path="/checkout" element={<Checkout></Checkout>}></Route>
             <Route exact path="/cart" element={<CartClient></CartClient>}></Route>
-            <Route exact path="/detail/:id" element={<DetailProduct></DetailProduct>}></Route>
+            <Route exact path="/detail/:param1/:param2" element={<DetailProduct></DetailProduct>}></Route>
             <Route exact path="/sign-in" element={<SignIn></SignIn>}></Route>
             <Route exact path="/sign-up" element={<SignUp></SignUp>}></Route>
         </Routes>

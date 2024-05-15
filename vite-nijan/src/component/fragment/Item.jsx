@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import render from "../modules/re-render";
 import formatter from "../modules/formatter";
 
-const Item = ({ price, image, id, cartItem, children, props }) => {
+const Item = ({ price, image, product, cartItem, children, props }) => {
   const navigate = useNavigate();
   // useEffect(() => {
   //   if (localStorage.getItem('cart')) {
@@ -51,10 +51,10 @@ const Item = ({ price, image, id, cartItem, children, props }) => {
     render();
   }
   const handleRedirectDetail = () => {
-    navigate("/detail/" + id);
+    navigate("/detail/" + product.categoryId + "/" + product.productId);
   }
   return (
-    <div className="bg-[#ebebeb] flex flex-col items-center mt-5 cursor-pointer gap-y-2 p-3 rounded-md shadow-lg" id={id}>
+    <div className="bg-[#ebebeb] flex flex-col items-center mt-5 cursor-pointer gap-y-2 p-3 rounded-md shadow-lg" id={product.productId}>
       <div className="w-full" onClick={handleRedirectDetail}>
         <img
           className="w-full h-[250px] object-cover rounded-lg"

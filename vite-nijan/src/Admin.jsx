@@ -77,7 +77,7 @@ function Admin() {
               ></Route>
               <Route
                 exact
-                path="/edit-product/:id"
+                path="/edit-product/:param1/:param2"
                 element={<AddProduct></AddProduct>}
               ></Route>
               <Route

@@ -52,7 +52,7 @@ const Product = () => {
   };
   const editProduct = (e, productId, categoryId) => {
     e.preventDefault();
-    navigate(`/admin/edit-product?category_id=${categoryId}&product_id=${productId}`);
+    navigate(`/admin/edit-product/${categoryId}/${productId}`);
   };
 
   const [responsePage, setResponsePage] = useState({

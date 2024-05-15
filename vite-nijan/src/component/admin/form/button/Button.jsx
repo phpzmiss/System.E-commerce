@@ -8,7 +8,7 @@ const Button = ({ children, className, ...props }) => {
   return (
     <button
       type="submit"
-      className={`w-full font-semibold text-white  rounded-lg ${className}`}
+      className={`w-full font-semibold text-white transition-all rounded-md ${className}`}
       {...props}
     >
       {children}

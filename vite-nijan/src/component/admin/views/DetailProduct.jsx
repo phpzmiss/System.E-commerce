@@ -1,14 +1,48 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Breadcrumbs from '../fragments/Breadcrumbs'
 import Button from '../form/button/Button'
 import { FaCartArrowDown } from "react-icons/fa";
 import { FcLike } from "react-icons/fc";
 import CommonItems from '../../fragment/CommonItems';
 import ItemNews from '../../fragment/ItemNews';
+import { useParams } from 'react-router-dom';
+import ProductService from '../../modules/ProductService';
+import Default from "../../../assets/default.png";
+import formatter from '../../modules/formatter';
 
 const DetailProduct = () => {
+    const { param1, param2 } = useParams();
+    const [product, setProduct] = useState({});
+    const [loading, setLoading] = useState(true);
     const [quantity, setQuantity] = useState("");
+    if (param1 != null && param2 != null) {
+        useEffect(() => {
+          const fetchData = async () => {
+            setLoading(true);
+            try {
+              const response = await ProductService.getProductById(param1, param2);
+              if (response.data.code == 200) {
+                let pro = response.data.result;
+                setProduct({
+                    productId: pro.productId,
+                    productTitle: pro.title,
+                    productDescription: pro.description,
+                    productSummary: pro.summary,
+                    productPrice: pro.price ? Number(pro.price) : 0,
+                    productDiscountValue: pro.discountValue ? Number(pro.discountValue) : 0,
+                    categoryId: pro.categoryId,
+                    categoryName: pro.categoryName,
+                    quantity: pro.quantity,
+                    productImages: pro.pictureProductList,
+                });
+                setLoading(false);
+              }
+            } catch (error) {}
+          };
+          fetchData();
+        }, []);
+    }
     const handleChange = (e) => {
         let quantity = e.target.value;
         if (isNaN(quantity) || Number(quantity) < 0) {
@@ -17,48 +51,46 @@ const DetailProduct = () => {
             setQuantity(e.target.value);
         }
     };
+
     return (
         <section className="pt-[100px] mb-5">
             <Breadcrumbs redirect="Detail" />
             <div className="grid grid-cols-5 gap-3 mb-5 page-container">
                 <div className='flex flex-col col-span-3'>
+                {!loading && product !=  null && product.productImages.length >= 0 
+                ? (
                     <img
                         className="w-full h-[400px] object-cover rounded-lg"
-                        src='https://via.placeholder.com/600x370'
+                        src={product.productImages != null && product.productImages?.length >0 && product.productImages[0].pictureData != "" ? product.productImages[0].pictureData : Default}
                         alt=""
-                    />
+                    />)
+                : (<img
+                        className="w-full h-[400px] object-cover rounded-lg"
+                        src={Default}
+                        alt=""
+                    />)
+                }
                     <div className='grid grid-cols-4 gap-3 mt-3'>
-                        <img
-                            className="w-full h-[150px] object-cover rounded-lg"
-                            src='https://via.placeholder.com/600x370'
-                            alt=""
-                        />
-                        <img
-                            className="w-full h-[150px] object-cover rounded-lg"
-                            src='https://via.placeholder.com/600x370'
-                            alt=""
-                        />
-                        <img
-                            className="w-full h-[150px] object-cover rounded-lg"
-                            src='https://via.placeholder.com/600x370'
-                            alt=""
-                        />
-                        <img
-                            className="w-full h-[150px] object-cover rounded-lg"
-                            src='https://via.placeholder.com/600x370'
-                            alt=""
-                        />
+                    {!loading && product !=  null && product.productImages.length >= 0
+                    ? (product.productImages.filter((e, index) => index >= 1).map((p, index) => (
+                            <img
+                                className="w-full h-[150px] object-cover rounded-lg cursor-pointer"
+                                src={p.pictureData != "" ? p.pictureData : Default}
+                                alt=""
+                            />
+                        )))
+                    : (<></>)}
                     </div>
                 </div>
                 <div className='flex flex-col col-span-2 gap-3 text-black'>
-                    <h1 className='text-3xl font-bold'>Outdoor</h1>
-                    <small>A colorful, water-resistant, insulated jacket that is constructed with eco-friendly and recycled materials.</small>
+                    <h1 className='text-3xl font-bold'>{product.productTitle}</h1>
+                    <small>{product.productSummary}</small>
                     <div>
                         <div>
-                            <h1 className='text-xl font-bold'>Price: 1000$</h1>
-                            <p className='text-sm'>Category: Nikon</p>
-                            <p className='text-sm'>Status: In Stock</p>
-                            <p className='text-sm'>Quantity in Stock: 99</p>
+                            <h1 className='text-xl font-bold'>Price: {formatter((product.productPrice - product.productDiscountValue) < 0 ? -product.productPrice + product.productDiscountValue : product.productPrice - product.productDiscountValue)}</h1>
+                            <p className='text-sm'>Category: {product.categoryName}</p>
+                            <p className='text-sm'>Status: {product.quantity > 0 ? 'In Stock' : 'Out of stock'}</p>
+                            <p className='text-sm'>Quantity in Stock: {product.quantity}</p>
                             <div class="col-lg-6 col-12 pb-1">
                                 <div class="form-group">
                                     <label class="pb-1">Quantity</label>
@@ -89,12 +121,12 @@ const DetailProduct = () => {
                         <p>- Free sensor cleaning with VSGO DDR professional tools</p>
                     </div>
                     <div className="w-full p-2 mt-1 text-sm">
-                        Summary
+                        {product.productSummary}
                     </div>
                 </div>
             </div>
-            <div className='py-3 page-container'>
-                Description
+            <div className='py-3 pt-8 page-container'>
+                {product.productDescription}
             </div>
             <CommonItems title="Sale product" className="pt-5 page-container">
                 <div className="grid grid-cols-3 my-3 gap-x-3">

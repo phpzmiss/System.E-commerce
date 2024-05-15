@@ -73,10 +73,10 @@ const ProductClient = () => {
               product.map((p) => (
                 <Item
                   image={p.pictureDtoList != null && p.pictureDtoList?.length >0 && p.pictureDtoList[0].pictureData != "" ? p.pictureDtoList[0].pictureData : Default}
-                  id={p.productId}
                   key={p.productId}
                   cartItem={p}
                   price={p.productPrice}
+                  product={item}
                 >
                   {p.productTitle}
                 </Item>

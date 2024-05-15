@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import Button from "../form/button/Button";
 import InputProduct from "../form/input/InputProduct";
@@ -9,6 +9,7 @@ import CategoryService from "../../modules/CategoryService";
 import ProductService from "../../modules/ProductService";
 
 const AddProduct = () => {
+  const {param1, param2} = useParams();
   const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState([]);
   const [cate, setCate] = useState(null);
@@ -30,20 +31,34 @@ const AddProduct = () => {
     quantity: 0,
     productImages: [],
   });
-  if (typeof id != undefined) {
+  if (param1 != null && param2 != null) {
     useEffect(() => {
       const fetchData = async () => {
-        // setLoading(true);
+        setLoading(true);
         try {
-          const response = await ProductService.getCategoryById(id);
-          if (response.data.code == 200) {
-            setCategory(response.data.result);
-            console.log(response.data.result);
-            setActiveCategory(response.data.result);
+          const response = await ProductService.getProductById(param1, param2);
+          const category = await CategoryService.getAll();
+          if (category.data.code == 200) {
+            setCategory(category.data.result);
+            product.categoryId = category.data.result[0].categoryId;
           }
-        } catch (error) {
-        }
-        // setLoading(false);
+          if (response.data.code == 200) {
+            let pro = response.data.result;
+            setProduct({
+              productId: pro.productId,
+              productTitle: pro.title,
+              productDescription: pro.description,
+              productSummary: pro.summary,
+              productPrice: pro.price,
+              productDiscountValue: pro.discountValue,
+              categoryId: pro.categoryId,
+              quantity: pro.quantity,
+              productImages: [],
+            });
+            setActiveCategory(response.data.result);
+            setLoading(false);
+          }
+        } catch (error) {}
       };
       fetchData();
     }, []);
@@ -143,6 +158,24 @@ const AddProduct = () => {
       navigate("/admin/product");
     }, 2000);
   };
+  const handleResetEmployee = (id) => {
+    if (id != null) {
+      navigate("/admin/product");
+      return;
+    } 
+    setProduct({
+      productId: "",
+      productTitle: "",
+      productDescription: "",
+      productSummary: "",
+      productPrice: "",
+      productDiscountValue: "",
+      categoryId: "",
+      quantity: 0,
+      productImages: [],
+    });
+
+  }
 
   return (
     <>
@@ -154,7 +187,7 @@ const AddProduct = () => {
       action="/"
     >
       <p className="mb-3 text-4xl font-bold text-center text-black">
-        Add Product
+        {param2 != null ? 'Edit' : 'Add'} Product
       </p>
       <div className="gap-y-3">
         <label htmlFor="categoryId mb-3">Category</label>
@@ -251,13 +284,13 @@ const AddProduct = () => {
           className="px-3 py-4 bg-blue-500 hover:bg-blue-700 "
           onClick={saveProduct}
         >
-          Add
+          {param2 != null ? 'Update' : 'Add'}
         </Button>
         <Button
-          className="px-3 py-4 bg-red-500 hover:bg-red-700 "
-          //   onClick={handleResetEmployee}
+          className={"px-3 py-4 " + (param2 != null ? 'bg-violet-500 hover:bg-violet-400' : 'bg-red-500 hover:bg-red-700')}
+          onClick={() => handleResetEmployee(param2)}
         >
-          Cancel
+          {param2 != null ? 'Back list' : 'Cancel'}
         </Button>
       </div>
       {message ? 

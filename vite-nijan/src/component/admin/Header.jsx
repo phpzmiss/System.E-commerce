@@ -3,6 +3,7 @@ import { VscAccount, VscBellDot, VscGear  } from "react-icons/vsc";
 import { AiOutlineLogout } from "react-icons/ai";
 import AuthService from '../modules/AuthService';
 import { useNavigate } from 'react-router-dom';
+import { FaHome } from "react-icons/fa";
 
 function Header({OpenSidebar}) {
   const navigate = useNavigate();
@@ -18,6 +19,9 @@ function Header({OpenSidebar}) {
     AuthService.logout();
     navigate("/");
     setIsLogin(false);
+  }
+  const onHome = () => {
+    navigate("/");
   }
   return (
     <div className="w-[100vw] fixed h-[50px] bg-slate-100 shadow-full text-black">
@@ -35,6 +39,7 @@ function Header({OpenSidebar}) {
             <VscGear className='w-10 h-10 p-2 rounded-full cursor-pointer bg-slate-200'/>
             <VscBellDot className='w-10 h-10 p-2 rounded-full cursor-pointer bg-slate-200' />
             <AiOutlineLogout className='w-10 h-10 p-2 rounded-full cursor-pointer bg-slate-200' onClick={onLogout}/>
+            <FaHome className='w-10 h-10 p-2 rounded-full cursor-pointer bg-slate-200' onClick={onHome}/>
           </div>
         </div>
       </div>
