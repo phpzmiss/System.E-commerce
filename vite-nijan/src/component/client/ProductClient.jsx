@@ -76,7 +76,6 @@ const ProductClient = () => {
                   key={p.productId}
                   cartItem={p}
                   price={p.productPrice}
-                  product={item}
                 >
                   {p.productTitle}
                 </Item>

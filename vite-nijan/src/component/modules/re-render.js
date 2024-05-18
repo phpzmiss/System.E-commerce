@@ -5,8 +5,8 @@ export default function render() {
       let objectItem = JSON.parse(localstorage.getItem('cart'));
       for (let index = 0; index < objectItem.length; index++) {
         let element = objectItem[index];
-        quantity += element.productQuantity;
+        quantity += Number(element.productQuantity);
       }
     }
-    document.getElementById("cart").innerHTML = quantity;
+    document.getElementById("cart").innerHTML = Number(quantity);
 }

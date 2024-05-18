@@ -13,7 +13,7 @@ class ProductService {
     }
 
     getProductById(categoryId, productId) {
-      return http.get('http://localhost:8888/api/product/' + categoryId + "/" + productId);
+      return http.get('http://localhost:8888/api/product?category_id=' + categoryId + "&product_id=" + productId);
     }
 
     getAllPageable(page) {

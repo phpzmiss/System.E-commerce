@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom';
 import ProductService from '../../modules/ProductService';
 import Default from "../../../assets/default.png";
 import formatter from '../../modules/formatter';
+import render from '../../modules/re-render';
 
 const DetailProduct = () => {
     const { param1, param2 } = useParams();
@@ -33,7 +34,7 @@ const DetailProduct = () => {
                     productDiscountValue: pro.discountValue ? Number(pro.discountValue) : 0,
                     categoryId: pro.categoryId,
                     categoryName: pro.categoryName,
-                    quantity: pro.quantity,
+                    totalQuantity: pro.quantity,
                     productImages: pro.pictureProductList,
                 });
                 setLoading(false);
@@ -51,6 +52,40 @@ const DetailProduct = () => {
             setQuantity(e.target.value);
         }
     };
+    const onAddToCart = () => {
+        const cart = localStorage.getItem('cart') == null ? [] : JSON.parse(localStorage.getItem('cart'));
+        if (cart.length > 0) {
+            for (let index = 0; index < cart.length; index++) {
+            const element = cart[index];
+            if (element.productId == product.productId) {
+                element.productQuantity += 1;
+            }
+            }
+            if (!cart.some((c) => c.productId == product.productId)) {
+            cart.push({
+                productId: product.productId,
+                productName: product.productName,
+                productPrice: product.productPrice,
+                productQuantity: Number(quantity),
+                productPicture: product.productImages[0].pictureData,
+                productSummary: product.productSummary,
+            });
+            }
+            localStorage.setItem("cart", JSON.stringify(cart)); 
+        } else {
+            let arr = [];
+            arr.push({
+            productId: product.productId,
+            productName: product.productName,
+            productPrice: product.productPrice,
+            productQuantity: Number(quantity),
+            productPicture: product.productImages[0].pictureData,
+            productSummary: product.productSummary,
+            });
+            localStorage.setItem("cart", JSON.stringify(arr));
+        }
+        render();
+    }
 
     return (
         <section className="pt-[100px] mb-5">
@@ -87,10 +122,10 @@ const DetailProduct = () => {
                     <small>{product.productSummary}</small>
                     <div>
                         <div>
-                            <h1 className='text-xl font-bold'>Price: {formatter((product.productPrice - product.productDiscountValue) < 0 ? -product.productPrice + product.productDiscountValue : product.productPrice - product.productDiscountValue)}</h1>
+                            <h1 className='text-xl font-bold'>Price: {formatter((product.productPrice - product.productDiscountValue) < 0 ? (-product.productPrice + product.productDiscountValue) : (product.productPrice - product.productDiscountValue))}</h1>
                             <p className='text-sm'>Category: {product.categoryName}</p>
                             <p className='text-sm'>Status: {product.quantity > 0 ? 'In Stock' : 'Out of stock'}</p>
-                            <p className='text-sm'>Quantity in Stock: {product.quantity}</p>
+                            <p className='text-sm'>Quantity in Stock: {product.totalQuantity}</p>
                             <div class="col-lg-6 col-12 pb-1">
                                 <div class="form-group">
                                     <label class="pb-1">Quantity</label>
@@ -101,7 +136,7 @@ const DetailProduct = () => {
                     </div>
                     <div className="mt-5 col-12">
                         <div className="flex gap-2 form-group button">
-                            <Button className="p-3 bg-orange-300 hover:bg-orange-200 min-w-[200px] transition-all rounded-sm flex items-center justify-center">
+                            <Button className="p-3 bg-orange-300 hover:bg-orange-200 min-w-[200px] transition-all rounded-sm flex items-center justify-center" onClick={onAddToCart}>
                                 <span>Add to cart</span> <FaCartArrowDown class='w-[20px] h-[20px] ml-2' />
                             </Button>
                             <Button
