@@ -135,6 +135,10 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryEntity toCategoryEntity(CategoryDto dto, boolean isUpdate) {
         CategoryEntity entity = new CategoryEntity();
         if (isUpdate) {
+            Optional<CategoryEntity> categoryEntity = categoryRepository.findById(dto.getCategoryId());
+            if (categoryEntity.isPresent()) {
+                entity = categoryEntity.get();
+            }
             entity.setCategoryId(dto.getCategoryId());
             commonService.setCommonUpdateEntity(entity);
         } else {

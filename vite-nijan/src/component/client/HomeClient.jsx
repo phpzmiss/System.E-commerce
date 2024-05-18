@@ -100,7 +100,7 @@ const HomeClient = () => {
                   key={item.productId}
                   image={item.pictureDtoList != null && item.pictureDtoList?.length >0 && item.pictureDtoList[0].pictureData != "" ? item.pictureDtoList[0].pictureData : Default}
                   price={item.productPrice}
-                  product={item}
+                  cartItem={item}
                   >
                     {item.productTitle}
                   </Item>
@@ -123,7 +123,7 @@ const HomeClient = () => {
                 key={item.productId + '-' + index}
                 image={item.pictureDtoList != null && item.pictureDtoList?.length >0 && item.pictureDtoList[0].pictureData != "" ? item.pictureDtoList[0].pictureData : Default}
                 price={item.productPrice}
-                product={item}
+                cartItem={item}
               >
                 {item.productTitle}
               </Item>

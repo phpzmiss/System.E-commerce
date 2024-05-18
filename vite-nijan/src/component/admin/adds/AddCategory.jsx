@@ -37,9 +37,19 @@ const AddCategory = () => {
     setCategory({ ...category, [e.target.name]: value });
   };
   // const filterDebounce = useDebounce(category, 500);
-  const saveCategories = (e) => {
-    e.preventDefault();
-    CategoryService.createCategory(category)
+  const saveCategories = (id) => {
+    if (id) {
+      CategoryService.updateCategory(id, category)
+      .then((response) => {
+        if (response.data.code == 200) {
+          navigate("/admin/category");
+        }
+      })
+      .catch((error) => {
+        // console.log(error);
+      });
+    } else {
+      CategoryService.createCategory(category)
       .then((response) => {
         if (response.data.code == 200) {
           navigate("/admin/category");
@@ -55,6 +65,7 @@ const AddCategory = () => {
       categoryTags: "",
       categorySlug: "",
     });
+    }
   };
   const handleResetEmployee = (e) => {
     e.preventDefault();
@@ -130,7 +141,7 @@ const AddCategory = () => {
       <div className="flex gap-5">
         <Button
           className="p-3 bg-blue-500 hover:bg-blue-700 "
-          onClick={saveCategories}
+          onClick={() => saveCategories(id)}
         >
           {id ? "Edit" : "Add"}
         </Button>

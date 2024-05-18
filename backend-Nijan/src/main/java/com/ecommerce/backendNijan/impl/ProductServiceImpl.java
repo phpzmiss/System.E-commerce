@@ -239,6 +239,7 @@ public class ProductServiceImpl implements ProductService {
           .discountType(iProduct.getDiscountType())
           .discountValue(iProduct.getDiscountValue())
           .tags(iProduct.getTags())
+          .title(iProduct.getTitle())
           .pictureProductList(pictureProductList)
           .build();
     }
@@ -288,8 +289,33 @@ public class ProductServiceImpl implements ProductService {
      */
     @Override
     @Transactional
-    public void update(ProductDto productDto) {
+    public void update(ProductDto productDto) throws IOException {
+        ProductEntity productEntity = new ProductEntity();
+        Optional<ProductEntity> entityOptional = productRepository.findByProductId(productDto.getProductId());
+        if (entityOptional.isPresent()) {
+            productEntity = entityOptional.get();
+            commonService.setCommonUpdateEntity(productEntity);
+        } else {
+            commonService.setCommonCreatedEntity(productEntity);
+        }
+        commonService.toSlug(productDto.getProductTitle());
+        productEntity.setCategoryId(productDto.getCategoryId());
+        productEntity.setDescription(productDto.getProductDescription());
+        productEntity.setTitle(productDto.getProductTitle());
+        productEntity.setDiscountType("1");
+        BigDecimal price = Objects.nonNull(productDto.getProductPrice()) ? productDto.getProductPrice() : BigDecimal.ZERO;
+        double discountValue = Objects.nonNull(productDto.getProductDiscountValue()) ? productDto.getProductDiscountValue().doubleValue() : 0.0;
+        productEntity.setDiscountValue(price.multiply(BigDecimal.valueOf(discountValue)).divide(BigDecimal.valueOf(100)));
+        productEntity.setPrice(price);
+        productEntity.setQuantity(productDto.getQuantity());
+        productEntity.setSummary(productDto.getProductSummary());
+        Long productId = productRepository.save(productEntity).getProductId();
 
+        if (!CollectionUtils.isEmpty(productDto.getFiles())) {
+            List<MultipartFile> multipartFiles = productDto.getFiles();
+            pictureRepository.deleteAllByProductId(productId);
+            this.insertFileImage(multipartFiles, productId);
+        }
     }
 
     /**

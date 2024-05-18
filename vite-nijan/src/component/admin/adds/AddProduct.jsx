@@ -55,7 +55,7 @@ const AddProduct = () => {
               quantity: pro.quantity,
               productImages: [],
             });
-            setActiveCategory(response.data.result);
+            setActiveCategory(response.data.result.categoryId);
             setLoading(false);
           }
         } catch (error) {}
@@ -123,37 +123,64 @@ const AddProduct = () => {
       product.categoryId = category[0].categoryId;
     }
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("productId", product.productId);
-    formData.append("productTitle", product.productTitle);
-    formData.append("productDescription", product.productDescription);
-    formData.append("productSummary", product.productSummary);
-    formData.append("productPrice", product.productPrice);
-    formData.append("productDiscountValue", product.productDiscountValue);
-    formData.append("quantity", product.quantity);
-    formData.append("categoryId", activeCategory);
-    formData.append("files", file, file.name);
-    for (const key of Object.keys(multipleFile)) {
-      formData.append("files", multipleFile[key], multipleFile[key].name);
-    }
-    ProductService.insert(formData)
-      .then((response) => {
-        setMessage(response.data.message);
-      })
-      .catch((error) => {});
 
-    setProduct({
-      productId: "",
-      productTitle: "",
-      productDescription: "",
-      productSummary: "",
-      productPrice: "",
-      productDiscountValue: "",
-      categoryId: "",
-      quantity: 0,
-      productImages: [],
-    });
-    setFile({});
+    if (param1 && param2) {
+      const formData = new FormData();
+      formData.append("productId", param2);
+      formData.append("productTitle", product.productTitle);
+      formData.append("productDescription", product.productDescription);
+      formData.append("productSummary", product.productSummary);
+      formData.append("productPrice", product.productPrice);
+      formData.append("productDiscountValue", product.productDiscountValue);
+      formData.append("quantity", product.quantity);
+      formData.append("categoryId", activeCategory);
+      if (file) {
+        formData.append("files", file, file.name);
+      }
+      if (multipleFile) {
+        for (const key of Object.keys(multipleFile)) {
+          formData.append("files", multipleFile[key], multipleFile[key].name);
+        }
+      }
+
+      ProductService.update(param2, formData)
+        .then((response) => {
+          setMessage(response.data.message);
+        })
+        .catch((error) => {});
+    } else {
+      const formData = new FormData();
+      formData.append("productId", product.productId);
+      formData.append("productTitle", product.productTitle);
+      formData.append("productDescription", product.productDescription);
+      formData.append("productSummary", product.productSummary);
+      formData.append("productPrice", product.productPrice);
+      formData.append("productDiscountValue", product.productDiscountValue);
+      formData.append("quantity", product.quantity);
+      formData.append("categoryId", activeCategory);
+      formData.append("files", file, file.name);
+      for (const key of Object.keys(multipleFile)) {
+        formData.append("files", multipleFile[key], multipleFile[key].name);
+      }
+      ProductService.insert(formData)
+        .then((response) => {
+          setMessage(response.data.message);
+        })
+        .catch((error) => {});
+  
+      setProduct({
+        productId: "",
+        productTitle: "",
+        productDescription: "",
+        productSummary: "",
+        productPrice: "",
+        productDiscountValue: "",
+        categoryId: "",
+        quantity: 0,
+        productImages: [],
+      });
+      setFile({});
+    }
     setTimeout(() => {
       navigate("/admin/product");
     }, 2000);

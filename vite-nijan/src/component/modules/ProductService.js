@@ -3,13 +3,20 @@ import http from "./http-common";
 class ProductService {
 
     insert(product) {
-        // if (INSERT === type) {
-          return http.post("http://localhost:8888/api/product/insert", product, {
-            headers: {
-              "Content-Type": "multipart/form-data; charset=utf-8"
-            },
-            // onUploadProgress
-          });
+      return http.post("http://localhost:8888/api/product/insert", product, {
+        headers: {
+          "Content-Type": "multipart/form-data; charset=utf-8"
+        },
+      });
+    }
+
+    update(productId, product) {
+      console.log(product);
+      return http.post("http://localhost:8888/api/product/update", product, {
+        headers: {
+          "Content-Type": "multipart/form-data; charset=utf-8"
+        },
+      });
     }
 
     getProductById(categoryId, productId) {

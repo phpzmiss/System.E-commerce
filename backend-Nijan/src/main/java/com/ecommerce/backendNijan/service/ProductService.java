@@ -69,7 +69,7 @@ public interface ProductService {
     /**
      * Insert.
      */
-    void update(ProductDto productDto);
+    void update(ProductDto productDto) throws IOException;
 
     /**
      * Delete

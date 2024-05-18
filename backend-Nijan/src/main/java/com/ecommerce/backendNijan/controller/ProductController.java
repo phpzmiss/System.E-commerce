@@ -138,6 +138,29 @@ public class ProductController {
   }
 
   /**
+   * Register new product.
+   *
+   * @param product product
+   * @return response entity
+   */
+  @PostMapping(value = "/update")
+  public ApiResponse<?> updateProduct(@ModelAttribute ProductDto product)
+    throws IOException {
+    try {
+      productService.update(product);
+      return ApiResponse.builder()
+        .code(HttpStatus.OK.value())
+        .message("Data successfully registered.")
+        .build();
+    } catch (Exception exception) {
+      return ApiResponse.builder()
+        .message(exception.getMessage())
+        .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+        .build();
+    }
+  }
+
+  /**
    * Delete product.
    *
    * @param productId  productId
