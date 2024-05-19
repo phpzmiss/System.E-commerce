@@ -19,6 +19,10 @@ class ProductService {
       });
     }
 
+    getAllBySearchValue(searchValue) {
+      return http.get('http://localhost:8888/api/product/all?search_value=' + searchValue);
+    }
+
     getProductById(categoryId, productId) {
       return http.get('http://localhost:8888/api/product?category_id=' + categoryId + "&product_id=" + productId);
     }

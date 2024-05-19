@@ -6,17 +6,19 @@ import { FaCartArrowDown } from "react-icons/fa";
 import { FcLike } from "react-icons/fc";
 import CommonItems from '../../fragment/CommonItems';
 import ItemNews from '../../fragment/ItemNews';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ProductService from '../../modules/ProductService';
 import Default from "../../../assets/default.png";
 import formatter from '../../modules/formatter';
 import render from '../../modules/re-render';
 
 const DetailProduct = () => {
+    const navigate = useNavigate();
     const { param1, param2 } = useParams();
     const [product, setProduct] = useState({});
     const [loading, setLoading] = useState(true);
     const [quantity, setQuantity] = useState("");
+    const [active, setActive] = useState(Default);
     if (param1 != null && param2 != null) {
         useEffect(() => {
           const fetchData = async () => {
@@ -37,6 +39,7 @@ const DetailProduct = () => {
                     totalQuantity: pro.quantity,
                     productImages: pro.pictureProductList,
                 });
+                setActive(product.productImages != null && product.productImages?.length >0 && product.productImages[0].pictureData != "" ? product.productImages[0].pictureData : Default);
                 setLoading(false);
               }
             } catch (error) {}
@@ -86,6 +89,14 @@ const DetailProduct = () => {
         }
         render();
     }
+    const handleOnChangeImage = (pictureImage) => {
+        setActive(pictureImage);
+    }
+
+    const onBuy = () => {
+        onAddToCart();
+        navigate("/cart")
+    }
 
     return (
         <section className="pt-[100px] mb-5">
@@ -95,23 +106,24 @@ const DetailProduct = () => {
                 {!loading && product !=  null && product.productImages.length >= 0 
                 ? (
                     <img
-                        className="w-full h-[400px] object-cover rounded-lg"
-                        src={product.productImages != null && product.productImages?.length >0 && product.productImages[0].pictureData != "" ? product.productImages[0].pictureData : Default}
+                        className="w-full h-[500px] object-contain rounded-lg"
+                        src={active}
                         alt=""
                     />)
                 : (<img
-                        className="w-full h-[400px] object-cover rounded-lg"
+                        className="w-full h-[500px] object-cover rounded-lg"
                         src={Default}
                         alt=""
                     />)
                 }
-                    <div className='grid grid-cols-4 gap-3 mt-3'>
+                    <div className={'flex gap-2 mt-3'}>
                     {!loading && product !=  null && product.productImages.length >= 0
                     ? (product.productImages.filter((e, index) => index >= 1).map((p, index) => (
                             <img
-                                className="w-full h-[150px] object-cover rounded-lg cursor-pointer"
+                                className="w-[150px] h-[150px] object-cover rounded-lg cursor-pointer col-span-1"
                                 src={p.pictureData != "" ? p.pictureData : Default}
-                                alt=""
+                                alt="detail image"
+                                onClick={() => handleOnChangeImage(p.pictureData != "" ? p.pictureData : Default)}
                             />
                         )))
                     : (<></>)}
@@ -144,7 +156,7 @@ const DetailProduct = () => {
                                 >
                                 <FcLike class='w-[20px] h-[20px]' />
                             </Button>
-                            <Button className="w-full p-3 transition-all bg-orange-500 rounded-sm hover:bg-orange-400">
+                            <Button className="w-full p-3 transition-all bg-orange-500 rounded-sm hover:bg-orange-400" onClick={onBuy}>
                                 Buy
                             </Button>
                         </div>

@@ -20,7 +20,7 @@ public interface ProductService {
      *
      * @return list of entity product.
      */
-    public List<Product> getAll();
+    public List<Product> getAll(String searchValue);
 
     /**
      * Get all product.

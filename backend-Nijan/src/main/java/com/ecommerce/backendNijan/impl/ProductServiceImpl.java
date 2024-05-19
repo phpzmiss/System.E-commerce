@@ -50,11 +50,26 @@ public class ProductServiceImpl implements ProductService {
      *
      * @return list of entity product.
      */
-    public List<Product> getAll() {
-        return productRepository.findAllProduct().stream()
+    public List<Product> getAll(String searchValue) {
+        return productRepository.findAllProduct(searchValue).stream()
           .map(pro -> {
               Product p = new Product();
               BeanUtils.copyProperties(pro, p);
+              List<PictureProduct> pictureProductList = new ArrayList<>();
+              List<PictureProductEntity> pictureProductEntities =
+                pictureRepository.findAllByProductId(p.getProductId());
+              for (PictureProductEntity product : pictureProductEntities) {
+                  PictureProduct build = PictureProduct.builder()
+                    .pictureId(product.getPictureId())
+                    .pictureName(product.getFileName())
+                    .pictureType(product.getFileType())
+                    .pictureData((Objects.nonNull(product.getData())
+                      ? ("data:image/png;base64," + Base64.getEncoder().encodeToString(product.getData()))
+                      : Strings.EMPTY))
+                    .build();
+                  pictureProductList.add(build);
+              }
+              p.setPictureProductList(pictureProductList);
               return p;
           })
           .toList();

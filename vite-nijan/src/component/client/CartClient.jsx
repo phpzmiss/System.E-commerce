@@ -160,7 +160,7 @@ const CartClient = () => {
 											</td>
 											<td className="total-amount" data-title="Total"><span>{formatter(item.productPrice * item.productQuantity)}</span></td>
 											<td className="action" data-title="Remove">
-											<Button className="py-2 pl-3 w-[50px] transition-all bg-red-500 rounded-sm hover:bg-red-400" onClick={(e) => deleteProduct(e, item.productId)}>
+											<Button className="py-2 pl-[14px] max-w-[50px] transition-all bg-red-500 rounded-sm hover:bg-red-400" onClick={(e) => deleteProduct(e, item.productId)}>
 												<MdDeleteForever className='w-fit h-[20px] text-center text-white' />
 											</Button>
 											</td>
@@ -174,20 +174,7 @@ const CartClient = () => {
 						<div className="px-2 py-1 mt-4 row">
 							<div className="col-12">
 								<div className="total-amount">
-									<div className="grid grid-cols-5 gap-2">
-										<div className="col-span-1">
-											<div className="left">
-												<div className="coupon">
-													<form action="#" target="_blank" className='flex items-start justify-center '>
-														<input name="Coupon" placeholder="Enter Your Coupon" className='outline-slate-400 border-[1px] border-slate-700 border-solid' />
-														<Button className="ml-2 py-3 pl-4 pr-2 transition-all bg-orange-500 rounded-sm w-[100px] hover:bg-red-400">Apply</Button>
-													</form>
-												</div>
-												<div className="checkbox">
-													<label className="checkbox-inline" for="2"><input name="news" id="2" type="checkbox" /> Shipping (+10$)</label>
-												</div>
-											</div>
-										</div>
+									<div className="grid grid-cols-4 gap-2">
 										<div className='col-span-1'></div>
 										<div className='col-span-1'></div>
 										<div className="col-span-2">

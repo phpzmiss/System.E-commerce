@@ -28,7 +28,7 @@ const AddProduct = () => {
     productPrice: "",
     productDiscountValue: "",
     categoryId: "",
-    quantity: 0,
+    quantity: "",
     productImages: [],
   });
   if (param1 != null && param2 != null) {
@@ -80,7 +80,7 @@ const AddProduct = () => {
     };
     fetchData();
   }, [product.categoryId]);
-  const [file, setFile] = useState({});
+  const [file, setFile] = useState(null);
   const handleChangeCate = (e) => {
     setCate(e.target.value);
   };
@@ -132,7 +132,7 @@ const AddProduct = () => {
       formData.append("productSummary", product.productSummary);
       formData.append("productPrice", product.productPrice);
       formData.append("productDiscountValue", product.productDiscountValue);
-      formData.append("quantity", product.quantity);
+      formData.append("quantity", product.quantity != null && product.quantity != undefined ? product.quantity : 0);
       formData.append("categoryId", activeCategory);
       if (file) {
         formData.append("files", file, file.name);
@@ -156,11 +156,15 @@ const AddProduct = () => {
       formData.append("productSummary", product.productSummary);
       formData.append("productPrice", product.productPrice);
       formData.append("productDiscountValue", product.productDiscountValue);
-      formData.append("quantity", product.quantity);
+      formData.append("quantity", product.quantity != null && product.quantity != undefined ? product.quantity : 0);
       formData.append("categoryId", activeCategory);
-      formData.append("files", file, file.name);
-      for (const key of Object.keys(multipleFile)) {
-        formData.append("files", multipleFile[key], multipleFile[key].name);
+      if (file) {
+        formData.append("files", file, file.name);
+      }
+      if (multipleFile) {
+        for (const key of Object.keys(multipleFile)) {
+          formData.append("files", multipleFile[key], multipleFile[key].name);
+        }
       }
       ProductService.insert(formData)
         .then((response) => {

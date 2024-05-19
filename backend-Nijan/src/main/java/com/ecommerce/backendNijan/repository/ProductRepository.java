@@ -34,9 +34,11 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
                     + " product.discount_value AS discountValue, "
                     + " product.tags AS tags"
                     + " FROM tbl_category category "
-                    + " INNER JOIN tbl_product product ON product.category_id = category.category_id",
+                    + " INNER JOIN tbl_product product ON product.category_id = category.category_id"
+                    + " WHERE product.title LIKE CONCAT(CONCAT('%', ?1),'%')"
+                    + " ORDER BY product.title",
             nativeQuery = true)
-    List<IProduct> findAllProduct();
+    List<IProduct> findAllProduct(String searchValue);
 
     /**
      * Get all product.

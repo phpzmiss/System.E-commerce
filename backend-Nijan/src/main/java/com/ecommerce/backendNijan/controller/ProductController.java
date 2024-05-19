@@ -23,8 +23,8 @@ public class ProductController {
   @Autowired private ProductService productService;
 
   @GetMapping("/all")
-  public ApiResponse<?> getAllProducts() {
-    List<Product> products = productService.getAll();
+  public ApiResponse<?> getAllProducts(@RequestParam(value = "search_value", defaultValue = "") String searchValue) {
+    List<Product> products = productService.getAll(searchValue);
 
     return ApiResponse.builder().result(products).code(HttpStatus.OK.value()).build();
   }

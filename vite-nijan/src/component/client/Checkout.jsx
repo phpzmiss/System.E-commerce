@@ -53,36 +53,39 @@ const Checkout = () => {
 			orderList: cart,
 			user: user,
 		}
-		OrderService.insert(order)
-		.then((response) => {
-			setCode(response.data.code);
-			setMessage(response.data.message);
-			setLoading(true);
-			localStorage.removeItem("cart");
-			render();
-			setTotalPrice(0);
-			setTimeout(() => {
-				setLoading(false);
-				setCode(400);
-				setMessage("");
-				setUser({
-					firstName: "",
-					lastName: "",
-					phoneNumber: "",
-					country: "AS",
-					stateDivision: "",
-					postalCode: "",
-					company: "",
-				});
-				if (localStorage.getItem("user")) {
-					const userLogin = JSON.parse(localStorage.getItem('user'));
-					user.emailAddress = userLogin.email;
-					user.userId = userLogin.id;
-				  }
+		if (order.orderList?.length > 0) {
+			OrderService.insert(order)
+			.then((response) => {
+				setCode(response.data.code);
+				setMessage(response.data.message);
 				setLoading(true);
-			}, 3000)
-		})
-		.catch((error) => {});
+				localStorage.removeItem("cart");
+				setCart([]);
+				render();
+				setTotalPrice(0);
+				setTimeout(() => {
+					setLoading(false);
+					setCode(400);
+					setMessage("");
+					setUser({
+						firstName: "",
+						lastName: "",
+						phoneNumber: "",
+						country: "AS",
+						stateDivision: "",
+						postalCode: "",
+						company: "",
+					});
+					if (localStorage.getItem("user")) {
+						const userLogin = JSON.parse(localStorage.getItem('user'));
+						user.emailAddress = userLogin.email;
+						user.userId = userLogin.id;
+					  }
+					setLoading(true);
+				}, 3000)
+			})
+			.catch((error) => {});
+		}
 	}
   return (
     <section className="pt-[100px]">
@@ -125,7 +128,7 @@ const Checkout = () => {
 									<div className="col-lg-6 col-md-6 col-12">
 										<div className="flex flex-col form-group">
 											<label className="w-fit">Country<span>*</span></label>
-											<select className="p-4 transition-all bg-white border border-gray-100 rounded-md outline-none focus:border-black" name='country' onChange={handleChange} value={user.country}>
+											<select className="p-[10px] transition-all bg-white border border-gray-100 rounded-sm outline-none focus:border-black" name='country' onChange={handleChange} value={user.country}>
 												<option value="AS">American Samoa</option>
 											</select>
 										</div>
@@ -133,7 +136,7 @@ const Checkout = () => {
 									<div className="col-lg-6 col-md-6 col-12">
 										<div className="flex flex-col form-group">
 											<label className="w-fit">State / Division<span>*</span></label>
-											<select className="p-4 transition-all bg-white border border-gray-100 rounded-md outline-none focus:border-black" onChange={handleChange} name='stateDivision' value={user.stateDivision}>
+											<select className="p-[10px] transition-all bg-white border border-gray-100 rounded-sm outline-none focus:border-black" onChange={handleChange} name='stateDivision' value={user.stateDivision}>
 												<option value="divition" selected="selected">New Yourk</option>
 												<option>Los Angeles</option>
 												<option>Chicago</option>
@@ -153,7 +156,7 @@ const Checkout = () => {
 									<div className="col-lg-6 col-md-6 col-12">
 										<div className="flex flex-col form-group">
 											<label className="w-fit">Company<span>*</span></label>
-											<select className="p-4 transition-all bg-white border border-gray-100 rounded-md outline-none focus:border-black" onChange={handleChange} name='company' value={user.company}>
+											<select className="p-[10px] transition-all bg-white border border-gray-100 rounded-sm outline-none focus:border-black" onChange={handleChange} name='company' value={user.company}>
 												<option selected="selected">Microsoft</option>
 												<option>Apple</option>
 												<option>Xaiomi</option>
@@ -162,12 +165,6 @@ const Checkout = () => {
 												<option>Samsung</option>
 												<option>Motorola</option>
 											</select>
-										</div>
-									</div>
-									<div className="col-12">
-										<div className="form-group create-account">
-											<input id="cbox" type="checkbox" />
-											<label>Create an account?</label>
 										</div>
 									</div>
 								</div>
@@ -190,13 +187,13 @@ const Checkout = () => {
 								<h2>Payments</h2>
 								<div className="content">
 									<div className="checkbox">
-										<label className="checkbox-inline" for="2"><input name="news" id="2" type="checkbox" /> Cash On Delivery</label>
+										Cash On Delivery
 									</div>
 								</div>
 							</div>
 							<div className="single-widget get-button">
 								<div className="content">
-                                <Button className="px-3 py-4 transition-all bg-orange-500 rounded-none hover:bg-orange-300" onClick={handleOrder}>
+                                <Button className={"px-3 py-4 transition-all bg-orange-500 rounded-none hover:bg-orange-300" + (cart.length > 0 ? 'pointer-events-auto' : 'pointer-events-none')}  onClick={handleOrder}>
                                     Proceed to checkout
                                 </Button>
 								</div>
