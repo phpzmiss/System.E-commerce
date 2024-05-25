@@ -10,6 +10,7 @@ import render from '../modules/re-render';
 import formatter from '../modules/formatter';
 import { useForm } from 'react-hook-form';
 import Input from '../admin/form/input/Input';
+import ProductService from '../modules/ProductService';
 
 
 const CartClient = () => {
@@ -17,17 +18,30 @@ const CartClient = () => {
 	const [loading, setLoading] = useState(false);
 	const [totalPrice, setTotalPrice] = useState(0);
     useEffect(() => {
-      if (localStorage.getItem('cart')) {
-        const storedName = JSON.parse(localStorage.getItem('cart'));
+		if (localStorage.getItem('cart')) {
+		const storedName = JSON.parse(localStorage.getItem('cart'));
 		let totalPrice = 0;
-        setCart(storedName);
-		for (let index = 0; index < storedName.length; index++) {
-			const element = storedName[index];
-			totalPrice += Number(element.productPrice) * Number(element.productQuantity);
+		ProductService.getAllBySearchValue('').then((res) => {
+			let products = res.data.result;
+			for (let i = 0; i < storedName.length; i++) {
+				const elementStore = storedName[i];
+				for (let index = 0; index < products.length; index++) {
+					const element = products[index];
+					if (element.productId == elementStore.productId) {
+						elementStore.productPicture = (element.pictureProductList != null && element.pictureProductList.length > 0 
+							? element.pictureProductList[0].pictureData : '');
+					}
+				}
+			}
+			setCart(storedName);
+			for (let index = 0; index < storedName.length; index++) {
+				const element = storedName[index];
+				totalPrice += Number(element.productPrice) * Number(element.productQuantity);
+			}
+			setTotalPrice(totalPrice);
+			setLoading(true);
+		});
 		}
-		setTotalPrice(totalPrice);
-		setLoading(true);
-      }
     }, []);
 	const deleteProduct = (e, id) => {
 		setLoading(false);
@@ -111,8 +125,8 @@ const CartClient = () => {
 		<Breadcrumbs redirect="Checkout" />
 		<div className="shopping-cart section">
 			<div className="page-container">
-				{loading && cart?.length > 0 
-				?  (<><div className="row">
+				{cart?.length > 0 
+				?  (loading == true ? (<><div className="row">
 							<div className="col-12">
 								<table className="table w-full shadow-lg shopping-summery">
 									<thead className='rounded-sm'>
@@ -131,6 +145,7 @@ const CartClient = () => {
 										<tr key={index}>
 											<td className="image" data-title="No">
 												<img
+												loading='lazy'
 													className="w-full h-[250px] object-cover rounded-lg"
 													src={item.productPicture != "" ? item.productPicture : Default}
 													alt=""
@@ -200,7 +215,7 @@ const CartClient = () => {
 							</div>
 						</div>
 					</>
-					)
+					) : <>Loading</>)
 				: (<div className='w-full text-3xl font-bold text-center'>There are no products in the cart yet.</div>)}
 			</div>
 		</div>

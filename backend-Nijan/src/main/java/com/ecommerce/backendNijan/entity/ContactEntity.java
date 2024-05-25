@@ -30,7 +30,7 @@ public class ContactEntity extends BaseEntity implements Serializable {
     @Column(name = "contact_phone", nullable = false, length = 10)
     private String contactPhone;
 
-    @Column(name = "contact_message")
+    @Column(name = "contact_message", length = 3000)
     private String contactMessage;
 
 }

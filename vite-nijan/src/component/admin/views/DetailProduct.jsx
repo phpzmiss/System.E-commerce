@@ -21,30 +21,30 @@ const DetailProduct = () => {
     const [active, setActive] = useState(Default);
     if (param1 != null && param2 != null) {
         useEffect(() => {
-          const fetchData = async () => {
             setLoading(true);
+          const fetchData = async () => {
             try {
-              const response = await ProductService.getProductById(param1, param2);
-              if (response.data.code == 200) {
-                let pro = response.data.result;
-                setProduct({
-                    productId: pro.productId,
-                    productTitle: pro.title,
-                    productDescription: pro.description,
-                    productSummary: pro.summary,
-                    productPrice: pro.price ? Number(pro.price) : 0,
-                    productDiscountValue: pro.discountValue ? Number(pro.discountValue) : 0,
-                    categoryId: pro.categoryId,
-                    categoryName: pro.categoryName,
-                    totalQuantity: pro.quantity,
-                    productImages: pro.pictureProductList,
-                });
-                setActive(product.productImages != null && product.productImages?.length >0 && product.productImages[0].pictureData != "" ? product.productImages[0].pictureData : Default);
-                setLoading(false);
-              }
+            const response = await ProductService.getProductById(param1, param2);
+                if (response.data.code == 200) {
+                    let pro = response.data.result;
+                    setProduct({
+                        productId: pro.productId,
+                        productTitle: pro.title,
+                        productDescription: pro.description,
+                        productSummary: pro.summary,
+                        productPrice: pro.price ? Number(pro.price) : 0,
+                        productDiscountValue: pro.discountValue ? Number(pro.discountValue) : 0,
+                        categoryId: pro.categoryId,
+                        categoryName: pro.categoryName,
+                        totalQuantity: pro.quantity,
+                        productImages: pro.pictureProductList,
+                    });
+                    setActive(pro.pictureProductList != null && pro.pictureProductList?.length > 0 && pro.pictureProductList[0].pictureData != "" ? pro.pictureProductList[0].pictureData : Default);
+                    setLoading(false);
+                }
             } catch (error) {}
-          };
-          fetchData();
+            };
+            fetchData();
         }, []);
     }
     const handleChange = (e) => {
@@ -61,7 +61,7 @@ const DetailProduct = () => {
             for (let index = 0; index < cart.length; index++) {
             const element = cart[index];
             if (element.productId == product.productId) {
-                element.productQuantity += 1;
+                element.productQuantity += Number(quantity);
             }
             }
             if (!cart.some((c) => c.productId == product.productId)) {
@@ -70,7 +70,8 @@ const DetailProduct = () => {
                 productName: product.productName,
                 productPrice: product.productPrice,
                 productQuantity: Number(quantity),
-                productPicture: product.productImages[0].pictureData,
+                productPicture: product.productImages.length > 0 ? product.productImages[0].pictureName : null
+                ,
                 productSummary: product.productSummary,
             });
             }
@@ -82,7 +83,7 @@ const DetailProduct = () => {
             productName: product.productName,
             productPrice: product.productPrice,
             productQuantity: Number(quantity),
-            productPicture: product.productImages[0].pictureData,
+            productPicture: product.productImages.length > 0 ? product.productImages[0].pictureName : null,
             productSummary: product.productSummary,
             });
             localStorage.setItem("cart", JSON.stringify(arr));
@@ -141,7 +142,7 @@ const DetailProduct = () => {
                             <div class="col-lg-6 col-12 pb-1">
                                 <div class="form-group">
                                     <label class="pb-1">Quantity</label>
-                                    <input name="quantity" type="number" defaultValue="1" className='outline-none border-orange-500 border-solid border-[1px] px-2 py-1 max-w-[50px] ml-2 rounded-md' placeholder="" onChange={handleChange} />
+                                    <input name="quantity" type="number" defaultValue="1" className='outline-none border-orange-500 border-solid border-[1px] px-2 py-1 max-w-[50px] ml-2 rounded-md' placeholder="" onBlur={handleChange} />
                                 </div>
                             </div>
                         </div>

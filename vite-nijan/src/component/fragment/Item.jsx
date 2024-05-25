@@ -31,7 +31,7 @@ const Item = ({ price, image, cartItem, children, props }) => {
           productName: cartItem.productName,
           productPrice: cartItem.productPrice,
           productQuantity: 1,
-          productPicture: cartItem.pictureDtoList.length > 0 ? cartItem.pictureDtoList[0].pictureData : null,
+          productPicture: cartItem.pictureDtoList.length > 0 ? cartItem.pictureDtoList[0].pictureName : null,
           productSummary: cartItem.productSummary,
         });
       }
@@ -43,7 +43,7 @@ const Item = ({ price, image, cartItem, children, props }) => {
         productName: cartItem.productName,
         productPrice: cartItem.productPrice,
         productQuantity: 1,
-        productPicture: cartItem.pictureDtoList.length > 0 ? cartItem.pictureDtoList[0].pictureData : null,
+        productPicture: cartItem.pictureDtoList.length > 0 ? cartItem.pictureDtoList[0].pictureName : null,
         productSummary: cartItem.productSummary,
       });
       localStorage.setItem("cart", JSON.stringify(arr));

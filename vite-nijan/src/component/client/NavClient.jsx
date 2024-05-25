@@ -37,7 +37,6 @@ const NavClient = () => {
           setProduct([]);
         }
       }
-      console.log(response);
     } catch (error) {}
   }
   const onRedirect = (categoryId, productId) => {
